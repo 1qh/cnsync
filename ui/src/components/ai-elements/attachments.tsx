@@ -1,12 +1,12 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@a/ui/components/hover-card";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/hover-card";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { FileUIPart, SourceDocumentUIPart } from "ai";
 import {
   FileTextIcon,

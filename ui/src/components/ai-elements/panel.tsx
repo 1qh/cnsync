@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { cn } from "@a/ui/lib/utils";
+import { cn } from "@cnsync/ui/lib/utils";
 import { Panel as PanelPrimitive } from "@xyflow/react";
 import type { ComponentProps } from "react";
 type PanelProps = ComponentProps<typeof PanelPrimitive>;

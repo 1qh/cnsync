@@ -1,18 +1,18 @@
 "use client"
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
-import { cn } from "@a/ui/lib/utils"
+import { cn } from "@cnsync/ui/lib/utils"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@a/ui/components/dialog"
+} from "@cnsync/ui/components/dialog"
 import {
   InputGroup,
   InputGroupAddon,
-} from "@a/ui/components/input-group"
+} from "@cnsync/ui/components/input-group"
 import { SearchIcon, CheckIcon } from "lucide-react"
 function Command({
   className,
@@ -41,7 +41,7 @@ function CommandDialog({
   description?: string
   className?: string
   showCloseButton?: boolean
-  children: React.ComponentProps<typeof CommandPrimitive>["children"]
+  children: React.ReactNode
 }) {
   return (
     <Dialog {...props}>
@@ -56,9 +56,7 @@ function CommandDialog({
         )}
         showCloseButton={showCloseButton}
       >
-        <Command>
-          {children}
-        </Command>
+        {children}
       </DialogContent>
     </Dialog>
   )

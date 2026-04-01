@@ -1,11 +1,11 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   ScrollArea,
   ScrollBar,
-} from "@a/ui/components/scroll-area";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/scroll-area";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { ComponentProps } from "react";
 import { useCallback } from "react";
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;

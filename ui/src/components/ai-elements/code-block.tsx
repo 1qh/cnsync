@@ -1,14 +1,14 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@a/ui/components/select";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/select";
+import { cn } from "@cnsync/ui/lib/utils";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import type { ComponentProps, CSSProperties, HTMLAttributes } from "react";
 import {

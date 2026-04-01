@@ -8,38 +8,38 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@a/ui/components/command";
+} from "@cnsync/ui/components/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@a/ui/components/dropdown-menu";
+} from "@cnsync/ui/components/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@a/ui/components/hover-card";
+} from "@cnsync/ui/components/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@a/ui/components/input-group";
+} from "@cnsync/ui/components/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@a/ui/components/select";
-import { Spinner } from "@a/ui/components/spinner";
+} from "@cnsync/ui/components/select";
+import { Spinner } from "@cnsync/ui/components/spinner";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@a/ui/components/tooltip";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/tooltip";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { ChatStatus, FileUIPart, SourceDocumentUIPart } from "ai";
 import {
   CornerDownLeftIcon,

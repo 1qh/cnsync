@@ -14,11 +14,11 @@
   "menuColor": "default",
   "menuAccent": "subtle",
   "aliases": {
-    "components": "@a/ui/components",
-    "hooks": "@a/ui/hooks",
-    "lib": "@a/ui/lib",
-    "ui": "@a/ui/components",
-    "utils": "@a/ui"
+    "components": "@cnsync/ui/components",
+    "hooks": "@cnsync/ui/hooks",
+    "lib": "@cnsync/ui/lib",
+    "ui": "@cnsync/ui/components",
+    "utils": "@cnsync/ui"
   },
   "registries": {
     "@ai-elements": "https://ai-sdk.dev/elements/api/registry/{name}.json"

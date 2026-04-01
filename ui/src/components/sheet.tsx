@@ -1,8 +1,8 @@
 "use client"
 import * as React from "react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
-import { cn } from "@a/ui/lib/utils"
-import { Button } from "@a/ui/components/button"
+import { cn } from "@cnsync/ui/lib/utils"
+import { Button } from "@cnsync/ui/components/button"
 import { XIcon } from "lucide-react"
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />

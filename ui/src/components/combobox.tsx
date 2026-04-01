@@ -1,14 +1,14 @@
 "use client"
 import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
-import { cn } from "@a/ui/lib/utils"
-import { Button } from "@a/ui/components/button"
+import { cn } from "@cnsync/ui/lib/utils"
+import { Button } from "@cnsync/ui/components/button"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@a/ui/components/input-group"
+} from "@cnsync/ui/components/input-group"
 import { ChevronDownIcon, XIcon, CheckIcon } from "lucide-react"
 const Combobox = ComboboxPrimitive.Root
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {

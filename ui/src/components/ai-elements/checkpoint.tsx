@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
-import { Separator } from "@a/ui/components/separator";
+import { Button } from "@cnsync/ui/components/button";
+import { Separator } from "@cnsync/ui/components/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@a/ui/components/tooltip";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/tooltip";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { LucideProps } from "lucide-react";
 import { BookmarkIcon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";

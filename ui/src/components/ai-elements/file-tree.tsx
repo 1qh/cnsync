@@ -4,8 +4,8 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/collapsible";
+import { cn } from "@cnsync/ui/lib/utils";
 import {
   ChevronRightIcon,
   FileIcon,

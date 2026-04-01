@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
-import { cn } from "@a/ui/lib/utils";
+import { Button } from "@cnsync/ui/components/button";
+import { cn } from "@cnsync/ui/lib/utils";
 import Ansi from "ansi-to-react";
 import { CheckIcon, CopyIcon, TerminalIcon, Trash2Icon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";

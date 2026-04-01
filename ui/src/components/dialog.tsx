@@ -1,8 +1,8 @@
 "use client"
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
-import { cn } from "@a/ui/lib/utils"
-import { Button } from "@a/ui/components/button"
+import { cn } from "@cnsync/ui/lib/utils"
+import { Button } from "@cnsync/ui/components/button"
 import { XIcon } from "lucide-react"
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />

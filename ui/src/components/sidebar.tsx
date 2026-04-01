@@ -3,24 +3,24 @@ import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
-import { useIsMobile } from "@a/ui/hooks/use-mobile"
-import { cn } from "@a/ui/lib/utils"
-import { Button } from "@a/ui/components/button"
-import { Input } from "@a/ui/components/input"
-import { Separator } from "@a/ui/components/separator"
+import { useIsMobile } from "@cnsync/ui/hooks/use-mobile"
+import { cn } from "@cnsync/ui/lib/utils"
+import { Button } from "@cnsync/ui/components/button"
+import { Input } from "@cnsync/ui/components/input"
+import { Separator } from "@cnsync/ui/components/separator"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@a/ui/components/sheet"
-import { Skeleton } from "@a/ui/components/skeleton"
+} from "@cnsync/ui/components/sheet"
+import { Skeleton } from "@cnsync/ui/components/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@a/ui/components/tooltip"
+} from "@cnsync/ui/components/tooltip"
 import { PanelLeftIcon } from "lucide-react"
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

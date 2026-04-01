@@ -1,18 +1,18 @@
 // @ts-nocheck
 "use client";
-import { Badge } from "@a/ui/components/badge";
-import type { CarouselApi } from "@a/ui/components/carousel";
+import { Badge } from "@cnsync/ui/components/badge";
+import type { CarouselApi } from "@cnsync/ui/components/carousel";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "@a/ui/components/carousel";
+} from "@cnsync/ui/components/carousel";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@a/ui/components/hover-card";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/hover-card";
+import { cn } from "@cnsync/ui/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import {

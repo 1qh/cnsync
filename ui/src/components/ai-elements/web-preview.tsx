@@ -1,19 +1,19 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { Input } from "@a/ui/components/input";
+} from "@cnsync/ui/components/collapsible";
+import { Input } from "@cnsync/ui/components/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@a/ui/components/tooltip";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/tooltip";
+import { cn } from "@cnsync/ui/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import {

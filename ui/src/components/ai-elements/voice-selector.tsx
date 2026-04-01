@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 import { useControllableState } from "../../hooks/use-controllable-state"
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   Command,
   CommandDialog,
@@ -12,15 +12,15 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@a/ui/components/command";
+} from "@cnsync/ui/components/command";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@a/ui/components/dialog";
-import { Spinner } from "@a/ui/components/spinner";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/dialog";
+import { Spinner } from "@cnsync/ui/components/spinner";
+import { cn } from "@cnsync/ui/lib/utils";
 import {
   CircleSmallIcon,
   MarsIcon,

@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@a/ui/components/card";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/card";
+import { cn } from "@cnsync/ui/lib/utils";
 import { Handle, Position } from "@xyflow/react";
 import type { ComponentProps } from "react";
 export type NodeProps = ComponentProps<typeof Card> & {

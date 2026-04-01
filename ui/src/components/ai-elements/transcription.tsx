@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 import { useControllableState } from "../../hooks/use-controllable-state"
-import { cn } from "@a/ui/lib/utils";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { Experimental_TranscriptionResult as TranscriptionResult } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";

@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
 import { useControllableState } from "../../hooks/use-controllable-state"
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/collapsible";
+import { cn } from "@cnsync/ui/lib/utils";
 import {
   AlertTriangleIcon,
   CheckIcon,

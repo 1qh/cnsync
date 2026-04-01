@@ -1,17 +1,17 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@a/ui/components/button";
+import { Button } from "@cnsync/ui/components/button";
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@a/ui/components/button-group";
+} from "@cnsync/ui/components/button-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@a/ui/components/tooltip";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/tooltip";
+import { cn } from "@cnsync/ui/lib/utils";
 import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";

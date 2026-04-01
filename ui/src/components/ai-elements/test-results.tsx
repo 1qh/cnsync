@@ -1,12 +1,12 @@
 // @ts-nocheck
 "use client";
-import { Badge } from "@a/ui/components/badge";
+import { Badge } from "@cnsync/ui/components/badge";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/collapsible";
+import { cn } from "@cnsync/ui/lib/utils";
 import {
   CheckCircle2Icon,
   ChevronRightIcon,

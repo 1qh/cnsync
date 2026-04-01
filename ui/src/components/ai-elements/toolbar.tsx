@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { cn } from "@a/ui/lib/utils";
+import { cn } from "@cnsync/ui/lib/utils";
 import { NodeToolbar, Position } from "@xyflow/react";
 import type { ComponentProps } from "react";
 type ToolbarProps = ComponentProps<typeof NodeToolbar>;

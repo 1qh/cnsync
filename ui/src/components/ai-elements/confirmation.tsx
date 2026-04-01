@@ -1,8 +1,8 @@
 // @ts-nocheck
 "use client";
-import { Alert, AlertDescription } from "@a/ui/components/alert";
-import { Button } from "@a/ui/components/button";
-import { cn } from "@a/ui/lib/utils";
+import { Alert, AlertDescription } from "@cnsync/ui/components/alert";
+import { Button } from "@cnsync/ui/components/button";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { ToolUIPart } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";

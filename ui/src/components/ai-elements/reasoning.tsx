@@ -5,8 +5,8 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/collapsible";
+import { cn } from "@cnsync/ui/lib/utils";
 import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";

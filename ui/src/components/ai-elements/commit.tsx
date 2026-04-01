@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
-import { Avatar, AvatarFallback } from "@a/ui/components/avatar";
-import { Button } from "@a/ui/components/button";
+import { Avatar, AvatarFallback } from "@cnsync/ui/components/avatar";
+import { Button } from "@cnsync/ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/collapsible";
+import { cn } from "@cnsync/ui/lib/utils";
 import {
   CheckIcon,
   CopyIcon,

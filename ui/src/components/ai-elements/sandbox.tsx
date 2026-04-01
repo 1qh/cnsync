@@ -4,14 +4,14 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@a/ui/components/collapsible";
+} from "@cnsync/ui/components/collapsible";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@a/ui/components/tabs";
-import { cn } from "@a/ui/lib/utils";
+} from "@cnsync/ui/components/tabs";
+import { cn } from "@cnsync/ui/lib/utils";
 import type { ToolUIPart } from "ai";
 import { ChevronDownIcon, Code } from "lucide-react";
 import type { ComponentProps } from "react";

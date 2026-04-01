@@ -19,7 +19,7 @@
     "@types/bun": "latest",
     "@types/react": "latest",
     "lintmax": "latest",
-    "next": "latest",
+    "next": "15",
     "react": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"

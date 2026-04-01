@@ -22,6 +22,7 @@
     "@types/react": "latest",
     "@xyflow/react": "latest",
     "lintmax": "latest",
+    "lucide-react": "latest",
     "next": "latest",
     "playwright": "^1.59.0",
     "react": "latest",

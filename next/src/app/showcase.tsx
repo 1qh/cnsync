@@ -1161,6 +1161,7 @@ import { Textarea } from '@a/ui/components/textarea'
 import { Toggle, toggleVariants } from '@a/ui/components/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
+import { BoxIcon, CodeIcon, LayoutDashboardIcon, PaletteIcon, PanelLeftIcon, SettingsIcon, UserIcon } from 'lucide-react'
 import { useId } from 'react'
 import Providers from './providers'
 const hookRefs = [
@@ -1594,8 +1595,8 @@ const hookRefs = [
             </SheetContent>
           </Sheet>
           <div className='relative flex h-96 overflow-hidden rounded-lg border [&_.fixed]:static [&_.fixed]:h-full [&_.h-svh]:h-full'>
-            <SidebarProvider defaultOpen>
-              <Sidebar>
+            <SidebarProvider defaultOpen={false}>
+              <Sidebar collapsible='icon'>
                 <SidebarHeader>
                   <SidebarInput placeholder='Search...' />
                 </SidebarHeader>
@@ -1606,15 +1607,24 @@ const hookRefs = [
                     <SidebarGroupContent>
                       <SidebarMenu>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Dashboard</SidebarMenuButton>
+                          <SidebarMenuButton tooltip='Dashboard'>
+                            <LayoutDashboardIcon />
+                            <span>Dashboard</span>
+                          </SidebarMenuButton>
                           <SidebarMenuBadge>3</SidebarMenuBadge>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Projects</SidebarMenuButton>
+                          <SidebarMenuButton tooltip='Projects'>
+                            <BoxIcon />
+                            <span>Projects</span>
+                          </SidebarMenuButton>
                           <SidebarMenuAction>+</SidebarMenuAction>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Settings</SidebarMenuButton>
+                          <SidebarMenuButton tooltip='Settings'>
+                            <SettingsIcon />
+                            <span>Settings</span>
+                          </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuSkeleton />
                       </SidebarMenu>
@@ -1626,7 +1636,10 @@ const hookRefs = [
                     <SidebarGroupContent>
                       <SidebarMenu>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Engineering</SidebarMenuButton>
+                          <SidebarMenuButton tooltip='Engineering'>
+                            <CodeIcon />
+                            <span>Engineering</span>
+                          </SidebarMenuButton>
                           <SidebarMenuSub>
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton>Frontend</SidebarMenuSubButton>
@@ -1637,7 +1650,10 @@ const hookRefs = [
                           </SidebarMenuSub>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Design</SidebarMenuButton>
+                          <SidebarMenuButton tooltip='Design'>
+                            <PaletteIcon />
+                            <span>Design</span>
+                          </SidebarMenuButton>
                         </SidebarMenuItem>
                       </SidebarMenu>
                     </SidebarGroupContent>
@@ -1646,7 +1662,10 @@ const hookRefs = [
                 <SidebarFooter>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>Account</SidebarMenuButton>
+                      <SidebarMenuButton tooltip='Account'>
+                        <UserIcon />
+                        <span>Account</span>
+                      </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarFooter>

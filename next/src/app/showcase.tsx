@@ -1232,7 +1232,82 @@ const hookRefs = [
     const chartId = useId()
     return (
       <Providers>
-        <div
+        <Sidebar collapsible='icon'>
+          <SidebarHeader>
+            <SidebarInput placeholder='Search...' />
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+              <SidebarGroupAction>+</SidebarGroupAction>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip='Dashboard'>
+                      <LayoutDashboardIcon />
+                      <span>Dashboard</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge>3</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip='Projects'>
+                      <BoxIcon />
+                      <span>Projects</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuAction>+</SidebarMenuAction>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip='Settings'>
+                      <SettingsIcon />
+                      <span>Settings</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuSkeleton />
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarSeparator />
+            <SidebarGroup>
+              <SidebarGroupLabel>Teams</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip='Engineering'>
+                      <CodeIcon />
+                      <span>Engineering</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton>Frontend</SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton>Backend</SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip='Design'>
+                      <PaletteIcon />
+                      <span>Design</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip='Account'>
+                  <UserIcon />
+                  <span>Account</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarFooter>
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset
           className='mx-auto flex max-w-3xl flex-col gap-8 p-8'
           data-calendar-day-button={CalendarDayButton.name}
           data-highlight={highlightedCode}
@@ -1241,6 +1316,8 @@ const hookRefs = [
           data-media={mediaCategory}
           data-testid='component-verify'
           data-variants={variantClasses}>
+          <SidebarTrigger />
+          <SidebarHookShowcase />
           {statusBadge as ReactNode}
           <span data-edge-types={Object.keys(edgeTypes).join(',')} />
           <Accordion>
@@ -1594,89 +1671,7 @@ const hookRefs = [
               </SheetFooter>
             </SheetContent>
           </Sheet>
-          <div className='flex h-96 overflow-hidden rounded-lg border'>
-            <SidebarProvider defaultOpen>
-              <Sidebar collapsible='none'>
-                <SidebarHeader>
-                  <SidebarInput placeholder='Search...' />
-                </SidebarHeader>
-                <SidebarContent>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-                    <SidebarGroupAction>+</SidebarGroupAction>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton tooltip='Dashboard'>
-                            <LayoutDashboardIcon />
-                            <span>Dashboard</span>
-                          </SidebarMenuButton>
-                          <SidebarMenuBadge>3</SidebarMenuBadge>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton tooltip='Projects'>
-                            <BoxIcon />
-                            <span>Projects</span>
-                          </SidebarMenuButton>
-                          <SidebarMenuAction>+</SidebarMenuAction>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton tooltip='Settings'>
-                            <SettingsIcon />
-                            <span>Settings</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuSkeleton />
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                  <SidebarSeparator />
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Teams</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton tooltip='Engineering'>
-                            <CodeIcon />
-                            <span>Engineering</span>
-                          </SidebarMenuButton>
-                          <SidebarMenuSub>
-                            <SidebarMenuSubItem>
-                              <SidebarMenuSubButton>Frontend</SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                            <SidebarMenuSubItem>
-                              <SidebarMenuSubButton>Backend</SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          </SidebarMenuSub>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton tooltip='Design'>
-                            <PaletteIcon />
-                            <span>Design</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                </SidebarContent>
-                <SidebarFooter>
-                  <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip='Account'>
-                        <UserIcon />
-                        <span>Account</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarFooter>
-                <SidebarRail />
-              </Sidebar>
-              <SidebarInset>
-                <SidebarTrigger />
-                <SidebarHookShowcase />
-              </SidebarInset>
-            </SidebarProvider>
-          </div>
+          {/* Sidebar components rendered above as page layout */}
           <Skeleton />
           <Slider />
           <Toaster />
@@ -2260,7 +2255,7 @@ const hookRefs = [
               </VoiceSelectorDialog>
             </VoiceSelectorContent>
           </VoiceSelector>
-        </div>
+        </SidebarInset>
       </Providers>
     )
   }

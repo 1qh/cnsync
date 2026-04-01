@@ -17,6 +17,9 @@
     },
     "next": {
       "name": "next",
+      "devDependencies": {
+        "@types/node": "25.5.0",
+      },
     },
     "ui": {
       "name": "@a/ui",

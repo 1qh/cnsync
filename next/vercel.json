@@ -1,4 +1,3 @@
 {
-  "buildCommand": "mkdir -p node_modules/@a && ln -sfn ../../../ui node_modules/@a/ui && next build",
-  "installCommand": "cd .. && bun i"
+  "buildCommand": "mkdir -p node_modules/@a && ln -sfn ../../../ui node_modules/@a/ui && npx next build"
 }

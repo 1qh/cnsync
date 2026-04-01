@@ -1,0 +1,4 @@
+{
+  "buildCommand": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && npx next build",
+  "outputDirectory": "next/.next"
+}

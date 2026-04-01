@@ -5,6 +5,7 @@
     "": {
       "name": "cnsync",
       "devDependencies": {
+        "@tailwindcss/postcss": "latest",
         "@types/bun": "latest",
         "@types/react": "latest",
         "@xyflow/react": "latest",

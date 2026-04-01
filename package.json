@@ -17,6 +17,7 @@
     "verify": "bun fix && bun run build && bun check:imports && bun run build:next"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "latest",
     "@types/bun": "latest",
     "@types/react": "latest",
     "@xyflow/react": "latest",

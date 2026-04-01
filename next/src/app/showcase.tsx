@@ -1597,32 +1597,60 @@ const hookRefs = [
             <SidebarProvider defaultOpen>
               <Sidebar>
                 <SidebarHeader>
-                  <SidebarInput />
+                  <SidebarInput placeholder='Search...' />
                 </SidebarHeader>
                 <SidebarContent>
                   <SidebarGroup>
-                    <SidebarGroupLabel>Label</SidebarGroupLabel>
-                    <SidebarGroupAction>Act</SidebarGroupAction>
+                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                    <SidebarGroupAction>+</SidebarGroupAction>
                     <SidebarGroupContent>
                       <SidebarMenu>
                         <SidebarMenuItem>
-                          <SidebarMenuButton>Btn</SidebarMenuButton>
-                          <SidebarMenuAction>Act</SidebarMenuAction>
-                          <SidebarMenuBadge>1</SidebarMenuBadge>
+                          <SidebarMenuButton>Dashboard</SidebarMenuButton>
+                          <SidebarMenuBadge>3</SidebarMenuBadge>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton>Projects</SidebarMenuButton>
+                          <SidebarMenuAction>+</SidebarMenuAction>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton>Settings</SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuSkeleton />
-                        <SidebarMenuSub>
-                          <SidebarMenuSubItem>
-                            <SidebarMenuSubButton>Sub</SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        </SidebarMenuSub>
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                  <SidebarSeparator />
+                  <SidebarGroup>
+                    <SidebarGroupLabel>Teams</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton>Engineering</SidebarMenuButton>
+                          <SidebarMenuSub>
+                            <SidebarMenuSubItem>
+                              <SidebarMenuSubButton>Frontend</SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                            <SidebarMenuSubItem>
+                              <SidebarMenuSubButton>Backend</SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          </SidebarMenuSub>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton>Design</SidebarMenuButton>
+                        </SidebarMenuItem>
                       </SidebarMenu>
                     </SidebarGroupContent>
                   </SidebarGroup>
                 </SidebarContent>
-                <SidebarFooter>Footer</SidebarFooter>
+                <SidebarFooter>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>Account</SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarFooter>
                 <SidebarRail />
-                <SidebarSeparator />
               </Sidebar>
               <SidebarInset>
                 <SidebarTrigger />

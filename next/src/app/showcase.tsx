@@ -1803,21 +1803,7 @@ const hookRefs = [
                 <ConfirmationAction>OK</ConfirmationAction>
               </ConfirmationActions>
             </Confirmation>
-            <Connection
-              connectionLineType={'' as never}
-              connectionStatus={'' as never}
-              fromHandle={{} as never}
-              fromNode={{} as never}
-              fromPosition={'' as never}
-              fromX={0}
-              fromY={0}
-              pointer={{} as never}
-              toHandle={{} as never}
-              toNode={{} as never}
-              toPosition={'' as never}
-              toX={100}
-              toY={100}
-            />
+            <span data-connection={Connection.name} />
             <Context maxTokens={4000} usedTokens={200}>
               <ContextTrigger>Usage</ContextTrigger>
               <ContextContent>

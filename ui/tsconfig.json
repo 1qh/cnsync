@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "@cnsync/ui/*": [
+      "@a/ui/*": [
         "./src/*"
       ]
     },

@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 import { Slider as SliderPrimitive } from "@base-ui/react/slider"
-import { cn } from "@cnsync/ui/lib/utils"
+import { cn } from "@a/ui/lib/utils"
 function Slider({
   className,
   defaultValue,

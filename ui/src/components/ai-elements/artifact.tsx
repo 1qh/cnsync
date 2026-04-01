@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@cnsync/ui/components/tooltip";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/tooltip";
+import { cn } from "@a/ui/lib/utils";
 import type { LucideIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";

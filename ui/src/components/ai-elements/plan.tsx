@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   Card,
   CardAction,
@@ -9,13 +9,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@cnsync/ui/components/card";
+} from "@a/ui/components/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@cnsync/ui/components/collapsible";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/collapsible";
+import { cn } from "@a/ui/lib/utils";
 import { ChevronsUpDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import { createContext, useContext, useMemo } from "react";

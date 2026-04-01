@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
-import { cn } from "@cnsync/ui/lib/utils";
+import { Button } from "@a/ui/components/button";
+import { cn } from "@a/ui/lib/utils";
 import type { UIMessage } from "ai";
 import { ArrowDownIcon, DownloadIcon } from "lucide-react";
 import type { ComponentProps } from "react";

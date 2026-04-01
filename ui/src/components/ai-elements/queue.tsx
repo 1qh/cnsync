@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@cnsync/ui/components/collapsible";
-import { ScrollArea } from "@cnsync/ui/components/scroll-area";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/collapsible";
+import { ScrollArea } from "@a/ui/components/scroll-area";
+import { cn } from "@a/ui/lib/utils";
 import { ChevronDownIcon, PaperclipIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 export interface QueueMessagePart {

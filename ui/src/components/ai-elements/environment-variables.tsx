@@ -1,9 +1,9 @@
 // @ts-nocheck
 "use client";
-import { Badge } from "@cnsync/ui/components/badge";
-import { Button } from "@cnsync/ui/components/button";
-import { Switch } from "@cnsync/ui/components/switch";
-import { cn } from "@cnsync/ui/lib/utils";
+import { Badge } from "@a/ui/components/badge";
+import { Button } from "@a/ui/components/button";
+import { Switch } from "@a/ui/components/switch";
+import { cn } from "@a/ui/lib/utils";
 import { CheckIcon, CopyIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 import {

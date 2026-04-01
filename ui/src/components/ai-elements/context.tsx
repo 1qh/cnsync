@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@cnsync/ui/components/hover-card";
-import { Progress } from "@cnsync/ui/components/progress";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/hover-card";
+import { Progress } from "@a/ui/components/progress";
+import { cn } from "@a/ui/lib/utils";
 import type { LanguageModelUsage } from "ai";
 import type { ComponentProps } from "react";
 import { createContext, useContext, useMemo } from "react";

@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@cnsync/ui/components/dropdown-menu";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/dropdown-menu";
+import { cn } from "@a/ui/lib/utils";
 import {
   ChevronDownIcon,
   ExternalLinkIcon,

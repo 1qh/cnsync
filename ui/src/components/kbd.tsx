@@ -1,4 +1,4 @@
-import { cn } from "@cnsync/ui/lib/utils"
+import { cn } from "@a/ui/lib/utils"
 function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (
     <kbd

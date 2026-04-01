@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
-import { Badge } from "@cnsync/ui/components/badge";
-import { cn } from "@cnsync/ui/lib/utils";
+import { Badge } from "@a/ui/components/badge";
+import { cn } from "@a/ui/lib/utils";
 import { ArrowRightIcon, MinusIcon, PackageIcon, PlusIcon } from "lucide-react";
 import type { HTMLAttributes } from "react";
 import { createContext, useContext, useMemo } from "react";

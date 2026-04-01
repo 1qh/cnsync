@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { cn } from "@cnsync/ui/lib/utils";
+import { cn } from "@a/ui/lib/utils";
 import { AlertCircle } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import {

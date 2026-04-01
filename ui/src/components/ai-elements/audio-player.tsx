@@ -1,11 +1,11 @@
 // @ts-nocheck
 "use client";
-import { Button } from "@cnsync/ui/components/button";
+import { Button } from "@a/ui/components/button";
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@cnsync/ui/components/button-group";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/button-group";
+import { cn } from "@a/ui/lib/utils";
 import type { Experimental_SpeechResult as SpeechResult } from "ai";
 import {
   MediaControlBar,

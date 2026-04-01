@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client";
 import { useControllableState } from "../../hooks/use-controllable-state"
-import { Badge } from "@cnsync/ui/components/badge";
+import { Badge } from "@a/ui/components/badge";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@cnsync/ui/components/collapsible";
-import { cn } from "@cnsync/ui/lib/utils";
+} from "@a/ui/components/collapsible";
+import { cn } from "@a/ui/lib/utils";
 import type { LucideIcon } from "lucide-react";
 import { BrainIcon, ChevronDownIcon, DotIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";

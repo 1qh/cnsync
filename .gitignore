@@ -1,3 +1,4 @@
 .cache/
 .next/
+bun.lock
 node_modules/

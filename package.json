@@ -1,9 +1,14 @@
 {
   "name": "cnsync",
   "private": true,
+  "workspaces": [
+    "next",
+    "ui"
+  ],
   "scripts": {
+    "build": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && tsc --noEmit",
     "check": "lintmax check",
-    "clean": "rm -rf .cache node_modules ui/node_modules",
+    "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
     "sync": "bun sync.ts",
     "verify": "cd ui && bun i"
@@ -12,6 +17,7 @@
     "@types/bun": "latest",
     "@types/react": "latest",
     "lintmax": "latest",
+    "next": "latest",
     "react": "latest",
     "typescript": "latest"
   }

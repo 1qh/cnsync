@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@a/ui": ["../ui/src/lib/utils.ts"],
+      "@a/ui/*": ["../ui/src/*"]
+    }
+  },
+  "extends": "lintmax/tsconfig",
+  "include": ["src", "*.ts"]
+}

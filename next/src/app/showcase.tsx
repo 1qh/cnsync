@@ -1594,9 +1594,9 @@ const hookRefs = [
               </SheetFooter>
             </SheetContent>
           </Sheet>
-          <div className='relative flex h-96 overflow-hidden rounded-lg border [&_.fixed]:static [&_.fixed]:h-full [&_.h-svh]:h-full'>
-            <SidebarProvider defaultOpen={false}>
-              <Sidebar collapsible='icon'>
+          <div className='flex h-96 overflow-hidden rounded-lg border'>
+            <SidebarProvider defaultOpen>
+              <Sidebar collapsible='none'>
                 <SidebarHeader>
                   <SidebarInput placeholder='Search...' />
                 </SidebarHeader>

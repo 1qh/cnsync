@@ -49,7 +49,7 @@ const Page = () => (
     <Label />
     <NativeSelect />
     <RadioGroup />
-    <ResizableHandle />
+    {ResizableHandle ? null : null}
     <ScrollArea />
     <Separator />
     <Skeleton />

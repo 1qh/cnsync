@@ -1162,7 +1162,13 @@ import { Toggle, toggleVariants } from '@a/ui/components/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
 import { useId } from 'react'
-const hookCall = (fn: unknown): Record<string, unknown> => (fn as () => Record<string, unknown>)(),
+const hookCall = (fn: unknown): Record<string, unknown> => {
+    try {
+      return (fn as () => Record<string, unknown>)()
+    } catch {
+      return {}
+    }
+  },
   /* Wrappers that call hooks inside a component body */
   HookShowcase = () => {
     const direction = hookCall(useDirection),
@@ -1190,11 +1196,11 @@ const hookCall = (fn: unknown): Record<string, unknown> => (fn as () => Record<s
     )
   },
   SidebarHookShowcase = () => {
-    const sidebar = useSidebar()
-    return <span data-sidebar-open={sidebar.open} />
+    const sidebar = useSidebar() as unknown as Record<string, unknown>
+    return <span data-sidebar-open={JSON.stringify(sidebar)} />
   },
   CarouselHookShowcase = () => {
-    const carousel = useCarousel()
+    const carousel = useCarousel() as unknown as Record<string, unknown>
     return <span data-carousel={JSON.stringify(carousel)} />
   },
   ComboboxAnchorShowcase = () => {
@@ -1202,8 +1208,8 @@ const hookCall = (fn: unknown): Record<string, unknown> => (fn as () => Record<s
     return <span ref={anchor} />
   },
   AttachmentContextShowcase = () => {
-    const attachmentsCtx = useAttachmentsContext(),
-      attachmentCtx = useAttachmentContext()
+    const attachmentsCtx = useAttachmentsContext() as unknown as Record<string, unknown>,
+      attachmentCtx = useAttachmentContext() as unknown as Record<string, unknown>
     return <span data-attachment={JSON.stringify(attachmentCtx)} data-attachments={JSON.stringify(attachmentsCtx)} />
   },
   /* Utility/variant function calls */

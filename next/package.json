@@ -1,14 +1,6 @@
 {
   "name": "next",
   "private": true,
-  "scripts": {
-    "build": "bun next build"
-  },
-  "dependencies": {
-    "next": "15",
-    "react": "latest",
-    "react-dom": "latest"
-  },
   "devDependencies": {
     "@types/node": "25.5.0"
   }

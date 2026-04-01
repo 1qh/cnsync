@@ -2,3 +2,5 @@
 .next/
 bun.lock
 node_modules/
+ui/bun.lock
+next/pnpm-lock.yaml

@@ -1,4 +1,4 @@
 import { defineConfig } from 'lintmax'
 export default defineConfig({
-  ignores: ['ui/**']
+  ignores: ['test-page.ts', 'ui/**']
 })

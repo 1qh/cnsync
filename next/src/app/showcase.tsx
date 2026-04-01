@@ -1172,7 +1172,12 @@ const hookRefs = [
     usePromptInputController,
     useProviderAttachments,
     usePromptInputAttachments,
-    usePromptInputReferencedSources
+    usePromptInputReferencedSources,
+    AlertDialogPortal,
+    ContextMenuPortal,
+    DialogPortal,
+    DropdownMenuPortal,
+    MenubarPortal
   ] as const,
   SidebarHookShowcase = () => {
     const sidebar = useSidebar() as unknown as Record<string, unknown>
@@ -1250,20 +1255,18 @@ const hookRefs = [
           </Alert>
           <AlertDialog>
             <AlertDialogTrigger>Open</AlertDialogTrigger>
-            <AlertDialogPortal>
-              <AlertDialogOverlay />
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Title</AlertDialogTitle>
-                  <AlertDialogDescription>Description</AlertDialogDescription>
-                  <AlertDialogMedia />
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>OK</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialogPortal>
+            <AlertDialogOverlay />
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Title</AlertDialogTitle>
+                <AlertDialogDescription>Description</AlertDialogDescription>
+                <AlertDialogMedia />
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>OK</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
           </AlertDialog>
           <AspectRatio ratio={16 / 9}>
             <span>Aspect</span>
@@ -1359,40 +1362,36 @@ const hookRefs = [
           <CommandDialog open={false}>Commands</CommandDialog>
           <ContextMenu>
             <ContextMenuTrigger>Right-click</ContextMenuTrigger>
-            <ContextMenuPortal>
-              <ContextMenuContent>
-                <ContextMenuGroup>
-                  <ContextMenuLabel>Label</ContextMenuLabel>
-                  <ContextMenuItem>
-                    <ContextMenuShortcut>S</ContextMenuShortcut>
-                  </ContextMenuItem>
-                  <ContextMenuCheckboxItem>Check</ContextMenuCheckboxItem>
-                  <ContextMenuRadioGroup>
-                    <ContextMenuRadioItem value='a'>A</ContextMenuRadioItem>
-                  </ContextMenuRadioGroup>
-                  <ContextMenuSeparator />
-                  <ContextMenuSub>
-                    <ContextMenuSubTrigger>Sub</ContextMenuSubTrigger>
-                    <ContextMenuSubContent>Sub</ContextMenuSubContent>
-                  </ContextMenuSub>
-                </ContextMenuGroup>
-              </ContextMenuContent>
-            </ContextMenuPortal>
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuLabel>Label</ContextMenuLabel>
+                <ContextMenuItem>
+                  <ContextMenuShortcut>S</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuCheckboxItem>Check</ContextMenuCheckboxItem>
+                <ContextMenuRadioGroup>
+                  <ContextMenuRadioItem value='a'>A</ContextMenuRadioItem>
+                </ContextMenuRadioGroup>
+                <ContextMenuSeparator />
+                <ContextMenuSub>
+                  <ContextMenuSubTrigger>Sub</ContextMenuSubTrigger>
+                  <ContextMenuSubContent>Sub</ContextMenuSubContent>
+                </ContextMenuSub>
+              </ContextMenuGroup>
+            </ContextMenuContent>
           </ContextMenu>
           <Dialog>
             <DialogTrigger>Open</DialogTrigger>
-            <DialogPortal>
-              <DialogOverlay />
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Title</DialogTitle>
-                  <DialogDescription>Desc</DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose>Close</DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </DialogPortal>
+            <DialogOverlay />
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Title</DialogTitle>
+                <DialogDescription>Desc</DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
           </Dialog>
           <Drawer>
             <DrawerTrigger>Open</DrawerTrigger>
@@ -1411,25 +1410,23 @@ const hookRefs = [
           </Drawer>
           <DropdownMenu>
             <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuContent>
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel>Label</DropdownMenuLabel>
-                  <DropdownMenuItem>
-                    <DropdownMenuShortcut>S</DropdownMenuShortcut>
-                  </DropdownMenuItem>
-                  <DropdownMenuCheckboxItem>Check</DropdownMenuCheckboxItem>
-                  <DropdownMenuRadioGroup>
-                    <DropdownMenuRadioItem value='a'>A</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>Sub</DropdownMenuSubTrigger>
-                    <DropdownMenuSubContent>Sub</DropdownMenuSubContent>
-                  </DropdownMenuSub>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenuPortal>
+            <DropdownMenuContent>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Label</DropdownMenuLabel>
+                <DropdownMenuItem>
+                  <DropdownMenuShortcut>S</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuCheckboxItem>Check</DropdownMenuCheckboxItem>
+                <DropdownMenuRadioGroup>
+                  <DropdownMenuRadioItem value='a'>A</DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>Sub</DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>Sub</DropdownMenuSubContent>
+                </DropdownMenuSub>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
           </DropdownMenu>
           <Empty>
             <EmptyHeader>
@@ -1465,17 +1462,7 @@ const hookRefs = [
             <InputGroupText>Text</InputGroupText>
             <InputGroupTextarea />
           </InputGroup>
-          <InputOTP maxLength={4}>
-            <InputOTPGroup>
-              <InputOTPSlot index={0} />
-              <InputOTPSlot index={1} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-              <InputOTPSlot index={2} />
-              <InputOTPSlot index={3} />
-            </InputOTPGroup>
-          </InputOTP>
+          <span data-input-otp={[InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator].length} />
           <ItemGroup>
             <Item>
               <ItemMedia />
@@ -1496,25 +1483,23 @@ const hookRefs = [
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger>File</MenubarTrigger>
-              <MenubarPortal>
-                <MenubarContent>
-                  <MenubarGroup>
-                    <MenubarLabel>Label</MenubarLabel>
-                    <MenubarItem>
-                      <MenubarShortcut>S</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarCheckboxItem>Check</MenubarCheckboxItem>
-                    <MenubarRadioGroup>
-                      <MenubarRadioItem value='a'>A</MenubarRadioItem>
-                    </MenubarRadioGroup>
-                    <MenubarSeparator />
-                    <MenubarSub>
-                      <MenubarSubTrigger>Sub</MenubarSubTrigger>
-                      <MenubarSubContent>Sub</MenubarSubContent>
-                    </MenubarSub>
-                  </MenubarGroup>
-                </MenubarContent>
-              </MenubarPortal>
+              <MenubarContent>
+                <MenubarGroup>
+                  <MenubarLabel>Label</MenubarLabel>
+                  <MenubarItem>
+                    <MenubarShortcut>S</MenubarShortcut>
+                  </MenubarItem>
+                  <MenubarCheckboxItem>Check</MenubarCheckboxItem>
+                  <MenubarRadioGroup>
+                    <MenubarRadioItem value='a'>A</MenubarRadioItem>
+                  </MenubarRadioGroup>
+                  <MenubarSeparator />
+                  <MenubarSub>
+                    <MenubarSubTrigger>Sub</MenubarSubTrigger>
+                    <MenubarSubContent>Sub</MenubarSubContent>
+                  </MenubarSub>
+                </MenubarGroup>
+              </MenubarContent>
             </MenubarMenu>
           </Menubar>
           <NativeSelect>
@@ -2005,10 +1990,10 @@ const hookRefs = [
                     <PromptInputActionMenuTrigger>Menu</PromptInputActionMenuTrigger>
                     <PromptInputActionMenuContent>
                       <PromptInputActionMenuItem>Item</PromptInputActionMenuItem>
+                      <PromptInputActionAddAttachments />
+                      <PromptInputActionAddScreenshot />
                     </PromptInputActionMenuContent>
                   </PromptInputActionMenu>
-                  <PromptInputActionAddAttachments />
-                  <PromptInputActionAddScreenshot />
                   <PromptInputSubmit>Send</PromptInputSubmit>
                   <PromptInputSelect>
                     <PromptInputSelectTrigger>

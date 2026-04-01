@@ -13,6 +13,7 @@
     "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
     "sync": "bun sync.ts",
+    "test:e2e": "bun run build:next && bun test-page.ts",
     "verify": "bun fix && bun run build && bun check:imports && bun run build:next"
   },
   "devDependencies": {
@@ -21,6 +22,7 @@
     "@xyflow/react": "latest",
     "lintmax": "latest",
     "next": "latest",
+    "playwright": "^1.59.0",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",

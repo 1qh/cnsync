@@ -5,7 +5,7 @@
     "build": "bun next build"
   },
   "dependencies": {
-    "next": "latest",
+    "next": "15",
     "react": "latest",
     "react-dom": "latest"
   },

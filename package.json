@@ -7,11 +7,13 @@
   ],
   "scripts": {
     "build": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && tsc --noEmit",
+    "build:next": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && bunx next build next",
     "check": "lintmax check",
     "check:imports": "bun check-imports.ts",
     "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
-    "sync": "bun sync.ts"
+    "sync": "bun sync.ts",
+    "verify": "bun fix && bun run build && bun check:imports && bun run build:next"
   },
   "devDependencies": {
     "@types/bun": "latest",

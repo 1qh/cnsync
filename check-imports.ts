@@ -7,7 +7,7 @@ const reExportDecl = /export\s+(?:const|function|class)\s+(?<name>\w+)/gu,
   reTypePrefix = /^type\s+/u,
   reAsAlias = /\s+as\s+/u,
   uiComponents = join(import.meta.dirname, 'ui/src/components'),
-  pageContent = readFileSync(join(import.meta.dirname, 'next/src/app/page.tsx'), 'utf8'),
+  pageContent = readFileSync(join(import.meta.dirname, 'next/src/app/showcase.tsx'), 'utf8'),
   missing: string[] = [],
   missingExports: string[] = [],
   check = (dir: string, prefix: string) => {

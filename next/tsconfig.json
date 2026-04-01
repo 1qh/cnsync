@@ -3,8 +3,10 @@
     "paths": {
       "@a/ui": ["../ui/src/lib/utils.ts"],
       "@a/ui/*": ["../ui/src/*"]
-    }
+    },
+    "strict": false,
+    "strictNullChecks": true
   },
   "extends": "lintmax/tsconfig",
-  "include": ["src", "*.ts"]
+  "include": ["*.ts", "src", ".next/types/**/*.ts"]
 }

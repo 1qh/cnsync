@@ -10,6 +10,8 @@
     "check": "lintmax check",
     "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
+    "gen": "bun gen-test-page.ts",
+    "gen:check": "bun gen-test-page.ts --check",
     "sync": "bun sync.ts",
     "verify": "cd ui && bun i"
   },

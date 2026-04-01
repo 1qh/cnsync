@@ -1,222 +1,1427 @@
 /** biome-ignore-all lint/correctness/noUnusedImports: build verification */
 /* oxlint-disable eslint/no-unused-vars, react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-new-array-as-prop, eslint/complexity */
 'use client'
-import { Accordion } from '@a/ui/components/accordion'
-import { Agent } from '@a/ui/components/ai-elements/agent'
-import { Artifact } from '@a/ui/components/ai-elements/artifact'
-import { Attachments } from '@a/ui/components/ai-elements/attachments'
-import { AudioPlayer } from '@a/ui/components/ai-elements/audio-player'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@a/ui/components/accordion'
+import {
+  Agent,
+  AgentContent,
+  AgentHeader,
+  AgentInstructions,
+  AgentOutput,
+  AgentTool,
+  AgentTools
+} from '@a/ui/components/ai-elements/agent'
+import {
+  Artifact,
+  ArtifactAction,
+  ArtifactActions,
+  ArtifactClose,
+  ArtifactContent,
+  ArtifactDescription,
+  ArtifactHeader,
+  ArtifactTitle
+} from '@a/ui/components/ai-elements/artifact'
+import {
+  Attachment,
+  AttachmentEmpty,
+  AttachmentHoverCard,
+  AttachmentHoverCardContent,
+  AttachmentHoverCardTrigger,
+  AttachmentInfo,
+  AttachmentPreview,
+  AttachmentRemove,
+  Attachments,
+  getAttachmentLabel,
+  getMediaCategory,
+  useAttachmentContext,
+  useAttachmentsContext
+} from '@a/ui/components/ai-elements/attachments'
+import {
+  AudioPlayer,
+  AudioPlayerControlBar,
+  AudioPlayerDurationDisplay,
+  AudioPlayerElement,
+  AudioPlayerMuteButton,
+  AudioPlayerPlayButton,
+  AudioPlayerSeekBackwardButton,
+  AudioPlayerSeekForwardButton,
+  AudioPlayerTimeDisplay,
+  AudioPlayerTimeRange,
+  AudioPlayerVolumeRange
+} from '@a/ui/components/ai-elements/audio-player'
 import { Canvas } from '@a/ui/components/ai-elements/canvas'
-import { ChainOfThought } from '@a/ui/components/ai-elements/chain-of-thought'
-import { Checkpoint } from '@a/ui/components/ai-elements/checkpoint'
-import { CodeBlockContainer } from '@a/ui/components/ai-elements/code-block'
-import { Commit } from '@a/ui/components/ai-elements/commit'
-import { Confirmation } from '@a/ui/components/ai-elements/confirmation'
+import {
+  ChainOfThought,
+  ChainOfThoughtContent,
+  ChainOfThoughtHeader,
+  ChainOfThoughtImage,
+  ChainOfThoughtSearchResult,
+  ChainOfThoughtSearchResults,
+  ChainOfThoughtStep
+} from '@a/ui/components/ai-elements/chain-of-thought'
+import { Checkpoint, CheckpointIcon, CheckpointTrigger } from '@a/ui/components/ai-elements/checkpoint'
+import {
+  CodeBlock,
+  CodeBlockActions,
+  CodeBlockContainer,
+  CodeBlockContent,
+  CodeBlockCopyButton,
+  CodeBlockFilename,
+  CodeBlockHeader,
+  CodeBlockLanguageSelector,
+  CodeBlockLanguageSelectorContent,
+  CodeBlockLanguageSelectorItem,
+  CodeBlockLanguageSelectorTrigger,
+  CodeBlockLanguageSelectorValue,
+  CodeBlockTitle,
+  highlightCode
+} from '@a/ui/components/ai-elements/code-block'
+import {
+  Commit,
+  CommitActions,
+  CommitAuthor,
+  CommitAuthorAvatar,
+  CommitContent,
+  CommitCopyButton,
+  CommitFile,
+  CommitFileAdditions,
+  CommitFileChanges,
+  CommitFileDeletions,
+  CommitFileIcon,
+  CommitFileInfo,
+  CommitFilePath,
+  CommitFiles,
+  CommitFileStatus,
+  CommitHash,
+  CommitHeader,
+  CommitInfo,
+  CommitMessage,
+  CommitMetadata,
+  CommitSeparator,
+  CommitTimestamp
+} from '@a/ui/components/ai-elements/commit'
+import {
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
+  ConfirmationRejected,
+  ConfirmationRequest,
+  ConfirmationTitle
+} from '@a/ui/components/ai-elements/confirmation'
 import { Connection } from '@a/ui/components/ai-elements/connection'
-import { Context } from '@a/ui/components/ai-elements/context'
+import {
+  Context,
+  ContextCacheUsage,
+  ContextContent,
+  ContextContentBody,
+  ContextContentFooter,
+  ContextContentHeader,
+  ContextInputUsage,
+  ContextOutputUsage,
+  ContextReasoningUsage,
+  ContextTrigger
+} from '@a/ui/components/ai-elements/context'
 import { Controls } from '@a/ui/components/ai-elements/controls'
-import { Conversation } from '@a/ui/components/ai-elements/conversation'
+import {
+  Conversation,
+  ConversationContent,
+  ConversationDownload,
+  ConversationEmptyState,
+  ConversationScrollButton,
+  messagesToMarkdown
+} from '@a/ui/components/ai-elements/conversation'
 import { Edge } from '@a/ui/components/ai-elements/edge'
-import { EnvironmentVariables } from '@a/ui/components/ai-elements/environment-variables'
-import { FileTree } from '@a/ui/components/ai-elements/file-tree'
+import {
+  EnvironmentVariable,
+  EnvironmentVariableCopyButton,
+  EnvironmentVariableGroup,
+  EnvironmentVariableName,
+  EnvironmentVariableRequired,
+  EnvironmentVariables,
+  EnvironmentVariablesContent,
+  EnvironmentVariablesHeader,
+  EnvironmentVariablesTitle,
+  EnvironmentVariablesToggle,
+  EnvironmentVariableValue
+} from '@a/ui/components/ai-elements/environment-variables'
+import {
+  FileTree,
+  FileTreeActions,
+  FileTreeFile,
+  FileTreeFolder,
+  FileTreeIcon,
+  FileTreeName
+} from '@a/ui/components/ai-elements/file-tree'
 import { Image as AiImage } from '@a/ui/components/ai-elements/image'
-import { InlineCitation } from '@a/ui/components/ai-elements/inline-citation'
-import { JSXPreview } from '@a/ui/components/ai-elements/jsx-preview'
-import { Message } from '@a/ui/components/ai-elements/message'
-import { MicSelector } from '@a/ui/components/ai-elements/mic-selector'
-import { ModelSelector } from '@a/ui/components/ai-elements/model-selector'
-import { Node } from '@a/ui/components/ai-elements/node'
-import { OpenIn } from '@a/ui/components/ai-elements/open-in-chat'
-import { PackageInfoHeader } from '@a/ui/components/ai-elements/package-info'
+import {
+  InlineCitation,
+  InlineCitationCard,
+  InlineCitationCardBody,
+  InlineCitationCardTrigger,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselItem,
+  InlineCitationCarouselNext,
+  InlineCitationCarouselPrev,
+  InlineCitationQuote,
+  InlineCitationSource,
+  InlineCitationText
+} from '@a/ui/components/ai-elements/inline-citation'
+import { JSXPreview, JSXPreviewContent, JSXPreviewError, useJSXPreview } from '@a/ui/components/ai-elements/jsx-preview'
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchNext,
+  MessageBranchPage,
+  MessageBranchPrevious,
+  MessageBranchSelector,
+  MessageContent,
+  MessageResponse,
+  MessageToolbar
+} from '@a/ui/components/ai-elements/message'
+import {
+  MicSelector,
+  MicSelectorContent,
+  MicSelectorEmpty,
+  MicSelectorInput,
+  MicSelectorItem,
+  MicSelectorLabel,
+  MicSelectorList,
+  MicSelectorTrigger,
+  MicSelectorValue,
+  useAudioDevices
+} from '@a/ui/components/ai-elements/mic-selector'
+import {
+  ModelSelector,
+  ModelSelectorContent,
+  ModelSelectorDialog,
+  ModelSelectorEmpty,
+  ModelSelectorGroup,
+  ModelSelectorInput,
+  ModelSelectorItem,
+  ModelSelectorList,
+  ModelSelectorLogo,
+  ModelSelectorLogoGroup,
+  ModelSelectorName,
+  ModelSelectorSeparator,
+  ModelSelectorShortcut,
+  ModelSelectorTrigger
+} from '@a/ui/components/ai-elements/model-selector'
+import {
+  Node,
+  NodeAction,
+  NodeContent,
+  NodeDescription,
+  NodeFooter,
+  NodeHeader,
+  NodeTitle
+} from '@a/ui/components/ai-elements/node'
+import {
+  OpenIn,
+  OpenInChatGPT,
+  OpenInClaude,
+  OpenInContent,
+  OpenInCursor,
+  OpenInItem,
+  OpenInLabel,
+  OpenInScira,
+  OpenInSeparator,
+  OpenInT3,
+  OpenInTrigger,
+  OpenInv0
+} from '@a/ui/components/ai-elements/open-in-chat'
+import {
+  PackageInfo,
+  PackageInfoChangeType,
+  PackageInfoContent,
+  PackageInfoDependencies,
+  PackageInfoDependency,
+  PackageInfoDescription,
+  PackageInfoHeader,
+  PackageInfoName,
+  PackageInfoVersion
+} from '@a/ui/components/ai-elements/package-info'
 import { Panel } from '@a/ui/components/ai-elements/panel'
 import { Persona } from '@a/ui/components/ai-elements/persona'
-import { Plan } from '@a/ui/components/ai-elements/plan'
-import { PromptInput } from '@a/ui/components/ai-elements/prompt-input'
-import { QueueItem } from '@a/ui/components/ai-elements/queue'
-import { Reasoning } from '@a/ui/components/ai-elements/reasoning'
-import { Sandbox } from '@a/ui/components/ai-elements/sandbox'
-import { SchemaDisplayHeader } from '@a/ui/components/ai-elements/schema-display'
+import {
+  Plan,
+  PlanAction,
+  PlanContent,
+  PlanDescription,
+  PlanFooter,
+  PlanHeader,
+  PlanTitle,
+  PlanTrigger
+} from '@a/ui/components/ai-elements/plan'
+import {
+  LocalReferencedSourcesContext,
+  PromptInput,
+  PromptInputActionAddAttachments,
+  PromptInputActionAddScreenshot,
+  PromptInputActionMenu,
+  PromptInputActionMenuContent,
+  PromptInputActionMenuItem,
+  PromptInputActionMenuTrigger,
+  PromptInputBody,
+  PromptInputButton,
+  PromptInputCommand,
+  PromptInputCommandEmpty,
+  PromptInputCommandGroup,
+  PromptInputCommandInput,
+  PromptInputCommandItem,
+  PromptInputCommandList,
+  PromptInputCommandSeparator,
+  PromptInputFooter,
+  PromptInputHeader,
+  PromptInputHoverCard,
+  PromptInputHoverCardContent,
+  PromptInputHoverCardTrigger,
+  PromptInputProvider,
+  PromptInputSelect,
+  PromptInputSelectContent,
+  PromptInputSelectItem,
+  PromptInputSelectTrigger,
+  PromptInputSelectValue,
+  PromptInputSubmit,
+  PromptInputTab,
+  PromptInputTabBody,
+  PromptInputTabItem,
+  PromptInputTabLabel,
+  PromptInputTabsList,
+  PromptInputTextarea,
+  PromptInputTools,
+  usePromptInputAttachments,
+  usePromptInputController,
+  usePromptInputReferencedSources,
+  useProviderAttachments
+} from '@a/ui/components/ai-elements/prompt-input'
+import {
+  Queue,
+  QueueItem,
+  QueueItemAction,
+  QueueItemActions,
+  QueueItemAttachment,
+  QueueItemContent,
+  QueueItemDescription,
+  QueueItemFile,
+  QueueItemImage,
+  QueueItemIndicator,
+  QueueList,
+  QueueSection,
+  QueueSectionContent,
+  QueueSectionLabel,
+  QueueSectionTrigger
+} from '@a/ui/components/ai-elements/queue'
+import { Reasoning, ReasoningContent, ReasoningTrigger, useReasoning } from '@a/ui/components/ai-elements/reasoning'
+import {
+  Sandbox,
+  SandboxContent,
+  SandboxHeader,
+  SandboxTabContent,
+  SandboxTabs,
+  SandboxTabsBar,
+  SandboxTabsList,
+  SandboxTabsTrigger
+} from '@a/ui/components/ai-elements/sandbox'
+import {
+  SchemaDisplay,
+  SchemaDisplayBody,
+  SchemaDisplayContent,
+  SchemaDisplayDescription,
+  SchemaDisplayExample,
+  SchemaDisplayHeader,
+  SchemaDisplayMethod,
+  SchemaDisplayParameter,
+  SchemaDisplayParameters,
+  SchemaDisplayPath,
+  SchemaDisplayProperty,
+  SchemaDisplayRequest,
+  SchemaDisplayResponse
+} from '@a/ui/components/ai-elements/schema-display'
 import { Shimmer } from '@a/ui/components/ai-elements/shimmer'
-import { Snippet } from '@a/ui/components/ai-elements/snippet'
-import { Sources } from '@a/ui/components/ai-elements/sources'
+import { Snippet, SnippetAddon, SnippetCopyButton, SnippetInput, SnippetText } from '@a/ui/components/ai-elements/snippet'
+import { Source, Sources, SourcesContent, SourcesTrigger } from '@a/ui/components/ai-elements/sources'
 import { SpeechInput } from '@a/ui/components/ai-elements/speech-input'
-import { StackTrace } from '@a/ui/components/ai-elements/stack-trace'
-import { Suggestion } from '@a/ui/components/ai-elements/suggestion'
-import { Task } from '@a/ui/components/ai-elements/task'
-import { TerminalHeader } from '@a/ui/components/ai-elements/terminal'
-import { TestResultsHeader } from '@a/ui/components/ai-elements/test-results'
-import { Tool } from '@a/ui/components/ai-elements/tool'
+import {
+  StackTrace,
+  StackTraceActions,
+  StackTraceContent,
+  StackTraceCopyButton,
+  StackTraceError,
+  StackTraceErrorMessage,
+  StackTraceErrorType,
+  StackTraceExpandButton,
+  StackTraceFrames,
+  StackTraceHeader
+} from '@a/ui/components/ai-elements/stack-trace'
+import { Suggestion, Suggestions } from '@a/ui/components/ai-elements/suggestion'
+import { Task, TaskContent, TaskItem, TaskItemFile, TaskTrigger } from '@a/ui/components/ai-elements/task'
+import {
+  Terminal,
+  TerminalActions,
+  TerminalClearButton,
+  TerminalContent,
+  TerminalCopyButton,
+  TerminalHeader,
+  TerminalStatus,
+  TerminalTitle
+} from '@a/ui/components/ai-elements/terminal'
+import {
+  Test,
+  TestDuration,
+  TestError,
+  TestErrorMessage,
+  TestErrorStack,
+  TestName,
+  TestResults,
+  TestResultsContent,
+  TestResultsDuration,
+  TestResultsHeader,
+  TestResultsProgress,
+  TestResultsSummary,
+  TestStatus,
+  TestSuite,
+  TestSuiteContent,
+  TestSuiteName,
+  TestSuiteStats
+} from '@a/ui/components/ai-elements/test-results'
+import { getStatusBadge, Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from '@a/ui/components/ai-elements/tool'
 import { Toolbar } from '@a/ui/components/ai-elements/toolbar'
-import { Transcription } from '@a/ui/components/ai-elements/transcription'
-import { VoiceSelector } from '@a/ui/components/ai-elements/voice-selector'
-import { WebPreview } from '@a/ui/components/ai-elements/web-preview'
-import { Alert } from '@a/ui/components/alert'
-import { AlertDialog } from '@a/ui/components/alert-dialog'
+import { Transcription, TranscriptionSegment } from '@a/ui/components/ai-elements/transcription'
+import {
+  useVoiceSelector,
+  VoiceSelector,
+  VoiceSelectorAccent,
+  VoiceSelectorAge,
+  VoiceSelectorAttributes,
+  VoiceSelectorBullet,
+  VoiceSelectorContent,
+  VoiceSelectorDescription,
+  VoiceSelectorDialog,
+  VoiceSelectorEmpty,
+  VoiceSelectorGender,
+  VoiceSelectorGroup,
+  VoiceSelectorInput,
+  VoiceSelectorItem,
+  VoiceSelectorList,
+  VoiceSelectorName,
+  VoiceSelectorPreview,
+  VoiceSelectorSeparator,
+  VoiceSelectorShortcut,
+  VoiceSelectorTrigger
+} from '@a/ui/components/ai-elements/voice-selector'
+import {
+  WebPreview,
+  WebPreviewBody,
+  WebPreviewConsole,
+  WebPreviewNavigation,
+  WebPreviewNavigationButton,
+  WebPreviewUrl
+} from '@a/ui/components/ai-elements/web-preview'
+import { Alert, AlertAction, AlertDescription, AlertTitle } from '@a/ui/components/alert'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@a/ui/components/alert-dialog'
 import { AspectRatio } from '@a/ui/components/aspect-ratio'
-import { Avatar } from '@a/ui/components/avatar'
-import { Badge } from '@a/ui/components/badge'
-import { Breadcrumb } from '@a/ui/components/breadcrumb'
-import { Button } from '@a/ui/components/button'
-import { ButtonGroup } from '@a/ui/components/button-group'
-import { Calendar } from '@a/ui/components/calendar'
-import { Card } from '@a/ui/components/card'
-import { Carousel } from '@a/ui/components/carousel'
-import { ChartContainer } from '@a/ui/components/chart'
+import { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from '@a/ui/components/avatar'
+import { Badge, badgeVariants } from '@a/ui/components/badge'
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '@a/ui/components/breadcrumb'
+import { Button, buttonVariants } from '@a/ui/components/button'
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from '@a/ui/components/button-group'
+import { Calendar, CalendarDayButton } from '@a/ui/components/calendar'
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@a/ui/components/card'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  useCarousel
+} from '@a/ui/components/carousel'
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent
+} from '@a/ui/components/chart'
 import { Checkbox } from '@a/ui/components/checkbox'
-import { Collapsible } from '@a/ui/components/collapsible'
-import { Combobox } from '@a/ui/components/combobox'
-import { Command } from '@a/ui/components/command'
-import { ContextMenu } from '@a/ui/components/context-menu'
-import { Dialog } from '@a/ui/components/dialog'
-import { DirectionProvider } from '@a/ui/components/direction'
-import { Drawer } from '@a/ui/components/drawer'
-import { DropdownMenu } from '@a/ui/components/dropdown-menu'
-import { Empty } from '@a/ui/components/empty'
-import { Field } from '@a/ui/components/field'
-import { HoverCard } from '@a/ui/components/hover-card'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@a/ui/components/collapsible'
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxCollection,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor
+} from '@a/ui/components/combobox'
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut
+} from '@a/ui/components/command'
+import {
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuPortal,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger
+} from '@a/ui/components/context-menu'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger
+} from '@a/ui/components/dialog'
+import { DirectionProvider, useDirection } from '@a/ui/components/direction'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger
+} from '@a/ui/components/drawer'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger
+} from '@a/ui/components/dropdown-menu'
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@a/ui/components/empty'
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle
+} from '@a/ui/components/field'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@a/ui/components/hover-card'
 import { Input } from '@a/ui/components/input'
-import { InputGroup } from '@a/ui/components/input-group'
-import { InputOTP } from '@a/ui/components/input-otp'
-import { Item } from '@a/ui/components/item'
-import { Kbd } from '@a/ui/components/kbd'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea
+} from '@a/ui/components/input-group'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@a/ui/components/input-otp'
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle
+} from '@a/ui/components/item'
+import { Kbd, KbdGroup } from '@a/ui/components/kbd'
 import { Label } from '@a/ui/components/label'
-import { Menubar } from '@a/ui/components/menubar'
-import { NativeSelect } from '@a/ui/components/native-select'
-import { NavigationMenu } from '@a/ui/components/navigation-menu'
-import { Pagination } from '@a/ui/components/pagination'
-import { Popover } from '@a/ui/components/popover'
-import { Progress } from '@a/ui/components/progress'
-import { RadioGroup } from '@a/ui/components/radio-group'
-import { ResizableHandle } from '@a/ui/components/resizable'
-import { ScrollArea } from '@a/ui/components/scroll-area'
-import { Select } from '@a/ui/components/select'
+import {
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarLabel,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger
+} from '@a/ui/components/menubar'
+import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from '@a/ui/components/native-select'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuPositioner,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from '@a/ui/components/navigation-menu'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '@a/ui/components/pagination'
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger
+} from '@a/ui/components/popover'
+import { Progress, ProgressIndicator, ProgressLabel, ProgressTrack, ProgressValue } from '@a/ui/components/progress'
+import { RadioGroup, RadioGroupItem } from '@a/ui/components/radio-group'
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@a/ui/components/resizable'
+import { ScrollArea, ScrollBar } from '@a/ui/components/scroll-area'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue
+} from '@a/ui/components/select'
 import { Separator } from '@a/ui/components/separator'
-import { Sheet } from '@a/ui/components/sheet'
-import { Sidebar } from '@a/ui/components/sidebar'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from '@a/ui/components/sheet'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar
+} from '@a/ui/components/sidebar'
 import { Skeleton } from '@a/ui/components/skeleton'
 import { Slider } from '@a/ui/components/slider'
 import { Toaster } from '@a/ui/components/sonner'
 import { Spinner } from '@a/ui/components/spinner'
 import { Switch } from '@a/ui/components/switch'
-import { Table } from '@a/ui/components/table'
-import { Tabs } from '@a/ui/components/tabs'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@a/ui/components/table'
+import { Tabs, TabsContent, TabsList, tabsListVariants, TabsTrigger } from '@a/ui/components/tabs'
 import { Textarea } from '@a/ui/components/textarea'
-import { Toggle } from '@a/ui/components/toggle'
-import { ToggleGroup } from '@a/ui/components/toggle-group'
-import { Tooltip } from '@a/ui/components/tooltip'
-// eslint-disable-next-line complexity
-const Page = () => (
-  <div data-testid='component-verify'>
-    <Accordion />
-    <Alert />
-    <AlertDialog />
-    <AspectRatio ratio={16 / 9}>
-      <div />
-    </AspectRatio>
-    <Avatar />
-    <Badge />
-    <Breadcrumb />
-    <Button />
-    <ButtonGroup />
-    <Calendar />
-    <Card />
-    <Carousel />
-    {typeof ChartContainer === 'function' ? null : null}
-    <Checkbox />
-    <Collapsible />
-    <Combobox />
-    <Command />
-    <ContextMenu />
-    <Dialog />
-    <DirectionProvider />
-    <Drawer />
-    <DropdownMenu />
-    <Empty />
-    <Field />
-    <HoverCard />
-    <Input />
-    <InputGroup />
-    <InputOTP maxLength={6}>
-      <div />
-    </InputOTP>
-    <Item />
-    <Kbd />
-    <Label />
-    <Menubar />
-    <NativeSelect />
-    <NavigationMenu />
-    <Pagination />
-    <Popover />
-    <Progress value={50} />
-    <RadioGroup />
-    {typeof ResizableHandle === 'function' ? null : null}
-    <ScrollArea />
-    <Select />
-    <Separator />
-    <Sheet />
-    {typeof Sidebar === 'function' ? null : null}
-    <Skeleton />
-    <Slider />
-    <Toaster />
-    <Spinner />
-    <Switch />
-    <Table />
-    <Tabs />
-    <Textarea />
-    <Toggle />
-    <ToggleGroup />
-    <Tooltip />
-    {typeof Agent === 'function' ? null : null}
-    <Artifact />
-    {typeof Attachments === 'function' ? null : null}
-    {typeof AudioPlayer === 'function' ? null : null}
-    {typeof Canvas === 'function' ? null : null}
-    {typeof ChainOfThought === 'function' ? null : null}
-    {typeof Checkpoint === 'function' ? null : null}
-    {typeof CodeBlockContainer === 'function' ? null : null}
-    {typeof Commit === 'function' ? null : null}
-    {typeof Confirmation === 'function' ? null : null}
-    {typeof Connection === 'function' ? null : null}
-    {typeof Context === 'function' ? null : null}
-    {typeof Controls === 'function' ? null : null}
-    {typeof Conversation === 'function' ? null : null}
-    {typeof Edge === 'object' ? null : null}
-    {typeof EnvironmentVariables === 'function' ? null : null}
-    {typeof FileTree === 'function' ? null : null}
-    {typeof AiImage === 'function' ? null : null}
-    {typeof InlineCitation === 'function' ? null : null}
-    {typeof JSXPreview === 'function' ? null : null}
-    <Message from='user'>
-      <div />
-    </Message>
-    {typeof MicSelector === 'function' ? null : null}
-    <ModelSelector />
-    {typeof Node === 'function' ? null : null}
-    {typeof OpenIn === 'function' ? null : null}
-    {typeof PackageInfoHeader === 'function' ? null : null}
-    <Panel />
-    {typeof Persona === 'function' ? null : null}
-    {typeof Plan === 'function' ? null : null}
-    {typeof PromptInput === 'function' ? null : null}
-    {typeof QueueItem === 'function' ? null : null}
-    {typeof Reasoning === 'function' ? null : null}
-    {typeof Sandbox === 'function' ? null : null}
-    {typeof SchemaDisplayHeader === 'function' ? null : null}
-    {typeof Shimmer === 'function' ? null : null}
-    {typeof Snippet === 'function' ? null : null}
-    {typeof Sources === 'function' ? null : null}
-    {typeof SpeechInput === 'function' ? null : null}
-    {typeof StackTrace === 'function' ? null : null}
-    {typeof Suggestion === 'function' ? null : null}
-    {typeof Task === 'function' ? null : null}
-    {typeof TerminalHeader === 'function' ? null : null}
-    {typeof TestResultsHeader === 'function' ? null : null}
-    <Toolbar />
-    {typeof Tool === 'function' ? null : null}
-    {typeof Transcription === 'function' ? null : null}
-    {typeof WebPreview === 'function' ? null : null}
-    {typeof VoiceSelector === 'function' ? null : null}
-  </div>
-)
+import { Toggle, toggleVariants } from '@a/ui/components/toggle'
+import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
+// Types: CarouselApi, ChartConfig, AgentProps, AgentHeaderProps, AgentContentProps, AgentInstructionsProps, AgentToolsProps, AgentToolProps, AgentOutputProps, ArtifactProps, ArtifactHeaderProps, ArtifactCloseProps, ArtifactTitleProps, ArtifactDescriptionProps, ArtifactActionsProps, ArtifactActionProps, ArtifactContentProps, AttachmentData, AttachmentMediaCategory, AttachmentVariant, AttachmentsProps, AttachmentProps, AttachmentPreviewProps, AttachmentInfoProps, AttachmentRemoveProps, AttachmentHoverCardProps, AttachmentHoverCardTriggerProps, AttachmentHoverCardContentProps, AttachmentEmptyProps, AudioPlayerProps, AudioPlayerElementProps, AudioPlayerControlBarProps, AudioPlayerPlayButtonProps, AudioPlayerSeekBackwardButtonProps, AudioPlayerSeekForwardButtonProps, AudioPlayerTimeDisplayProps, AudioPlayerTimeRangeProps, AudioPlayerDurationDisplayProps, AudioPlayerMuteButtonProps, AudioPlayerVolumeRangeProps, ChainOfThoughtProps, ChainOfThoughtHeaderProps, ChainOfThoughtStepProps, ChainOfThoughtSearchResultsProps, ChainOfThoughtSearchResultProps, ChainOfThoughtContentProps, ChainOfThoughtImageProps, CheckpointProps, CheckpointIconProps, CheckpointTriggerProps, CodeBlockCopyButtonProps, CodeBlockLanguageSelectorProps, CodeBlockLanguageSelectorTriggerProps, CodeBlockLanguageSelectorValueProps, CodeBlockLanguageSelectorContentProps, CodeBlockLanguageSelectorItemProps, CommitProps, CommitHeaderProps, CommitHashProps, CommitMessageProps, CommitMetadataProps, CommitSeparatorProps, CommitInfoProps, CommitAuthorProps, CommitAuthorAvatarProps, CommitTimestampProps, CommitActionsProps, CommitCopyButtonProps, CommitContentProps, CommitFilesProps, CommitFileProps, CommitFileInfoProps, CommitFileStatusProps, CommitFileIconProps, CommitFilePathProps, CommitFileChangesProps, CommitFileAdditionsProps, CommitFileDeletionsProps, ConfirmationProps, ConfirmationTitleProps, ConfirmationActionsProps, ConfirmationActionProps, ConfirmationRequestProps, ConfirmationAcceptedProps, ConfirmationRejectedProps, ContextProps, ContextTriggerProps, ContextContentProps, ContextContentHeaderProps, ContextContentBodyProps, ContextContentFooterProps, ContextInputUsageProps, ContextOutputUsageProps, ContextReasoningUsageProps, ContextCacheUsageProps, ControlsProps, ConversationProps, ConversationContentProps, ConversationEmptyStateProps, ConversationScrollButtonProps, ConversationDownloadProps, EnvironmentVariablesProps, EnvironmentVariablesHeaderProps, EnvironmentVariablesTitleProps, EnvironmentVariablesToggleProps, EnvironmentVariablesContentProps, EnvironmentVariableGroupProps, EnvironmentVariableNameProps, EnvironmentVariableValueProps, EnvironmentVariableProps, EnvironmentVariableCopyButtonProps, EnvironmentVariableRequiredProps, FileTreeProps, FileTreeIconProps, FileTreeNameProps, FileTreeFolderProps, FileTreeFileProps, FileTreeActionsProps, ImageProps, InlineCitationProps, InlineCitationTextProps, InlineCitationCardProps, InlineCitationCardTriggerProps, InlineCitationCardBodyProps, InlineCitationCarouselProps, InlineCitationCarouselContentProps, InlineCitationCarouselItemProps, InlineCitationCarouselHeaderProps, InlineCitationCarouselIndexProps, InlineCitationCarouselPrevProps, InlineCitationCarouselNextProps, InlineCitationSourceProps, InlineCitationQuoteProps, JSXPreviewProps, JSXPreviewContentProps, JSXPreviewErrorProps, MessageProps, MessageContentProps, MessageActionsProps, MessageActionProps, MessageBranchProps, MessageBranchContentProps, MessageBranchSelectorProps, MessageBranchPreviousProps, MessageBranchNextProps, MessageBranchPageProps, MessageResponseProps, MessageToolbarProps, MicSelectorProps, MicSelectorTriggerProps, MicSelectorContentProps, MicSelectorInputProps, MicSelectorListProps, MicSelectorEmptyProps, MicSelectorItemProps, MicSelectorLabelProps, MicSelectorValueProps, ModelSelectorProps, ModelSelectorTriggerProps, ModelSelectorContentProps, ModelSelectorDialogProps, ModelSelectorInputProps, ModelSelectorListProps, ModelSelectorEmptyProps, ModelSelectorGroupProps, ModelSelectorItemProps, ModelSelectorShortcutProps, ModelSelectorSeparatorProps, ModelSelectorLogoProps, ModelSelectorLogoGroupProps, ModelSelectorNameProps, NodeProps, NodeHeaderProps, NodeTitleProps, NodeDescriptionProps, NodeActionProps, NodeContentProps, NodeFooterProps, OpenInProps, OpenInContentProps, OpenInItemProps, OpenInLabelProps, OpenInSeparatorProps, OpenInTriggerProps, OpenInChatGPTProps, OpenInClaudeProps, OpenInT3Props, OpenInSciraProps, OpenInv0Props, OpenInCursorProps, PackageInfoHeaderProps, PackageInfoNameProps, PackageInfoChangeTypeProps, PackageInfoVersionProps, PackageInfoProps, PackageInfoDescriptionProps, PackageInfoContentProps, PackageInfoDependenciesProps, PackageInfoDependencyProps, PersonaState, PlanProps, PlanHeaderProps, PlanTitleProps, PlanDescriptionProps, PlanActionProps, PlanContentProps, PlanFooterProps, PlanTriggerProps, PromptInputProviderProps, PromptInputActionAddAttachmentsProps, PromptInputActionAddScreenshotProps, PromptInputProps, PromptInputBodyProps, PromptInputTextareaProps, PromptInputHeaderProps, PromptInputFooterProps, PromptInputToolsProps, PromptInputButtonTooltip, PromptInputButtonProps, PromptInputActionMenuProps, PromptInputActionMenuTriggerProps, PromptInputActionMenuContentProps, PromptInputActionMenuItemProps, PromptInputSubmitProps, PromptInputSelectProps, PromptInputSelectTriggerProps, PromptInputSelectContentProps, PromptInputSelectItemProps, PromptInputSelectValueProps, PromptInputHoverCardProps, PromptInputHoverCardTriggerProps, PromptInputHoverCardContentProps, PromptInputTabsListProps, PromptInputTabProps, PromptInputTabLabelProps, PromptInputTabBodyProps, PromptInputTabItemProps, PromptInputCommandProps, PromptInputCommandInputProps, PromptInputCommandListProps, PromptInputCommandEmptyProps, PromptInputCommandGroupProps, PromptInputCommandItemProps, PromptInputCommandSeparatorProps, AttachmentsContext, TextInputContext, PromptInputControllerProps, ReferencedSourcesContext, PromptInputMessage, QueueItemProps, QueueItemIndicatorProps, QueueItemContentProps, QueueItemDescriptionProps, QueueItemActionsProps, QueueItemActionProps, QueueItemAttachmentProps, QueueItemImageProps, QueueItemFileProps, QueueListProps, QueueSectionProps, QueueSectionTriggerProps, QueueSectionLabelProps, QueueSectionContentProps, QueueProps, QueueMessagePart, QueueMessage, QueueTodo, ReasoningProps, ReasoningTriggerProps, ReasoningContentProps, SandboxRootProps, SandboxContentProps, SandboxTabsProps, SandboxTabsBarProps, SandboxTabsListProps, SandboxTabsTriggerProps, SandboxTabContentProps, SandboxHeaderProps, SchemaDisplayHeaderProps, SchemaDisplayMethodProps, SchemaDisplayPathProps, SchemaDisplayDescriptionProps, SchemaDisplayContentProps, SchemaDisplayParameterProps, SchemaDisplayParametersProps, SchemaDisplayPropertyProps, SchemaDisplayRequestProps, SchemaDisplayResponseProps, SchemaDisplayProps, SchemaDisplayBodyProps, SchemaDisplayExampleProps, TextShimmerProps, SnippetProps, SnippetAddonProps, SnippetTextProps, SnippetInputProps, SnippetCopyButtonProps, SourcesProps, SourcesTriggerProps, SourcesContentProps, SourceProps, SpeechInputProps, StackTraceProps, StackTraceHeaderProps, StackTraceErrorProps, StackTraceErrorTypeProps, StackTraceErrorMessageProps, StackTraceActionsProps, StackTraceCopyButtonProps, StackTraceExpandButtonProps, StackTraceContentProps, StackTraceFramesProps, SuggestionsProps, SuggestionProps, TaskItemFileProps, TaskItemProps, TaskProps, TaskTriggerProps, TaskContentProps, TerminalHeaderProps, TerminalTitleProps, TerminalStatusProps, TerminalActionsProps, TerminalCopyButtonProps, TerminalClearButtonProps, TerminalContentProps, TerminalProps, TestResultsHeaderProps, TestResultsDurationProps, TestResultsSummaryProps, TestResultsProps, TestResultsProgressProps, TestResultsContentProps, TestSuiteProps, TestSuiteNameProps, TestSuiteStatsProps, TestSuiteContentProps, TestNameProps, TestDurationProps, TestStatusProps, TestProps, TestErrorProps, TestErrorMessageProps, TestErrorStackProps, ToolProps, ToolPart, ToolHeaderProps, ToolContentProps, ToolInputProps, ToolOutputProps, TranscriptionProps, TranscriptionSegmentProps, VoiceSelectorProps, VoiceSelectorTriggerProps, VoiceSelectorContentProps, VoiceSelectorDialogProps, VoiceSelectorInputProps, VoiceSelectorListProps, VoiceSelectorEmptyProps, VoiceSelectorGroupProps, VoiceSelectorItemProps, VoiceSelectorShortcutProps, VoiceSelectorSeparatorProps, VoiceSelectorGenderProps, VoiceSelectorAccentProps, VoiceSelectorAgeProps, VoiceSelectorNameProps, VoiceSelectorDescriptionProps, VoiceSelectorAttributesProps, VoiceSelectorBulletProps, VoiceSelectorPreviewProps, WebPreviewProps, WebPreviewNavigationProps, WebPreviewNavigationButtonProps, WebPreviewUrlProps, WebPreviewBodyProps, WebPreviewConsoleProps, WebPreviewContextValue
+const Page = () => <div data-testid='component-verify' />
 export default Page
 export const dynamic = 'force-dynamic'
+export const allComponents = [
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertAction,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AspectRatio,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarBadge,
+  Badge,
+  badgeVariants,
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+  Button,
+  buttonVariants,
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+  buttonGroupVariants,
+  Calendar,
+  CalendarDayButton,
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  useCarousel,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  Checkbox,
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+  Combobox,
+  ComboboxInput,
+  ComboboxContent,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxGroup,
+  ComboboxLabel,
+  ComboboxCollection,
+  ComboboxEmpty,
+  ComboboxSeparator,
+  ComboboxChips,
+  ComboboxChip,
+  ComboboxChipsInput,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor,
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuGroup,
+  ContextMenuPortal,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuRadioGroup,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  DirectionProvider,
+  useDirection,
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+  DropdownMenu,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  Empty,
+  EmptyHeader,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+  EmptyMedia,
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldContent,
+  FieldTitle,
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputOTPSeparator,
+  Item,
+  ItemMedia,
+  ItemContent,
+  ItemActions,
+  ItemGroup,
+  ItemSeparator,
+  ItemTitle,
+  ItemDescription,
+  ItemHeader,
+  ItemFooter,
+  Kbd,
+  KbdGroup,
+  Label,
+  Menubar,
+  MenubarPortal,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarGroup,
+  MenubarSeparator,
+  MenubarLabel,
+  MenubarItem,
+  MenubarShortcut,
+  MenubarCheckboxItem,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSub,
+  MenubarSubTrigger,
+  MenubarSubContent,
+  NativeSelect,
+  NativeSelectOptGroup,
+  NativeSelectOption,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+  NavigationMenuPositioner,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+  Progress,
+  ProgressTrack,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressValue,
+  RadioGroup,
+  RadioGroupItem,
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+  ScrollArea,
+  ScrollBar,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+  Separator,
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+  Skeleton,
+  Slider,
+  Toaster,
+  Spinner,
+  Switch,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  tabsListVariants,
+  Textarea,
+  Toggle,
+  toggleVariants,
+  ToggleGroup,
+  ToggleGroupItem,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+  Agent,
+  AgentHeader,
+  AgentContent,
+  AgentInstructions,
+  AgentTools,
+  AgentTool,
+  AgentOutput,
+  Artifact,
+  ArtifactHeader,
+  ArtifactClose,
+  ArtifactTitle,
+  ArtifactDescription,
+  ArtifactActions,
+  ArtifactAction,
+  ArtifactContent,
+  getMediaCategory,
+  getAttachmentLabel,
+  useAttachmentsContext,
+  useAttachmentContext,
+  Attachments,
+  Attachment,
+  AttachmentPreview,
+  AttachmentInfo,
+  AttachmentRemove,
+  AttachmentHoverCard,
+  AttachmentHoverCardTrigger,
+  AttachmentHoverCardContent,
+  AttachmentEmpty,
+  AudioPlayer,
+  AudioPlayerElement,
+  AudioPlayerControlBar,
+  AudioPlayerPlayButton,
+  AudioPlayerSeekBackwardButton,
+  AudioPlayerSeekForwardButton,
+  AudioPlayerTimeDisplay,
+  AudioPlayerTimeRange,
+  AudioPlayerDurationDisplay,
+  AudioPlayerMuteButton,
+  AudioPlayerVolumeRange,
+  Canvas,
+  ChainOfThought,
+  ChainOfThoughtHeader,
+  ChainOfThoughtStep,
+  ChainOfThoughtSearchResults,
+  ChainOfThoughtSearchResult,
+  ChainOfThoughtContent,
+  ChainOfThoughtImage,
+  Checkpoint,
+  CheckpointIcon,
+  CheckpointTrigger,
+  highlightCode,
+  CodeBlockContainer,
+  CodeBlockHeader,
+  CodeBlockTitle,
+  CodeBlockFilename,
+  CodeBlockActions,
+  CodeBlockContent,
+  CodeBlock,
+  CodeBlockCopyButton,
+  CodeBlockLanguageSelector,
+  CodeBlockLanguageSelectorTrigger,
+  CodeBlockLanguageSelectorValue,
+  CodeBlockLanguageSelectorContent,
+  CodeBlockLanguageSelectorItem,
+  Commit,
+  CommitHeader,
+  CommitHash,
+  CommitMessage,
+  CommitMetadata,
+  CommitSeparator,
+  CommitInfo,
+  CommitAuthor,
+  CommitAuthorAvatar,
+  CommitTimestamp,
+  CommitActions,
+  CommitCopyButton,
+  CommitContent,
+  CommitFiles,
+  CommitFile,
+  CommitFileInfo,
+  CommitFileStatus,
+  CommitFileIcon,
+  CommitFilePath,
+  CommitFileChanges,
+  CommitFileAdditions,
+  CommitFileDeletions,
+  Confirmation,
+  ConfirmationTitle,
+  ConfirmationRequest,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  ConfirmationActions,
+  ConfirmationAction,
+  Connection,
+  Context,
+  ContextTrigger,
+  ContextContent,
+  ContextContentHeader,
+  ContextContentBody,
+  ContextContentFooter,
+  ContextInputUsage,
+  ContextOutputUsage,
+  ContextReasoningUsage,
+  ContextCacheUsage,
+  Controls,
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+  messagesToMarkdown,
+  ConversationDownload,
+  Edge,
+  EnvironmentVariables,
+  EnvironmentVariablesHeader,
+  EnvironmentVariablesTitle,
+  EnvironmentVariablesToggle,
+  EnvironmentVariablesContent,
+  EnvironmentVariableGroup,
+  EnvironmentVariableName,
+  EnvironmentVariableValue,
+  EnvironmentVariable,
+  EnvironmentVariableCopyButton,
+  EnvironmentVariableRequired,
+  FileTree,
+  FileTreeIcon,
+  FileTreeName,
+  FileTreeFolder,
+  FileTreeFile,
+  FileTreeActions,
+  AiImage,
+  InlineCitation,
+  InlineCitationText,
+  InlineCitationCard,
+  InlineCitationCardTrigger,
+  InlineCitationCardBody,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselItem,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselPrev,
+  InlineCitationCarouselNext,
+  InlineCitationSource,
+  InlineCitationQuote,
+  useJSXPreview,
+  JSXPreview,
+  JSXPreviewContent,
+  JSXPreviewError,
+  Message,
+  MessageContent,
+  MessageActions,
+  MessageAction,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
+  MessageResponse,
+  MessageToolbar,
+  useAudioDevices,
+  MicSelector,
+  MicSelectorTrigger,
+  MicSelectorContent,
+  MicSelectorInput,
+  MicSelectorList,
+  MicSelectorEmpty,
+  MicSelectorItem,
+  MicSelectorLabel,
+  MicSelectorValue,
+  ModelSelector,
+  ModelSelectorTrigger,
+  ModelSelectorContent,
+  ModelSelectorDialog,
+  ModelSelectorInput,
+  ModelSelectorList,
+  ModelSelectorEmpty,
+  ModelSelectorGroup,
+  ModelSelectorItem,
+  ModelSelectorShortcut,
+  ModelSelectorSeparator,
+  ModelSelectorLogo,
+  ModelSelectorLogoGroup,
+  ModelSelectorName,
+  Node,
+  NodeHeader,
+  NodeTitle,
+  NodeDescription,
+  NodeAction,
+  NodeContent,
+  NodeFooter,
+  OpenIn,
+  OpenInContent,
+  OpenInItem,
+  OpenInLabel,
+  OpenInSeparator,
+  OpenInTrigger,
+  OpenInChatGPT,
+  OpenInClaude,
+  OpenInT3,
+  OpenInScira,
+  OpenInv0,
+  OpenInCursor,
+  PackageInfoHeader,
+  PackageInfoName,
+  PackageInfoChangeType,
+  PackageInfoVersion,
+  PackageInfo,
+  PackageInfoDescription,
+  PackageInfoContent,
+  PackageInfoDependencies,
+  PackageInfoDependency,
+  Panel,
+  Persona,
+  Plan,
+  PlanHeader,
+  PlanTitle,
+  PlanDescription,
+  PlanAction,
+  PlanContent,
+  PlanFooter,
+  PlanTrigger,
+  usePromptInputController,
+  useProviderAttachments,
+  PromptInputProvider,
+  usePromptInputAttachments,
+  LocalReferencedSourcesContext,
+  usePromptInputReferencedSources,
+  PromptInputActionAddAttachments,
+  PromptInputActionAddScreenshot,
+  PromptInput,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputHeader,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputButton,
+  PromptInputActionMenu,
+  PromptInputActionMenuTrigger,
+  PromptInputActionMenuContent,
+  PromptInputActionMenuItem,
+  PromptInputSubmit,
+  PromptInputSelect,
+  PromptInputSelectTrigger,
+  PromptInputSelectContent,
+  PromptInputSelectItem,
+  PromptInputSelectValue,
+  PromptInputHoverCard,
+  PromptInputHoverCardTrigger,
+  PromptInputHoverCardContent,
+  PromptInputTabsList,
+  PromptInputTab,
+  PromptInputTabLabel,
+  PromptInputTabBody,
+  PromptInputTabItem,
+  PromptInputCommand,
+  PromptInputCommandInput,
+  PromptInputCommandList,
+  PromptInputCommandEmpty,
+  PromptInputCommandGroup,
+  PromptInputCommandItem,
+  PromptInputCommandSeparator,
+  QueueItem,
+  QueueItemIndicator,
+  QueueItemContent,
+  QueueItemDescription,
+  QueueItemActions,
+  QueueItemAction,
+  QueueItemAttachment,
+  QueueItemImage,
+  QueueItemFile,
+  QueueList,
+  QueueSection,
+  QueueSectionTrigger,
+  QueueSectionLabel,
+  QueueSectionContent,
+  Queue,
+  useReasoning,
+  Reasoning,
+  ReasoningTrigger,
+  ReasoningContent,
+  Sandbox,
+  SandboxHeader,
+  SandboxContent,
+  SandboxTabs,
+  SandboxTabsBar,
+  SandboxTabsList,
+  SandboxTabsTrigger,
+  SandboxTabContent,
+  SchemaDisplayHeader,
+  SchemaDisplayMethod,
+  SchemaDisplayPath,
+  SchemaDisplayDescription,
+  SchemaDisplayContent,
+  SchemaDisplayParameter,
+  SchemaDisplayParameters,
+  SchemaDisplayProperty,
+  SchemaDisplayRequest,
+  SchemaDisplayResponse,
+  SchemaDisplay,
+  SchemaDisplayBody,
+  SchemaDisplayExample,
+  Shimmer,
+  Snippet,
+  SnippetAddon,
+  SnippetText,
+  SnippetInput,
+  SnippetCopyButton,
+  Sources,
+  SourcesTrigger,
+  SourcesContent,
+  Source,
+  SpeechInput,
+  StackTrace,
+  StackTraceHeader,
+  StackTraceError,
+  StackTraceErrorType,
+  StackTraceErrorMessage,
+  StackTraceActions,
+  StackTraceCopyButton,
+  StackTraceExpandButton,
+  StackTraceContent,
+  StackTraceFrames,
+  Suggestions,
+  Suggestion,
+  TaskItemFile,
+  TaskItem,
+  Task,
+  TaskTrigger,
+  TaskContent,
+  TerminalHeader,
+  TerminalTitle,
+  TerminalStatus,
+  TerminalActions,
+  TerminalCopyButton,
+  TerminalClearButton,
+  TerminalContent,
+  Terminal,
+  TestResultsHeader,
+  TestResultsDuration,
+  TestResultsSummary,
+  TestResults,
+  TestResultsProgress,
+  TestResultsContent,
+  TestSuite,
+  TestSuiteName,
+  TestSuiteStats,
+  TestSuiteContent,
+  TestName,
+  TestDuration,
+  TestStatus,
+  Test,
+  TestError,
+  TestErrorMessage,
+  TestErrorStack,
+  Tool,
+  getStatusBadge,
+  ToolHeader,
+  ToolContent,
+  ToolInput,
+  ToolOutput,
+  Toolbar,
+  Transcription,
+  TranscriptionSegment,
+  useVoiceSelector,
+  VoiceSelector,
+  VoiceSelectorTrigger,
+  VoiceSelectorContent,
+  VoiceSelectorDialog,
+  VoiceSelectorInput,
+  VoiceSelectorList,
+  VoiceSelectorEmpty,
+  VoiceSelectorGroup,
+  VoiceSelectorItem,
+  VoiceSelectorShortcut,
+  VoiceSelectorSeparator,
+  VoiceSelectorGender,
+  VoiceSelectorAccent,
+  VoiceSelectorAge,
+  VoiceSelectorName,
+  VoiceSelectorDescription,
+  VoiceSelectorAttributes,
+  VoiceSelectorBullet,
+  VoiceSelectorPreview,
+  WebPreview,
+  WebPreviewNavigation,
+  WebPreviewNavigationButton,
+  WebPreviewUrl,
+  WebPreviewBody,
+  WebPreviewConsole
+] as const

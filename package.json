@@ -3,13 +3,16 @@
   "private": true,
   "scripts": {
     "check": "lintmax check",
-    "clean": "rm -rf .cache node_modules",
+    "clean": "rm -rf .cache node_modules ui/node_modules",
     "fix": "lintmax fix",
-    "sync": "bun sync.ts"
+    "sync": "bun sync.ts",
+    "verify": "cd ui && bun i"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/react": "latest",
     "lintmax": "latest",
+    "react": "latest",
     "typescript": "latest"
   }
 }

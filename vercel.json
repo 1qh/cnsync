@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bun i && mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && next build next",
+  "buildCommand": "bun i && mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && next build",
   "framework": "nextjs",
   "outputDirectory": "next/.next"
 }

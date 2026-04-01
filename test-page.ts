@@ -11,6 +11,9 @@ const browser = await chromium.launch(),
   page = await browser.newPage(),
   errors: string[] = []
 page.on('pageerror', e => errors.push(e.message))
+page.on('console', msg => {
+  if (msg.type() === 'error') errors.push(msg.text())
+})
 await page.goto(`http://localhost:${String(port)}`, { waitUntil: 'networkidle' })
 await page.waitForTimeout(5000)
 await browser.close()

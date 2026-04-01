@@ -1593,8 +1593,8 @@ const hookRefs = [
               </SheetFooter>
             </SheetContent>
           </Sheet>
-          <div className='relative h-96 overflow-hidden rounded-lg border'>
-            <SidebarProvider>
+          <div className='relative flex h-96 overflow-hidden rounded-lg border [&_.fixed]:static [&_.fixed]:h-full [&_.h-svh]:h-full'>
+            <SidebarProvider defaultOpen>
               <Sidebar>
                 <SidebarHeader>
                   <SidebarInput />

@@ -1162,39 +1162,17 @@ import { Toggle, toggleVariants } from '@a/ui/components/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
 import { useId } from 'react'
-const hookCall = (fn: unknown): Record<string, unknown> => {
-    try {
-      return (fn as () => Record<string, unknown>)()
-    } catch {
-      return {}
-    }
-  },
-  /* Wrappers that call hooks inside a component body */
-  HookShowcase = () => {
-    const direction = hookCall(useDirection),
-      jsxPreview = hookCall(useJSXPreview),
-      audioDevices = hookCall(useAudioDevices),
-      reasoning = hookCall(useReasoning),
-      voiceSelector = hookCall(useVoiceSelector),
-      promptInputController = hookCall(usePromptInputController),
-      providerAttachments = hookCall(useProviderAttachments),
-      promptInputAttachments = hookCall(usePromptInputAttachments),
-      promptInputReferencedSources = hookCall(usePromptInputReferencedSources)
-    return (
-      <span
-        data-audio={JSON.stringify(audioDevices)}
-        data-controller={JSON.stringify(promptInputController)}
-        data-direction={JSON.stringify(direction)}
-        data-hooks='true'
-        data-jsx={JSON.stringify(jsxPreview)}
-        data-prompt-attachments={JSON.stringify(promptInputAttachments)}
-        data-prompt-refs={JSON.stringify(promptInputReferencedSources)}
-        data-provider-attachments={JSON.stringify(providerAttachments)}
-        data-reasoning={JSON.stringify(reasoning)}
-        data-voice={JSON.stringify(voiceSelector)}
-      />
-    )
-  },
+const hookRefs = [
+    useDirection,
+    useJSXPreview,
+    useAudioDevices,
+    useReasoning,
+    useVoiceSelector,
+    usePromptInputController,
+    useProviderAttachments,
+    usePromptInputAttachments,
+    usePromptInputReferencedSources
+  ] as const,
   SidebarHookShowcase = () => {
     const sidebar = useSidebar() as unknown as Record<string, unknown>
     return <span data-sidebar-open={JSON.stringify(sidebar)} />
@@ -1551,8 +1529,8 @@ const hookCall = (fn: unknown): Record<string, unknown> => {
                   <NavigationMenuContent>
                     <NavigationMenuLink>Link</NavigationMenuLink>
                   </NavigationMenuContent>
+                  <NavigationMenuIndicator />
                 </NavigationMenuItem>
-                <NavigationMenuIndicator />
               </NavigationMenuList>
               <NavigationMenuPositioner />
             </NavigationMenu>
@@ -2063,7 +2041,7 @@ const hookCall = (fn: unknown): Record<string, unknown> => {
                       <PromptInputCommandSeparator />
                     </PromptInputCommandList>
                   </PromptInputCommand>
-                  <HookShowcase />
+                  <span data-hook-refs={hookRefs.length} />
                 </PromptInput>
               </LocalReferencedSourcesContext>
             </PromptInputProvider>

@@ -64,3 +64,4 @@ const Page = () => (
   </div>
 )
 export default Page
+export const dynamic = 'force-dynamic'

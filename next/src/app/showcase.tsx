@@ -2203,14 +2203,6 @@ const hookRefs = [
               </VoiceSelectorDialog>
             </VoiceSelectorContent>
           </VoiceSelector>
-          <WebPreview>
-            <WebPreviewNavigation>
-              <WebPreviewNavigationButton>Back</WebPreviewNavigationButton>
-              <WebPreviewUrl>https://example.com</WebPreviewUrl>
-            </WebPreviewNavigation>
-            <WebPreviewBody />
-            <WebPreviewConsole />
-          </WebPreview>
         </div>
       </Providers>
     )

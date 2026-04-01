@@ -1232,7 +1232,7 @@ const hookRefs = [
     return (
       <Providers>
         <div
-          className='flex flex-col gap-4 p-4'
+          className='mx-auto flex max-w-3xl flex-col gap-8 p-8'
           data-calendar-day-button={CalendarDayButton.name}
           data-highlight={highlightedCode}
           data-label={attachmentLabel}
@@ -1556,11 +1556,13 @@ const hookRefs = [
           <RadioGroup value='a'>
             <RadioGroupItem value='a' />
           </RadioGroup>
-          <ResizablePanelGroup orientation='horizontal'>
-            <ResizablePanel>A</ResizablePanel>
-            <ResizableHandle />
-            <ResizablePanel>B</ResizablePanel>
-          </ResizablePanelGroup>
+          <div className='h-48 rounded-lg border'>
+            <ResizablePanelGroup orientation='horizontal'>
+              <ResizablePanel>A</ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel>B</ResizablePanel>
+            </ResizablePanelGroup>
+          </div>
           <ScrollArea>
             <ScrollBar />
           </ScrollArea>
@@ -1591,64 +1593,68 @@ const hookRefs = [
               </SheetFooter>
             </SheetContent>
           </Sheet>
-          <SidebarProvider>
-            <Sidebar>
-              <SidebarHeader>
-                <SidebarInput />
-              </SidebarHeader>
-              <SidebarContent>
-                <SidebarGroup>
-                  <SidebarGroupLabel>Label</SidebarGroupLabel>
-                  <SidebarGroupAction>Act</SidebarGroupAction>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton>Btn</SidebarMenuButton>
-                        <SidebarMenuAction>Act</SidebarMenuAction>
-                        <SidebarMenuBadge>1</SidebarMenuBadge>
-                      </SidebarMenuItem>
-                      <SidebarMenuSkeleton />
-                      <SidebarMenuSub>
-                        <SidebarMenuSubItem>
-                          <SidebarMenuSubButton>Sub</SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      </SidebarMenuSub>
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              </SidebarContent>
-              <SidebarFooter>Footer</SidebarFooter>
-              <SidebarRail />
-              <SidebarSeparator />
-            </Sidebar>
-            <SidebarInset>
-              <SidebarTrigger />
-              <SidebarHookShowcase />
-            </SidebarInset>
-          </SidebarProvider>
+          <div className='relative h-96 overflow-hidden rounded-lg border'>
+            <SidebarProvider>
+              <Sidebar>
+                <SidebarHeader>
+                  <SidebarInput />
+                </SidebarHeader>
+                <SidebarContent>
+                  <SidebarGroup>
+                    <SidebarGroupLabel>Label</SidebarGroupLabel>
+                    <SidebarGroupAction>Act</SidebarGroupAction>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton>Btn</SidebarMenuButton>
+                          <SidebarMenuAction>Act</SidebarMenuAction>
+                          <SidebarMenuBadge>1</SidebarMenuBadge>
+                        </SidebarMenuItem>
+                        <SidebarMenuSkeleton />
+                        <SidebarMenuSub>
+                          <SidebarMenuSubItem>
+                            <SidebarMenuSubButton>Sub</SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        </SidebarMenuSub>
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                </SidebarContent>
+                <SidebarFooter>Footer</SidebarFooter>
+                <SidebarRail />
+                <SidebarSeparator />
+              </Sidebar>
+              <SidebarInset>
+                <SidebarTrigger />
+                <SidebarHookShowcase />
+              </SidebarInset>
+            </SidebarProvider>
+          </div>
           <Skeleton />
           <Slider />
           <Toaster />
           <Spinner />
           <Switch />
-          <Table>
-            <TableCaption>Caption</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Head</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>Cell</TableCell>
-              </TableRow>
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell>Foot</TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table>
+          <div className='overflow-hidden rounded-lg border'>
+            <Table>
+              <TableCaption>Caption</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Head</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Cell</TableCell>
+                </TableRow>
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TableCell>Foot</TableCell>
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </div>
           <Tabs defaultValue='a'>
             <TabsList>
               <TabsTrigger value='a'>A</TabsTrigger>
@@ -1712,7 +1718,27 @@ const hookRefs = [
               <AudioPlayerVolumeRange />
             </AudioPlayerControlBar>
           </AudioPlayer>
-          <Canvas />
+          <div className='relative h-64 rounded-lg border'>
+            <Canvas />
+            <Controls />
+            <Panel />
+            <Toolbar />
+            <Connection
+              connectionLineType={'' as never}
+              connectionStatus={'' as never}
+              fromHandle={{} as never}
+              fromNode={{} as never}
+              fromPosition={'' as never}
+              fromX={0}
+              fromY={0}
+              pointer={{} as never}
+              toHandle={{} as never}
+              toNode={{} as never}
+              toPosition={'' as never}
+              toX={100}
+              toY={100}
+            />
+          </div>
           <ChainOfThought>
             <ChainOfThoughtHeader>Thinking</ChainOfThoughtHeader>
             <ChainOfThoughtStep label='Step 1'>
@@ -1788,21 +1814,6 @@ const hookRefs = [
               <ConfirmationAction>OK</ConfirmationAction>
             </ConfirmationActions>
           </Confirmation>
-          <Connection
-            connectionLineType={'' as never}
-            connectionStatus={'' as never}
-            fromHandle={{} as never}
-            fromNode={{} as never}
-            fromPosition={'' as never}
-            fromX={0}
-            fromY={0}
-            pointer={{} as never}
-            toHandle={{} as never}
-            toNode={{} as never}
-            toPosition={'' as never}
-            toX={100}
-            toY={100}
-          />
           <Context maxTokens={4000} usedTokens={200}>
             <ContextTrigger>Usage</ContextTrigger>
             <ContextContent>
@@ -1816,13 +1827,14 @@ const hookRefs = [
               <ContextContentFooter>Footer</ContextContentFooter>
             </ContextContent>
           </Context>
-          <Controls />
-          <Conversation>
-            <ConversationContent>
-              <ConversationEmptyState />
-              <ConversationScrollButton />
-            </ConversationContent>
-          </Conversation>
+          <div className='h-64 overflow-hidden rounded-lg border'>
+            <Conversation>
+              <ConversationContent>
+                <ConversationEmptyState />
+                <ConversationScrollButton />
+              </ConversationContent>
+            </Conversation>
+          </div>
           <ConversationDownload messages={[] as never} />
           <EnvironmentVariables>
             <EnvironmentVariablesHeader>
@@ -1964,7 +1976,6 @@ const hookRefs = [
               </PackageInfoDependencies>
             </PackageInfoContent>
           </PackageInfo>
-          <Panel />
           <Persona state='idle' />
           <Plan>
             <PlanHeader>
@@ -2171,7 +2182,6 @@ const hookRefs = [
               <ToolOutput errorText={undefined} output={{}} />
             </ToolContent>
           </Tool>
-          <Toolbar />
           <Transcription segments={[{ endSecond: 1, startSecond: 0, text: 'Hello' }]}>
             {(segment: { endSecond: number; startSecond: number; text: string }, index: number) => (
               <TranscriptionSegment index={index} key={index} segment={segment} />

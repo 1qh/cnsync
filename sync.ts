@@ -195,7 +195,7 @@ const lineBreakRegex = /\r?\n/u,
     if (violations.length > 0)
       throw new Error(`radix-ui found in components (should use @base-ui/react):\n${violations.join('\n')}`)
   },
-  IMPORT_PREFIX = '@cnsync/ui',
+  IMPORT_PREFIX = '@a/ui',
   UI_PACKAGE: JsonRecord = {
     devDependencies: {
       '@tailwindcss/postcss': 'latest',
@@ -210,7 +210,7 @@ const lineBreakRegex = /\r?\n/u,
       './lib/*': './src/lib/*.ts',
       './postcss.config': './postcss.config.mjs'
     },
-    name: '@cnsync/ui',
+    name: '@a/ui',
     private: true,
     scripts: {
       clean: 'rm -rf .cache .turbo dist node_modules',

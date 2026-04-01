@@ -1,3 +1,4 @@
+/* oxlint-disable eslint-plugin-import/no-unassigned-import */
 import '@a/ui/components/tooltip'
 import '@a/ui/components/toggle-group'
 import '@a/ui/components/toggle'

@@ -1,0 +1,15 @@
+{
+  "name": "cnsync",
+  "private": true,
+  "scripts": {
+    "check": "lintmax check",
+    "clean": "rm -rf .cache node_modules",
+    "fix": "lintmax fix",
+    "sync": "bun sync.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "lintmax": "latest",
+    "typescript": "latest"
+  }
+}

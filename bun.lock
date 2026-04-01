@@ -10,16 +10,19 @@
         "lintmax": "latest",
         "next": "latest",
         "react": "latest",
+        "tailwindcss": "latest",
         "typescript": "latest",
       },
     },
     "next": {
       "name": "next",
       "dependencies": {
-        "@a/ui": "workspace:*",
         "next": "latest",
         "react": "latest",
         "react-dom": "latest",
+      },
+      "devDependencies": {
+        "@types/node": "25.5.0",
       },
     },
     "ui": {

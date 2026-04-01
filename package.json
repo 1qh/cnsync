@@ -19,6 +19,7 @@
     "lintmax": "latest",
     "next": "latest",
     "react": "latest",
+    "tailwindcss": "latest",
     "typescript": "latest"
   }
 }

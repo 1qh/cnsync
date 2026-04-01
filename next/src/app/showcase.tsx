@@ -1162,6 +1162,7 @@ import { Toggle, toggleVariants } from '@a/ui/components/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
 import { useId } from 'react'
+import Providers from './providers'
 const hookRefs = [
     useDirection,
     useJSXPreview,
@@ -1224,997 +1225,1009 @@ const hookRefs = [
   Page = () => {
     const chartId = useId()
     return (
-      <TooltipProvider>
-        <DirectionProvider>
-          <div
-            className='flex flex-col gap-4 p-4'
-            data-calendar-day-button={CalendarDayButton.name}
-            data-highlight={highlightedCode}
-            data-label={attachmentLabel}
-            data-markdown={markdownResult}
-            data-media={mediaCategory}
-            data-testid='component-verify'
-            data-variants={variantClasses}>
-            {statusBadge as ReactNode}
-            <span data-edge-types={Object.keys(edgeTypes).join(',')} />
-            <Accordion>
-              <AccordionItem value='a'>
-                <AccordionTrigger>Accordion</AccordionTrigger>
-                <AccordionContent>Content</AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Alert>
-              <AlertTitle>Alert</AlertTitle>
-              <AlertDescription>Description</AlertDescription>
-              <AlertAction>Action</AlertAction>
-            </Alert>
-            <AlertDialog>
-              <AlertDialogTrigger>Open</AlertDialogTrigger>
-              <AlertDialogPortal>
-                <AlertDialogOverlay />
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Title</AlertDialogTitle>
-                    <AlertDialogDescription>Description</AlertDialogDescription>
-                    <AlertDialogMedia />
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>OK</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialogPortal>
-            </AlertDialog>
-            <AspectRatio ratio={16 / 9}>
-              <span>Aspect</span>
-            </AspectRatio>
-            <AvatarGroup>
-              <Avatar>
-                <AvatarImage src='' />
-                <AvatarFallback>A</AvatarFallback>
-                <AvatarBadge />
-              </Avatar>
-              <AvatarGroupCount />
-            </AvatarGroup>
-            <Badge>Badge</Badge>
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href='/'>Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Current</BreadcrumbPage>
-                </BreadcrumbItem>
-                <BreadcrumbEllipsis />
-              </BreadcrumbList>
-            </Breadcrumb>
-            <Button>Button</Button>
-            <ButtonGroup>
-              <ButtonGroupText>Text</ButtonGroupText>
-              <ButtonGroupSeparator />
-            </ButtonGroup>
-            <Calendar />
-            <Card>
-              <CardHeader>
-                <CardTitle>Title</CardTitle>
-                <CardDescription>Desc</CardDescription>
-                <CardAction>Act</CardAction>
-              </CardHeader>
-              <CardContent>Content</CardContent>
-              <CardFooter>Footer</CardFooter>
-            </Card>
-            <Carousel>
-              <CarouselContent>
-                <CarouselItem>Item</CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-              <CarouselHookShowcase />
-            </Carousel>
-            <ChartContainer config={{}}>
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
-            </ChartContainer>
-            <ChartStyle config={{}} id={chartId} />
-            <Checkbox />
-            <Collapsible>
-              <CollapsibleTrigger>Toggle</CollapsibleTrigger>
-              <CollapsibleContent>Content</CollapsibleContent>
-            </Collapsible>
-            <Combobox>
-              <ComboboxTrigger>
-                <ComboboxValue />
-              </ComboboxTrigger>
-              <ComboboxInput />
-              <ComboboxContent>
-                <ComboboxList>
-                  <ComboboxGroup>
-                    <ComboboxLabel>Label</ComboboxLabel>
-                    <ComboboxItem value='a'>A</ComboboxItem>
-                  </ComboboxGroup>
-                  <ComboboxEmpty>Empty</ComboboxEmpty>
-                  <ComboboxSeparator />
-                </ComboboxList>
-              </ComboboxContent>
-              <ComboboxChips>
-                <ComboboxChip>A</ComboboxChip>
-              </ComboboxChips>
-              <ComboboxChipsInput />
-              <ComboboxCollection>{() => null}</ComboboxCollection>
-              <ComboboxAnchorShowcase />
-            </Combobox>
-            <Command>
-              <CommandInput />
-              <CommandList>
-                <CommandEmpty>Empty</CommandEmpty>
-                <CommandGroup>
-                  <CommandItem>
-                    <CommandShortcut>K</CommandShortcut>
-                  </CommandItem>
-                </CommandGroup>
-                <CommandSeparator />
-              </CommandList>
-            </Command>
-            <CommandDialog open={false}>Commands</CommandDialog>
-            <ContextMenu>
-              <ContextMenuTrigger>Right-click</ContextMenuTrigger>
-              <ContextMenuPortal>
-                <ContextMenuContent>
-                  <ContextMenuGroup>
-                    <ContextMenuLabel>Label</ContextMenuLabel>
-                    <ContextMenuItem>
-                      <ContextMenuShortcut>S</ContextMenuShortcut>
-                    </ContextMenuItem>
-                    <ContextMenuCheckboxItem>Check</ContextMenuCheckboxItem>
-                    <ContextMenuRadioGroup>
-                      <ContextMenuRadioItem value='a'>A</ContextMenuRadioItem>
-                    </ContextMenuRadioGroup>
-                    <ContextMenuSeparator />
-                    <ContextMenuSub>
-                      <ContextMenuSubTrigger>Sub</ContextMenuSubTrigger>
-                      <ContextMenuSubContent>Sub</ContextMenuSubContent>
-                    </ContextMenuSub>
-                  </ContextMenuGroup>
-                </ContextMenuContent>
-              </ContextMenuPortal>
-            </ContextMenu>
-            <Dialog>
-              <DialogTrigger>Open</DialogTrigger>
-              <DialogPortal>
-                <DialogOverlay />
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Title</DialogTitle>
-                    <DialogDescription>Desc</DialogDescription>
-                  </DialogHeader>
-                  <DialogFooter>
-                    <DialogClose>Close</DialogClose>
-                  </DialogFooter>
-                </DialogContent>
-              </DialogPortal>
-            </Dialog>
-            <Drawer>
-              <DrawerTrigger>Open</DrawerTrigger>
-              <DrawerPortal>
-                <DrawerOverlay />
-                <DrawerContent>
-                  <DrawerHeader>
-                    <DrawerTitle>Title</DrawerTitle>
-                    <DrawerDescription>Desc</DrawerDescription>
-                  </DrawerHeader>
-                  <DrawerFooter>
-                    <DrawerClose>Close</DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </DrawerPortal>
-            </Drawer>
-            <DropdownMenu>
-              <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuContent>
-                  <DropdownMenuGroup>
-                    <DropdownMenuLabel>Label</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                      <DropdownMenuShortcut>S</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuCheckboxItem>Check</DropdownMenuCheckboxItem>
-                    <DropdownMenuRadioGroup>
-                      <DropdownMenuRadioItem value='a'>A</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuSub>
-                      <DropdownMenuSubTrigger>Sub</DropdownMenuSubTrigger>
-                      <DropdownMenuSubContent>Sub</DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenuPortal>
-            </DropdownMenu>
-            <Empty>
-              <EmptyHeader>
-                <EmptyMedia />
-                <EmptyTitle>Empty</EmptyTitle>
-                <EmptyDescription>Nothing</EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>Content</EmptyContent>
-            </Empty>
-            <FieldSet>
-              <FieldLegend>Legend</FieldLegend>
-              <FieldTitle>Title</FieldTitle>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel>Label</FieldLabel>
-                  <FieldContent>
-                    <Input />
-                  </FieldContent>
-                  <FieldDescription>Desc</FieldDescription>
-                  <FieldError>Error</FieldError>
-                </Field>
-              </FieldGroup>
-              <FieldSeparator />
-            </FieldSet>
-            <HoverCard>
-              <HoverCardTrigger>Hover</HoverCardTrigger>
-              <HoverCardContent>Content</HoverCardContent>
-            </HoverCard>
-            <InputGroup>
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput />
-              <InputGroupButton>Go</InputGroupButton>
-              <InputGroupText>Text</InputGroupText>
-              <InputGroupTextarea />
-            </InputGroup>
-            <InputOTP maxLength={4}>
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-              </InputOTPGroup>
-              <InputOTPSeparator />
-              <InputOTPGroup>
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-              </InputOTPGroup>
-            </InputOTP>
-            <ItemGroup>
-              <Item>
-                <ItemMedia />
-                <ItemHeader>
-                  <ItemTitle>Title</ItemTitle>
-                  <ItemDescription>Desc</ItemDescription>
-                </ItemHeader>
-                <ItemContent>Content</ItemContent>
-                <ItemActions>Actions</ItemActions>
-                <ItemFooter>Footer</ItemFooter>
-              </Item>
-              <ItemSeparator />
-            </ItemGroup>
-            <KbdGroup>
-              <Kbd>K</Kbd>
-            </KbdGroup>
-            <Label>Label</Label>
-            <Menubar>
-              <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
-                <MenubarPortal>
-                  <MenubarContent>
-                    <MenubarGroup>
-                      <MenubarLabel>Label</MenubarLabel>
-                      <MenubarItem>
-                        <MenubarShortcut>S</MenubarShortcut>
-                      </MenubarItem>
-                      <MenubarCheckboxItem>Check</MenubarCheckboxItem>
-                      <MenubarRadioGroup>
-                        <MenubarRadioItem value='a'>A</MenubarRadioItem>
-                      </MenubarRadioGroup>
-                      <MenubarSeparator />
-                      <MenubarSub>
-                        <MenubarSubTrigger>Sub</MenubarSubTrigger>
-                        <MenubarSubContent>Sub</MenubarSubContent>
-                      </MenubarSub>
-                    </MenubarGroup>
-                  </MenubarContent>
-                </MenubarPortal>
-              </MenubarMenu>
-            </Menubar>
-            <NativeSelect>
-              <NativeSelectOptGroup label='Group'>
-                <NativeSelectOption>Option</NativeSelectOption>
-              </NativeSelectOptGroup>
-            </NativeSelect>
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Nav</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <NavigationMenuLink>Link</NavigationMenuLink>
-                  </NavigationMenuContent>
-                  <NavigationMenuIndicator />
-                </NavigationMenuItem>
-              </NavigationMenuList>
-              <NavigationMenuPositioner />
-            </NavigationMenu>
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href='#' size='default' />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href='#' size='default'>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href='#' size='default' />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-            <Popover>
-              <PopoverTrigger>Open</PopoverTrigger>
-              <PopoverContent>
-                <PopoverHeader>
-                  <PopoverTitle>Title</PopoverTitle>
-                  <PopoverDescription>Desc</PopoverDescription>
-                </PopoverHeader>
-              </PopoverContent>
-            </Popover>
-            <Progress value={50}>
-              <ProgressTrack>
-                <ProgressIndicator />
-              </ProgressTrack>
-              <ProgressLabel>Loading</ProgressLabel>
-              <ProgressValue />
-            </Progress>
-            <RadioGroup value='a'>
-              <RadioGroupItem value='a' />
-            </RadioGroup>
-            <ResizablePanelGroup orientation='horizontal'>
-              <ResizablePanel>A</ResizablePanel>
-              <ResizableHandle />
-              <ResizablePanel>B</ResizablePanel>
-            </ResizablePanelGroup>
-            <ScrollArea>
-              <ScrollBar />
-            </ScrollArea>
-            <Select>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Group</SelectLabel>
-                  <SelectItem value='a'>A</SelectItem>
-                </SelectGroup>
-                <SelectSeparator />
-                <SelectScrollUpButton />
-                <SelectScrollDownButton />
-              </SelectContent>
-            </Select>
-            <Separator />
-            <Sheet>
-              <SheetTrigger>Open</SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Title</SheetTitle>
-                  <SheetDescription>Desc</SheetDescription>
-                </SheetHeader>
-                <SheetFooter>
-                  <SheetClose>Close</SheetClose>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
-            <SidebarProvider>
-              <Sidebar>
-                <SidebarHeader>
-                  <SidebarInput />
-                </SidebarHeader>
-                <SidebarContent>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Label</SidebarGroupLabel>
-                    <SidebarGroupAction>Act</SidebarGroupAction>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton>Btn</SidebarMenuButton>
-                          <SidebarMenuAction>Act</SidebarMenuAction>
-                          <SidebarMenuBadge>1</SidebarMenuBadge>
-                        </SidebarMenuItem>
-                        <SidebarMenuSkeleton />
-                        <SidebarMenuSub>
-                          <SidebarMenuSubItem>
-                            <SidebarMenuSubButton>Sub</SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        </SidebarMenuSub>
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                </SidebarContent>
-                <SidebarFooter>Footer</SidebarFooter>
-                <SidebarRail />
-                <SidebarSeparator />
-              </Sidebar>
-              <SidebarInset>
-                <SidebarTrigger />
-                <SidebarHookShowcase />
-              </SidebarInset>
-            </SidebarProvider>
-            <Skeleton />
-            <Slider />
-            <Toaster />
-            <Spinner />
-            <Switch />
-            <Table>
-              <TableCaption>Caption</TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Head</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Cell</TableCell>
-                </TableRow>
-              </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TableCell>Foot</TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
-            <Tabs defaultValue='a'>
-              <TabsList>
-                <TabsTrigger value='a'>A</TabsTrigger>
-              </TabsList>
-              <TabsContent value='a'>Content</TabsContent>
-            </Tabs>
-            <Textarea />
-            <Toggle>Toggle</Toggle>
-            <ToggleGroup>
-              <ToggleGroupItem value='a'>A</ToggleGroupItem>
-            </ToggleGroup>
-            <Tooltip>
-              <TooltipTrigger>Hover</TooltipTrigger>
-              <TooltipContent>Tip</TooltipContent>
-            </Tooltip>
-            {/* AI Elements */}
-            <Agent>
-              <AgentHeader name='agent'>Agent</AgentHeader>
-              <AgentContent>
-                <AgentInstructions>Instructions</AgentInstructions>
-                <AgentTools>
-                  <AgentTool tool={{ description: 'd', name: 't' } as never} />
-                </AgentTools>
-                <AgentOutput schema='schema' />
-              </AgentContent>
-            </Agent>
-            <Artifact>
-              <ArtifactHeader>
-                <ArtifactClose />
-                <ArtifactTitle>Title</ArtifactTitle>
-                <ArtifactDescription>Desc</ArtifactDescription>
-              </ArtifactHeader>
-              <ArtifactActions>
-                <ArtifactAction>Act</ArtifactAction>
-              </ArtifactActions>
-              <ArtifactContent>Content</ArtifactContent>
-            </Artifact>
-            <Attachments>
-              <Attachment data={{ name: 'f', size: 0, type: 'text/plain', url: '' } as never}>
-                <AttachmentPreview />
-                <AttachmentInfo />
-                <AttachmentRemove />
-                <AttachmentContextShowcase />
-              </Attachment>
-              <AttachmentHoverCard>
-                <AttachmentHoverCardTrigger>Hover</AttachmentHoverCardTrigger>
-                <AttachmentHoverCardContent>Content</AttachmentHoverCardContent>
-              </AttachmentHoverCard>
-              <AttachmentEmpty>Drop files</AttachmentEmpty>
-            </Attachments>
-            <AudioPlayer>
-              <AudioPlayerElement src='' />
-              <AudioPlayerControlBar>
-                <AudioPlayerPlayButton />
-                <AudioPlayerSeekBackwardButton />
-                <AudioPlayerSeekForwardButton />
-                <AudioPlayerTimeDisplay />
-                <AudioPlayerTimeRange />
-                <AudioPlayerDurationDisplay />
-                <AudioPlayerMuteButton />
-                <AudioPlayerVolumeRange />
-              </AudioPlayerControlBar>
-            </AudioPlayer>
-            <Canvas />
-            <ChainOfThought>
-              <ChainOfThoughtHeader>Thinking</ChainOfThoughtHeader>
-              <ChainOfThoughtStep label='Step 1'>
-                <ChainOfThoughtContent>Content</ChainOfThoughtContent>
-                <ChainOfThoughtImage />
-              </ChainOfThoughtStep>
-              <ChainOfThoughtSearchResults>
-                <ChainOfThoughtSearchResult />
-              </ChainOfThoughtSearchResults>
-            </ChainOfThought>
-            <Checkpoint>
-              <CheckpointIcon />
-              <CheckpointTrigger>Trigger</CheckpointTrigger>
-            </Checkpoint>
-            <CodeBlockContainer language='typescript'>
-              <CodeBlockHeader>
-                <CodeBlockTitle>Title</CodeBlockTitle>
-                <CodeBlockFilename>file.ts</CodeBlockFilename>
-                <CodeBlockActions>
-                  <CodeBlockCopyButton />
-                  <CodeBlockLanguageSelector>
-                    <CodeBlockLanguageSelectorTrigger>
-                      <CodeBlockLanguageSelectorValue />
-                    </CodeBlockLanguageSelectorTrigger>
-                    <CodeBlockLanguageSelectorContent>
-                      <CodeBlockLanguageSelectorItem value='ts'>TS</CodeBlockLanguageSelectorItem>
-                    </CodeBlockLanguageSelectorContent>
-                  </CodeBlockLanguageSelector>
-                </CodeBlockActions>
-              </CodeBlockHeader>
-              <CodeBlockContent code='const x = 1' language='typescript' />
-            </CodeBlockContainer>
-            <CodeBlock code='const x = 1' language='typescript' />
-            <Commit>
-              <CommitHeader>
-                <CommitHash>abc123</CommitHash>
-                <CommitMessage>Fix bug</CommitMessage>
-                <CommitMetadata>
-                  <CommitInfo>
-                    <CommitAuthor>
-                      <CommitAuthorAvatar initials='AB' />
-                    </CommitAuthor>
-                    <CommitTimestamp date={new Date('2024-01-01')} />
-                  </CommitInfo>
-                  <CommitSeparator />
-                </CommitMetadata>
-                <CommitActions>
-                  <CommitCopyButton hash='abc123' />
-                </CommitActions>
-              </CommitHeader>
-              <CommitContent>
-                <CommitFiles>
-                  <CommitFile>
-                    <CommitFileInfo>
-                      <CommitFileStatus status='added' />
-                      <CommitFileIcon />
-                      <CommitFilePath>src/a.ts</CommitFilePath>
-                    </CommitFileInfo>
-                    <CommitFileChanges>
-                      <CommitFileAdditions count={10} />
-                      <CommitFileDeletions count={2} />
-                    </CommitFileChanges>
-                  </CommitFile>
-                </CommitFiles>
-              </CommitContent>
-            </Commit>
-            <Confirmation state='approval-requested'>
-              <ConfirmationTitle>Confirm?</ConfirmationTitle>
-              <ConfirmationRequest>Do this?</ConfirmationRequest>
-              <ConfirmationAccepted>Yes</ConfirmationAccepted>
-              <ConfirmationRejected>No</ConfirmationRejected>
-              <ConfirmationActions>
-                <ConfirmationAction>OK</ConfirmationAction>
-              </ConfirmationActions>
-            </Confirmation>
-            <span data-connection={Connection.name} />
-            <Context maxTokens={4000} usedTokens={200}>
-              <ContextTrigger>Usage</ContextTrigger>
-              <ContextContent>
-                <ContextContentHeader>Header</ContextContentHeader>
-                <ContextContentBody>
-                  <ContextInputUsage />
-                  <ContextOutputUsage />
-                  <ContextReasoningUsage />
-                  <ContextCacheUsage />
-                </ContextContentBody>
-                <ContextContentFooter>Footer</ContextContentFooter>
-              </ContextContent>
-            </Context>
-            <Controls />
-            <Conversation>
-              <ConversationContent>
-                <ConversationEmptyState />
-                <ConversationScrollButton />
-              </ConversationContent>
-            </Conversation>
-            <ConversationDownload messages={[] as never} />
-            <EnvironmentVariables>
-              <EnvironmentVariablesHeader>
-                <EnvironmentVariablesTitle>Env Vars</EnvironmentVariablesTitle>
-                <EnvironmentVariablesToggle />
-              </EnvironmentVariablesHeader>
-              <EnvironmentVariablesContent>
-                <EnvironmentVariableGroup>
-                  <EnvironmentVariable name='KEY' value='VAL'>
-                    <EnvironmentVariableName>KEY</EnvironmentVariableName>
-                    <EnvironmentVariableValue>VAL</EnvironmentVariableValue>
-                    <EnvironmentVariableCopyButton />
-                    <EnvironmentVariableRequired />
-                  </EnvironmentVariable>
-                </EnvironmentVariableGroup>
-              </EnvironmentVariablesContent>
-            </EnvironmentVariables>
-            <FileTree>
-              <FileTreeFolder name='src' path='src'>
-                <FileTreeIcon />
-                <FileTreeName>src</FileTreeName>
-                <FileTreeFile name='a.ts' path='src/a.ts' />
-                <FileTreeActions>Actions</FileTreeActions>
-              </FileTreeFolder>
-            </FileTree>
-            <AiImage base64='' mediaType='image/png' uint8Array={new Uint8Array()} />
-            <InlineCitation>
-              <InlineCitationText>Text</InlineCitationText>
-              <InlineCitationCard>
-                <InlineCitationCardTrigger sources={['http://example.com']}>T</InlineCitationCardTrigger>
-                <InlineCitationCardBody>Body</InlineCitationCardBody>
-              </InlineCitationCard>
-              <InlineCitationCarousel>
-                <InlineCitationCarouselHeader>Header</InlineCitationCarouselHeader>
-                <InlineCitationCarouselContent>
-                  <InlineCitationCarouselItem>Item</InlineCitationCarouselItem>
-                </InlineCitationCarouselContent>
-                <InlineCitationCarouselIndex />
-                <InlineCitationCarouselPrev />
-                <InlineCitationCarouselNext />
-              </InlineCitationCarousel>
-              <InlineCitationSource url='http://example.com' />
-              <InlineCitationQuote>Quote</InlineCitationQuote>
-            </InlineCitation>
-            <JSXPreview jsx='<div>Preview</div>'>
-              <JSXPreviewContent />
-              <JSXPreviewError>Error</JSXPreviewError>
-            </JSXPreview>
-            <Message from='user'>
-              <MessageContent>Hello</MessageContent>
-              <MessageActions>
-                <MessageAction>Copy</MessageAction>
-              </MessageActions>
-              <MessageBranch>
-                <MessageBranchContent>Branch</MessageBranchContent>
-                <MessageBranchSelector>
-                  <MessageBranchPrevious />
-                  <MessageBranchPage />
-                  <MessageBranchNext />
-                </MessageBranchSelector>
-              </MessageBranch>
-              <MessageResponse>Response</MessageResponse>
-              <MessageToolbar>Toolbar</MessageToolbar>
-            </Message>
-            <MicSelector>
-              <MicSelectorTrigger>Mic</MicSelectorTrigger>
-              <MicSelectorContent>
-                <MicSelectorInput />
-                <MicSelectorList>
-                  {(devices: MediaDeviceInfo[]) => (
-                    <>
-                      <MicSelectorEmpty>No mics</MicSelectorEmpty>
-                      {devices.map(d => (
-                        <MicSelectorItem key={d.deviceId}>
-                          <MicSelectorLabel device={d} />
-                        </MicSelectorItem>
-                      ))}
-                    </>
-                  )}
-                </MicSelectorList>
-              </MicSelectorContent>
-              <MicSelectorValue />
-            </MicSelector>
-            <ModelSelector>
-              <ModelSelectorTrigger>Model</ModelSelectorTrigger>
-              <ModelSelectorContent>
-                <ModelSelectorDialog>
-                  <ModelSelectorInput />
-                  <ModelSelectorList>
-                    <ModelSelectorEmpty>None</ModelSelectorEmpty>
-                    <ModelSelectorGroup>
-                      <ModelSelectorItem value='gpt-4'>
-                        <ModelSelectorLogo provider='openai' />
-                        <ModelSelectorLogoGroup>
-                          <ModelSelectorName>GPT-4</ModelSelectorName>
-                        </ModelSelectorLogoGroup>
-                        <ModelSelectorShortcut>4</ModelSelectorShortcut>
-                      </ModelSelectorItem>
-                    </ModelSelectorGroup>
-                    <ModelSelectorSeparator />
-                  </ModelSelectorList>
-                </ModelSelectorDialog>
-              </ModelSelectorContent>
-            </ModelSelector>
-            <Node handles={{ source: true, target: true }}>
-              <NodeHeader>
-                <NodeTitle>Node</NodeTitle>
-                <NodeDescription>Desc</NodeDescription>
-                <NodeAction>Act</NodeAction>
-              </NodeHeader>
-              <NodeContent>Content</NodeContent>
-              <NodeFooter>Footer</NodeFooter>
-            </Node>
-            <OpenIn query='test'>
-              <OpenInTrigger>Open In</OpenInTrigger>
-              <OpenInContent>
-                <OpenInItem>
-                  <OpenInLabel>Label</OpenInLabel>
-                </OpenInItem>
-                <OpenInSeparator />
-                <OpenInChatGPT />
-                <OpenInClaude />
-                <OpenInT3 />
-                <OpenInScira />
-                <OpenInv0 />
-                <OpenInCursor />
-              </OpenInContent>
-            </OpenIn>
-            <PackageInfo name='pkg'>
-              <PackageInfoHeader>
-                <PackageInfoName>pkg</PackageInfoName>
-                <PackageInfoChangeType />
-                <PackageInfoVersion>1.0</PackageInfoVersion>
-              </PackageInfoHeader>
-              <PackageInfoDescription>A package</PackageInfoDescription>
-              <PackageInfoContent>
-                <PackageInfoDependencies>
-                  <PackageInfoDependency name='dep' />
-                </PackageInfoDependencies>
-              </PackageInfoContent>
-            </PackageInfo>
-            <Panel />
-            <Persona state='idle' />
-            <Plan>
-              <PlanHeader>
-                <PlanTitle>Plan</PlanTitle>
-                <PlanDescription>Description</PlanDescription>
-                <PlanAction>Action</PlanAction>
-              </PlanHeader>
-              <PlanContent>Content</PlanContent>
-              <PlanFooter>Footer</PlanFooter>
-              <PlanTrigger>Trigger</PlanTrigger>
-            </Plan>
-            <PromptInputProvider>
-              <LocalReferencedSourcesContext value={null}>
-                <PromptInput onSubmit={() => undefined}>
-                  <PromptInputHeader>Header</PromptInputHeader>
-                  <PromptInputBody>
-                    <PromptInputTextarea />
-                    <PromptInputTools>Tools</PromptInputTools>
-                  </PromptInputBody>
-                  <PromptInputFooter>
-                    <PromptInputButton tooltip='Tip'>Btn</PromptInputButton>
-                    <PromptInputActionMenu>
-                      <PromptInputActionMenuTrigger>Menu</PromptInputActionMenuTrigger>
-                      <PromptInputActionMenuContent>
-                        <PromptInputActionMenuItem>Item</PromptInputActionMenuItem>
-                      </PromptInputActionMenuContent>
-                    </PromptInputActionMenu>
-                    <PromptInputActionAddAttachments />
-                    <PromptInputActionAddScreenshot />
-                    <PromptInputSubmit>Send</PromptInputSubmit>
-                    <PromptInputSelect>
-                      <PromptInputSelectTrigger>
-                        <PromptInputSelectValue />
-                      </PromptInputSelectTrigger>
-                      <PromptInputSelectContent>
-                        <PromptInputSelectItem value='a'>A</PromptInputSelectItem>
-                      </PromptInputSelectContent>
-                    </PromptInputSelect>
-                    <PromptInputHoverCard>
-                      <PromptInputHoverCardTrigger>Info</PromptInputHoverCardTrigger>
-                      <PromptInputHoverCardContent>Details</PromptInputHoverCardContent>
-                    </PromptInputHoverCard>
-                  </PromptInputFooter>
-                  <PromptInputTabsList>
-                    <PromptInputTab>
-                      <PromptInputTabLabel>Tab</PromptInputTabLabel>
-                      <PromptInputTabBody>
-                        <PromptInputTabItem>Item</PromptInputTabItem>
-                      </PromptInputTabBody>
-                    </PromptInputTab>
-                  </PromptInputTabsList>
-                  <PromptInputCommand>
-                    <PromptInputCommandInput />
-                    <PromptInputCommandList>
-                      <PromptInputCommandEmpty>Empty</PromptInputCommandEmpty>
-                      <PromptInputCommandGroup>
-                        <PromptInputCommandItem>Item</PromptInputCommandItem>
-                      </PromptInputCommandGroup>
-                      <PromptInputCommandSeparator />
-                    </PromptInputCommandList>
-                  </PromptInputCommand>
-                  <span data-hook-refs={hookRefs.length} />
-                </PromptInput>
-              </LocalReferencedSourcesContext>
-            </PromptInputProvider>
-            <Queue>
-              <QueueList>
-                <QueueSection>
-                  <QueueSectionTrigger>Section</QueueSectionTrigger>
-                  <QueueSectionLabel count={1} label='Label' />
-                  <QueueSectionContent>
-                    <QueueItem>
-                      <QueueItemIndicator />
-                      <QueueItemContent>
-                        <QueueItemDescription>Desc</QueueItemDescription>
-                      </QueueItemContent>
-                      <QueueItemActions>
-                        <QueueItemAction>Act</QueueItemAction>
-                      </QueueItemActions>
-                      <QueueItemAttachment>
-                        <QueueItemImage />
-                        <QueueItemFile />
-                      </QueueItemAttachment>
-                    </QueueItem>
-                  </QueueSectionContent>
-                </QueueSection>
-              </QueueList>
-            </Queue>
-            <Reasoning>
-              <ReasoningTrigger>Thinking...</ReasoningTrigger>
-              <ReasoningContent>Reasoning content</ReasoningContent>
-            </Reasoning>
-            <Sandbox>
-              <SandboxHeader state='output-available' />
-              <SandboxContent>
-                <SandboxTabs>
-                  <SandboxTabsBar>
-                    <SandboxTabsList>
-                      <SandboxTabsTrigger value='preview'>Preview</SandboxTabsTrigger>
-                    </SandboxTabsList>
-                  </SandboxTabsBar>
-                  <SandboxTabContent value='preview'>Content</SandboxTabContent>
-                </SandboxTabs>
-              </SandboxContent>
-            </Sandbox>
-            <SchemaDisplay method='GET' path='/api/test'>
-              <SchemaDisplayHeader>
-                <SchemaDisplayMethod>GET</SchemaDisplayMethod>
-                <SchemaDisplayPath>/api/test</SchemaDisplayPath>
-                <SchemaDisplayDescription>Desc</SchemaDisplayDescription>
-              </SchemaDisplayHeader>
-              <SchemaDisplayBody>
-                <SchemaDisplayContent>
-                  <SchemaDisplayParameters>
-                    <SchemaDisplayParameter name='id' type='string' />
-                  </SchemaDisplayParameters>
-                  <SchemaDisplayRequest>
-                    <SchemaDisplayProperty name='body' type='object' />
-                  </SchemaDisplayRequest>
-                  <SchemaDisplayResponse>Response</SchemaDisplayResponse>
-                </SchemaDisplayContent>
-                <SchemaDisplayExample>Example</SchemaDisplayExample>
-              </SchemaDisplayBody>
-            </SchemaDisplay>
-            <Shimmer>Loading...</Shimmer>
-            <Snippet code='npm install'>
-              <SnippetAddon>$</SnippetAddon>
-              <SnippetText>npm install</SnippetText>
-              <SnippetInput />
-              <SnippetCopyButton />
-            </Snippet>
-            <Sources>
-              <SourcesTrigger count={1}>Sources</SourcesTrigger>
-              <SourcesContent>
-                <Source />
-              </SourcesContent>
-            </Sources>
-            <SpeechInput />
-            <StackTrace trace='Error: Something\n  at foo (file.ts:1:1)'>
-              <StackTraceHeader>
-                <StackTraceError>
-                  <StackTraceErrorType>Error</StackTraceErrorType>
-                  <StackTraceErrorMessage>Something</StackTraceErrorMessage>
-                </StackTraceError>
-                <StackTraceActions>
-                  <StackTraceCopyButton />
-                  <StackTraceExpandButton />
-                </StackTraceActions>
-              </StackTraceHeader>
-              <StackTraceContent>
-                <StackTraceFrames />
-              </StackTraceContent>
-            </StackTrace>
-            <Suggestions>
-              <Suggestion suggestion='Try this' />
-            </Suggestions>
-            <Task>
-              <TaskTrigger title='Task'>Open</TaskTrigger>
-              <TaskContent>
-                <TaskItem>
-                  <TaskItemFile>file.ts</TaskItemFile>
-                </TaskItem>
-              </TaskContent>
-            </Task>
-            <Terminal output='$ echo hello'>
-              <TerminalHeader>
-                <TerminalTitle>Terminal</TerminalTitle>
-                <TerminalStatus />
-                <TerminalActions>
-                  <TerminalCopyButton />
-                  <TerminalClearButton />
-                </TerminalActions>
-              </TerminalHeader>
-              <TerminalContent>output</TerminalContent>
-            </Terminal>
-            <TestResults>
-              <TestResultsHeader>
-                <TestResultsDuration>1.2s</TestResultsDuration>
-                <TestResultsSummary>Summary</TestResultsSummary>
-              </TestResultsHeader>
-              <TestResultsProgress />
-              <TestResultsContent>
-                <TestSuite name='suite' status='passed'>
-                  <TestSuiteName>Suite</TestSuiteName>
-                  <TestSuiteStats>Stats</TestSuiteStats>
-                  <TestSuiteContent>
-                    <Test name='test' status='passed'>
-                      <TestName>Test</TestName>
-                      <TestDuration>100ms</TestDuration>
-                      <TestStatus />
-                      <TestError>
-                        <TestErrorMessage>Error</TestErrorMessage>
-                        <TestErrorStack>Stack</TestErrorStack>
-                      </TestError>
-                    </Test>
-                  </TestSuiteContent>
-                </TestSuite>
-              </TestResultsContent>
-            </TestResults>
-            <Tool>
-              <ToolHeader state='output-available' type='tool-tool' />
-              <ToolContent>
-                <ToolInput input={{}} />
-                <ToolOutput errorText={undefined} output={{}} />
-              </ToolContent>
-            </Tool>
-            <Toolbar />
-            <Transcription segments={[{ endSecond: 1, startSecond: 0, text: 'Hello' }]}>
-              {(segment: { endSecond: number; startSecond: number; text: string }, index: number) => (
-                <TranscriptionSegment index={index} key={index} segment={segment} />
-              )}
-            </Transcription>
-            <VoiceSelector>
-              <VoiceSelectorTrigger>Voice</VoiceSelectorTrigger>
-              <VoiceSelectorContent>
-                <VoiceSelectorDialog>
-                  <VoiceSelectorInput />
-                  <VoiceSelectorList>
-                    <VoiceSelectorEmpty>None</VoiceSelectorEmpty>
-                    <VoiceSelectorGroup>
-                      <VoiceSelectorItem value='voice-1'>
-                        <VoiceSelectorName>Voice</VoiceSelectorName>
-                        <VoiceSelectorDescription>Desc</VoiceSelectorDescription>
-                        <VoiceSelectorAttributes>
-                          <VoiceSelectorGender>Female</VoiceSelectorGender>
-                          <VoiceSelectorAccent>US</VoiceSelectorAccent>
-                          <VoiceSelectorAge>Adult</VoiceSelectorAge>
-                          <VoiceSelectorBullet />
-                        </VoiceSelectorAttributes>
-                        <VoiceSelectorPreview />
-                        <VoiceSelectorShortcut>1</VoiceSelectorShortcut>
-                      </VoiceSelectorItem>
-                    </VoiceSelectorGroup>
-                    <VoiceSelectorSeparator />
-                  </VoiceSelectorList>
-                </VoiceSelectorDialog>
-              </VoiceSelectorContent>
-            </VoiceSelector>
-            <WebPreview>
-              <WebPreviewNavigation>
-                <WebPreviewNavigationButton>Back</WebPreviewNavigationButton>
-                <WebPreviewUrl>https://example.com</WebPreviewUrl>
-              </WebPreviewNavigation>
-              <WebPreviewBody />
-              <WebPreviewConsole />
-            </WebPreview>
-          </div>
-        </DirectionProvider>
-      </TooltipProvider>
+      <Providers>
+        <div
+          className='flex flex-col gap-4 p-4'
+          data-calendar-day-button={CalendarDayButton.name}
+          data-highlight={highlightedCode}
+          data-label={attachmentLabel}
+          data-markdown={markdownResult}
+          data-media={mediaCategory}
+          data-testid='component-verify'
+          data-variants={variantClasses}>
+          {statusBadge as ReactNode}
+          <span data-edge-types={Object.keys(edgeTypes).join(',')} />
+          <Accordion>
+            <AccordionItem value='a'>
+              <AccordionTrigger>Accordion</AccordionTrigger>
+              <AccordionContent>Content</AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Alert>
+            <AlertTitle>Alert</AlertTitle>
+            <AlertDescription>Description</AlertDescription>
+            <AlertAction>Action</AlertAction>
+          </Alert>
+          <AlertDialog>
+            <AlertDialogTrigger>Open</AlertDialogTrigger>
+            <AlertDialogPortal>
+              <AlertDialogOverlay />
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Title</AlertDialogTitle>
+                  <AlertDialogDescription>Description</AlertDialogDescription>
+                  <AlertDialogMedia />
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>OK</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogPortal>
+          </AlertDialog>
+          <AspectRatio ratio={16 / 9}>
+            <span>Aspect</span>
+          </AspectRatio>
+          <AvatarGroup>
+            <Avatar>
+              <AvatarImage src='' />
+              <AvatarFallback>A</AvatarFallback>
+              <AvatarBadge />
+            </Avatar>
+            <AvatarGroupCount />
+          </AvatarGroup>
+          <Badge>Badge</Badge>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Current</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbEllipsis />
+            </BreadcrumbList>
+          </Breadcrumb>
+          <Button>Button</Button>
+          <ButtonGroup>
+            <ButtonGroupText>Text</ButtonGroupText>
+            <ButtonGroupSeparator />
+          </ButtonGroup>
+          <Calendar />
+          <Card>
+            <CardHeader>
+              <CardTitle>Title</CardTitle>
+              <CardDescription>Desc</CardDescription>
+              <CardAction>Act</CardAction>
+            </CardHeader>
+            <CardContent>Content</CardContent>
+            <CardFooter>Footer</CardFooter>
+          </Card>
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>Item</CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+            <CarouselHookShowcase />
+          </Carousel>
+          <ChartContainer config={{}}>
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+          </ChartContainer>
+          <ChartStyle config={{}} id={chartId} />
+          <Checkbox />
+          <Collapsible>
+            <CollapsibleTrigger>Toggle</CollapsibleTrigger>
+            <CollapsibleContent>Content</CollapsibleContent>
+          </Collapsible>
+          <Combobox>
+            <ComboboxTrigger>
+              <ComboboxValue />
+            </ComboboxTrigger>
+            <ComboboxInput />
+            <ComboboxContent>
+              <ComboboxList>
+                <ComboboxGroup>
+                  <ComboboxLabel>Label</ComboboxLabel>
+                  <ComboboxItem value='a'>A</ComboboxItem>
+                </ComboboxGroup>
+                <ComboboxEmpty>Empty</ComboboxEmpty>
+                <ComboboxSeparator />
+              </ComboboxList>
+            </ComboboxContent>
+            <ComboboxChips>
+              <ComboboxChip>A</ComboboxChip>
+            </ComboboxChips>
+            <ComboboxChipsInput />
+            <ComboboxCollection>{() => null}</ComboboxCollection>
+            <ComboboxAnchorShowcase />
+          </Combobox>
+          <Command>
+            <CommandInput />
+            <CommandList>
+              <CommandEmpty>Empty</CommandEmpty>
+              <CommandGroup>
+                <CommandItem>
+                  <CommandShortcut>K</CommandShortcut>
+                </CommandItem>
+              </CommandGroup>
+              <CommandSeparator />
+            </CommandList>
+          </Command>
+          <CommandDialog open={false}>Commands</CommandDialog>
+          <ContextMenu>
+            <ContextMenuTrigger>Right-click</ContextMenuTrigger>
+            <ContextMenuPortal>
+              <ContextMenuContent>
+                <ContextMenuGroup>
+                  <ContextMenuLabel>Label</ContextMenuLabel>
+                  <ContextMenuItem>
+                    <ContextMenuShortcut>S</ContextMenuShortcut>
+                  </ContextMenuItem>
+                  <ContextMenuCheckboxItem>Check</ContextMenuCheckboxItem>
+                  <ContextMenuRadioGroup>
+                    <ContextMenuRadioItem value='a'>A</ContextMenuRadioItem>
+                  </ContextMenuRadioGroup>
+                  <ContextMenuSeparator />
+                  <ContextMenuSub>
+                    <ContextMenuSubTrigger>Sub</ContextMenuSubTrigger>
+                    <ContextMenuSubContent>Sub</ContextMenuSubContent>
+                  </ContextMenuSub>
+                </ContextMenuGroup>
+              </ContextMenuContent>
+            </ContextMenuPortal>
+          </ContextMenu>
+          <Dialog>
+            <DialogTrigger>Open</DialogTrigger>
+            <DialogPortal>
+              <DialogOverlay />
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Title</DialogTitle>
+                  <DialogDescription>Desc</DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose>Close</DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </DialogPortal>
+          </Dialog>
+          <Drawer>
+            <DrawerTrigger>Open</DrawerTrigger>
+            <DrawerPortal>
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Title</DrawerTitle>
+                  <DrawerDescription>Desc</DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter>
+                  <DrawerClose>Close</DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </DrawerPortal>
+          </Drawer>
+          <DropdownMenu>
+            <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>Label</DropdownMenuLabel>
+                  <DropdownMenuItem>
+                    <DropdownMenuShortcut>S</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuCheckboxItem>Check</DropdownMenuCheckboxItem>
+                  <DropdownMenuRadioGroup>
+                    <DropdownMenuRadioItem value='a'>A</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>Sub</DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>Sub</DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenuPortal>
+          </DropdownMenu>
+          <Empty>
+            <EmptyHeader>
+              <EmptyMedia />
+              <EmptyTitle>Empty</EmptyTitle>
+              <EmptyDescription>Nothing</EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent>Content</EmptyContent>
+          </Empty>
+          <FieldSet>
+            <FieldLegend>Legend</FieldLegend>
+            <FieldTitle>Title</FieldTitle>
+            <FieldGroup>
+              <Field>
+                <FieldLabel>Label</FieldLabel>
+                <FieldContent>
+                  <Input />
+                </FieldContent>
+                <FieldDescription>Desc</FieldDescription>
+                <FieldError>Error</FieldError>
+              </Field>
+            </FieldGroup>
+            <FieldSeparator />
+          </FieldSet>
+          <HoverCard>
+            <HoverCardTrigger>Hover</HoverCardTrigger>
+            <HoverCardContent>Content</HoverCardContent>
+          </HoverCard>
+          <InputGroup>
+            <InputGroupAddon>@</InputGroupAddon>
+            <InputGroupInput />
+            <InputGroupButton>Go</InputGroupButton>
+            <InputGroupText>Text</InputGroupText>
+            <InputGroupTextarea />
+          </InputGroup>
+          <InputOTP maxLength={4}>
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={2} />
+              <InputOTPSlot index={3} />
+            </InputOTPGroup>
+          </InputOTP>
+          <ItemGroup>
+            <Item>
+              <ItemMedia />
+              <ItemHeader>
+                <ItemTitle>Title</ItemTitle>
+                <ItemDescription>Desc</ItemDescription>
+              </ItemHeader>
+              <ItemContent>Content</ItemContent>
+              <ItemActions>Actions</ItemActions>
+              <ItemFooter>Footer</ItemFooter>
+            </Item>
+            <ItemSeparator />
+          </ItemGroup>
+          <KbdGroup>
+            <Kbd>K</Kbd>
+          </KbdGroup>
+          <Label>Label</Label>
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>File</MenubarTrigger>
+              <MenubarPortal>
+                <MenubarContent>
+                  <MenubarGroup>
+                    <MenubarLabel>Label</MenubarLabel>
+                    <MenubarItem>
+                      <MenubarShortcut>S</MenubarShortcut>
+                    </MenubarItem>
+                    <MenubarCheckboxItem>Check</MenubarCheckboxItem>
+                    <MenubarRadioGroup>
+                      <MenubarRadioItem value='a'>A</MenubarRadioItem>
+                    </MenubarRadioGroup>
+                    <MenubarSeparator />
+                    <MenubarSub>
+                      <MenubarSubTrigger>Sub</MenubarSubTrigger>
+                      <MenubarSubContent>Sub</MenubarSubContent>
+                    </MenubarSub>
+                  </MenubarGroup>
+                </MenubarContent>
+              </MenubarPortal>
+            </MenubarMenu>
+          </Menubar>
+          <NativeSelect>
+            <NativeSelectOptGroup label='Group'>
+              <NativeSelectOption>Option</NativeSelectOption>
+            </NativeSelectOptGroup>
+          </NativeSelect>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Nav</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenuLink>Link</NavigationMenuLink>
+                </NavigationMenuContent>
+                <NavigationMenuIndicator />
+              </NavigationMenuItem>
+            </NavigationMenuList>
+            <NavigationMenuPositioner />
+          </NavigationMenu>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href='#' size='default' />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href='#' size='default'>
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href='#' size='default' />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+          <Popover>
+            <PopoverTrigger>Open</PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Title</PopoverTitle>
+                <PopoverDescription>Desc</PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+          <Progress value={50}>
+            <ProgressTrack>
+              <ProgressIndicator />
+            </ProgressTrack>
+            <ProgressLabel>Loading</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+          <RadioGroup value='a'>
+            <RadioGroupItem value='a' />
+          </RadioGroup>
+          <ResizablePanelGroup orientation='horizontal'>
+            <ResizablePanel>A</ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel>B</ResizablePanel>
+          </ResizablePanelGroup>
+          <ScrollArea>
+            <ScrollBar />
+          </ScrollArea>
+          <Select>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Group</SelectLabel>
+                <SelectItem value='a'>A</SelectItem>
+              </SelectGroup>
+              <SelectSeparator />
+              <SelectScrollUpButton />
+              <SelectScrollDownButton />
+            </SelectContent>
+          </Select>
+          <Separator />
+          <Sheet>
+            <SheetTrigger>Open</SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Title</SheetTitle>
+                <SheetDescription>Desc</SheetDescription>
+              </SheetHeader>
+              <SheetFooter>
+                <SheetClose>Close</SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+          <SidebarProvider>
+            <Sidebar>
+              <SidebarHeader>
+                <SidebarInput />
+              </SidebarHeader>
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Label</SidebarGroupLabel>
+                  <SidebarGroupAction>Act</SidebarGroupAction>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>Btn</SidebarMenuButton>
+                        <SidebarMenuAction>Act</SidebarMenuAction>
+                        <SidebarMenuBadge>1</SidebarMenuBadge>
+                      </SidebarMenuItem>
+                      <SidebarMenuSkeleton />
+                      <SidebarMenuSub>
+                        <SidebarMenuSubItem>
+                          <SidebarMenuSubButton>Sub</SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      </SidebarMenuSub>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+              <SidebarFooter>Footer</SidebarFooter>
+              <SidebarRail />
+              <SidebarSeparator />
+            </Sidebar>
+            <SidebarInset>
+              <SidebarTrigger />
+              <SidebarHookShowcase />
+            </SidebarInset>
+          </SidebarProvider>
+          <Skeleton />
+          <Slider />
+          <Toaster />
+          <Spinner />
+          <Switch />
+          <Table>
+            <TableCaption>Caption</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Head</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Cell</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Foot</TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+          <Tabs defaultValue='a'>
+            <TabsList>
+              <TabsTrigger value='a'>A</TabsTrigger>
+            </TabsList>
+            <TabsContent value='a'>Content</TabsContent>
+          </Tabs>
+          <Textarea />
+          <Toggle>Toggle</Toggle>
+          <ToggleGroup>
+            <ToggleGroupItem value='a'>A</ToggleGroupItem>
+          </ToggleGroup>
+          <Tooltip>
+            <TooltipTrigger>Hover</TooltipTrigger>
+            <TooltipContent>Tip</TooltipContent>
+          </Tooltip>
+          {/* AI Elements */}
+          <Agent>
+            <AgentHeader name='agent'>Agent</AgentHeader>
+            <AgentContent>
+              <AgentInstructions>Instructions</AgentInstructions>
+              <AgentTools>
+                <AgentTool tool={{ description: 'd', name: 't' } as never} />
+              </AgentTools>
+              <AgentOutput schema='schema' />
+            </AgentContent>
+          </Agent>
+          <Artifact>
+            <ArtifactHeader>
+              <ArtifactClose />
+              <ArtifactTitle>Title</ArtifactTitle>
+              <ArtifactDescription>Desc</ArtifactDescription>
+            </ArtifactHeader>
+            <ArtifactActions>
+              <ArtifactAction>Act</ArtifactAction>
+            </ArtifactActions>
+            <ArtifactContent>Content</ArtifactContent>
+          </Artifact>
+          <Attachments>
+            <Attachment data={{ name: 'f', size: 0, type: 'text/plain', url: '' } as never}>
+              <AttachmentPreview />
+              <AttachmentInfo />
+              <AttachmentRemove />
+              <AttachmentContextShowcase />
+            </Attachment>
+            <AttachmentHoverCard>
+              <AttachmentHoverCardTrigger>Hover</AttachmentHoverCardTrigger>
+              <AttachmentHoverCardContent>Content</AttachmentHoverCardContent>
+            </AttachmentHoverCard>
+            <AttachmentEmpty>Drop files</AttachmentEmpty>
+          </Attachments>
+          <AudioPlayer>
+            <AudioPlayerElement src='' />
+            <AudioPlayerControlBar>
+              <AudioPlayerPlayButton />
+              <AudioPlayerSeekBackwardButton />
+              <AudioPlayerSeekForwardButton />
+              <AudioPlayerTimeDisplay />
+              <AudioPlayerTimeRange />
+              <AudioPlayerDurationDisplay />
+              <AudioPlayerMuteButton />
+              <AudioPlayerVolumeRange />
+            </AudioPlayerControlBar>
+          </AudioPlayer>
+          <Canvas />
+          <ChainOfThought>
+            <ChainOfThoughtHeader>Thinking</ChainOfThoughtHeader>
+            <ChainOfThoughtStep label='Step 1'>
+              <ChainOfThoughtContent>Content</ChainOfThoughtContent>
+              <ChainOfThoughtImage />
+            </ChainOfThoughtStep>
+            <ChainOfThoughtSearchResults>
+              <ChainOfThoughtSearchResult />
+            </ChainOfThoughtSearchResults>
+          </ChainOfThought>
+          <Checkpoint>
+            <CheckpointIcon />
+            <CheckpointTrigger>Trigger</CheckpointTrigger>
+          </Checkpoint>
+          <CodeBlockContainer language='typescript'>
+            <CodeBlockHeader>
+              <CodeBlockTitle>Title</CodeBlockTitle>
+              <CodeBlockFilename>file.ts</CodeBlockFilename>
+              <CodeBlockActions>
+                <CodeBlockCopyButton />
+                <CodeBlockLanguageSelector>
+                  <CodeBlockLanguageSelectorTrigger>
+                    <CodeBlockLanguageSelectorValue />
+                  </CodeBlockLanguageSelectorTrigger>
+                  <CodeBlockLanguageSelectorContent>
+                    <CodeBlockLanguageSelectorItem value='ts'>TS</CodeBlockLanguageSelectorItem>
+                  </CodeBlockLanguageSelectorContent>
+                </CodeBlockLanguageSelector>
+              </CodeBlockActions>
+            </CodeBlockHeader>
+            <CodeBlockContent code='const x = 1' language='typescript' />
+          </CodeBlockContainer>
+          <CodeBlock code='const x = 1' language='typescript' />
+          <Commit>
+            <CommitHeader>
+              <CommitHash>abc123</CommitHash>
+              <CommitMessage>Fix bug</CommitMessage>
+              <CommitMetadata>
+                <CommitInfo>
+                  <CommitAuthor>
+                    <CommitAuthorAvatar initials='AB' />
+                  </CommitAuthor>
+                  <CommitTimestamp date={new Date('2024-01-01')} />
+                </CommitInfo>
+                <CommitSeparator />
+              </CommitMetadata>
+              <CommitActions>
+                <CommitCopyButton hash='abc123' />
+              </CommitActions>
+            </CommitHeader>
+            <CommitContent>
+              <CommitFiles>
+                <CommitFile>
+                  <CommitFileInfo>
+                    <CommitFileStatus status='added' />
+                    <CommitFileIcon />
+                    <CommitFilePath>src/a.ts</CommitFilePath>
+                  </CommitFileInfo>
+                  <CommitFileChanges>
+                    <CommitFileAdditions count={10} />
+                    <CommitFileDeletions count={2} />
+                  </CommitFileChanges>
+                </CommitFile>
+              </CommitFiles>
+            </CommitContent>
+          </Commit>
+          <Confirmation state='approval-requested'>
+            <ConfirmationTitle>Confirm?</ConfirmationTitle>
+            <ConfirmationRequest>Do this?</ConfirmationRequest>
+            <ConfirmationAccepted>Yes</ConfirmationAccepted>
+            <ConfirmationRejected>No</ConfirmationRejected>
+            <ConfirmationActions>
+              <ConfirmationAction>OK</ConfirmationAction>
+            </ConfirmationActions>
+          </Confirmation>
+          <Connection
+            connectionLineType={'' as never}
+            connectionStatus={'' as never}
+            fromHandle={{} as never}
+            fromNode={{} as never}
+            fromPosition={'' as never}
+            fromX={0}
+            fromY={0}
+            pointer={{} as never}
+            toHandle={{} as never}
+            toNode={{} as never}
+            toPosition={'' as never}
+            toX={100}
+            toY={100}
+          />
+          <Context maxTokens={4000} usedTokens={200}>
+            <ContextTrigger>Usage</ContextTrigger>
+            <ContextContent>
+              <ContextContentHeader>Header</ContextContentHeader>
+              <ContextContentBody>
+                <ContextInputUsage />
+                <ContextOutputUsage />
+                <ContextReasoningUsage />
+                <ContextCacheUsage />
+              </ContextContentBody>
+              <ContextContentFooter>Footer</ContextContentFooter>
+            </ContextContent>
+          </Context>
+          <Controls />
+          <Conversation>
+            <ConversationContent>
+              <ConversationEmptyState />
+              <ConversationScrollButton />
+            </ConversationContent>
+          </Conversation>
+          <ConversationDownload messages={[] as never} />
+          <EnvironmentVariables>
+            <EnvironmentVariablesHeader>
+              <EnvironmentVariablesTitle>Env Vars</EnvironmentVariablesTitle>
+              <EnvironmentVariablesToggle />
+            </EnvironmentVariablesHeader>
+            <EnvironmentVariablesContent>
+              <EnvironmentVariableGroup>
+                <EnvironmentVariable name='KEY' value='VAL'>
+                  <EnvironmentVariableName>KEY</EnvironmentVariableName>
+                  <EnvironmentVariableValue>VAL</EnvironmentVariableValue>
+                  <EnvironmentVariableCopyButton />
+                  <EnvironmentVariableRequired />
+                </EnvironmentVariable>
+              </EnvironmentVariableGroup>
+            </EnvironmentVariablesContent>
+          </EnvironmentVariables>
+          <FileTree>
+            <FileTreeFolder name='src' path='src'>
+              <FileTreeIcon />
+              <FileTreeName>src</FileTreeName>
+              <FileTreeFile name='a.ts' path='src/a.ts' />
+              <FileTreeActions>Actions</FileTreeActions>
+            </FileTreeFolder>
+          </FileTree>
+          <AiImage base64='' mediaType='image/png' uint8Array={new Uint8Array()} />
+          <InlineCitation>
+            <InlineCitationText>Text</InlineCitationText>
+            <InlineCitationCard>
+              <InlineCitationCardTrigger sources={['http://example.com']}>T</InlineCitationCardTrigger>
+              <InlineCitationCardBody>Body</InlineCitationCardBody>
+            </InlineCitationCard>
+            <InlineCitationCarousel>
+              <InlineCitationCarouselHeader>Header</InlineCitationCarouselHeader>
+              <InlineCitationCarouselContent>
+                <InlineCitationCarouselItem>Item</InlineCitationCarouselItem>
+              </InlineCitationCarouselContent>
+              <InlineCitationCarouselIndex />
+              <InlineCitationCarouselPrev />
+              <InlineCitationCarouselNext />
+            </InlineCitationCarousel>
+            <InlineCitationSource url='http://example.com' />
+            <InlineCitationQuote>Quote</InlineCitationQuote>
+          </InlineCitation>
+          <JSXPreview jsx='<div>Preview</div>'>
+            <JSXPreviewContent />
+            <JSXPreviewError>Error</JSXPreviewError>
+          </JSXPreview>
+          <Message from='user'>
+            <MessageContent>Hello</MessageContent>
+            <MessageActions>
+              <MessageAction>Copy</MessageAction>
+            </MessageActions>
+            <MessageBranch>
+              <MessageBranchContent>Branch</MessageBranchContent>
+              <MessageBranchSelector>
+                <MessageBranchPrevious />
+                <MessageBranchPage />
+                <MessageBranchNext />
+              </MessageBranchSelector>
+            </MessageBranch>
+            <MessageResponse>Response</MessageResponse>
+            <MessageToolbar>Toolbar</MessageToolbar>
+          </Message>
+          <MicSelector>
+            <MicSelectorTrigger>Mic</MicSelectorTrigger>
+            <MicSelectorContent>
+              <MicSelectorInput />
+              <MicSelectorList>
+                {(devices: MediaDeviceInfo[]) => (
+                  <>
+                    <MicSelectorEmpty>No mics</MicSelectorEmpty>
+                    {devices.map(d => (
+                      <MicSelectorItem key={d.deviceId}>
+                        <MicSelectorLabel device={d} />
+                      </MicSelectorItem>
+                    ))}
+                  </>
+                )}
+              </MicSelectorList>
+            </MicSelectorContent>
+            <MicSelectorValue />
+          </MicSelector>
+          <ModelSelector>
+            <ModelSelectorTrigger>Model</ModelSelectorTrigger>
+            <ModelSelectorContent>
+              <ModelSelectorDialog>
+                <ModelSelectorInput />
+                <ModelSelectorList>
+                  <ModelSelectorEmpty>None</ModelSelectorEmpty>
+                  <ModelSelectorGroup>
+                    <ModelSelectorItem value='gpt-4'>
+                      <ModelSelectorLogo provider='openai' />
+                      <ModelSelectorLogoGroup>
+                        <ModelSelectorName>GPT-4</ModelSelectorName>
+                      </ModelSelectorLogoGroup>
+                      <ModelSelectorShortcut>4</ModelSelectorShortcut>
+                    </ModelSelectorItem>
+                  </ModelSelectorGroup>
+                  <ModelSelectorSeparator />
+                </ModelSelectorList>
+              </ModelSelectorDialog>
+            </ModelSelectorContent>
+          </ModelSelector>
+          <Node handles={{ source: true, target: true }}>
+            <NodeHeader>
+              <NodeTitle>Node</NodeTitle>
+              <NodeDescription>Desc</NodeDescription>
+              <NodeAction>Act</NodeAction>
+            </NodeHeader>
+            <NodeContent>Content</NodeContent>
+            <NodeFooter>Footer</NodeFooter>
+          </Node>
+          <OpenIn query='test'>
+            <OpenInTrigger>Open In</OpenInTrigger>
+            <OpenInContent>
+              <OpenInItem>
+                <OpenInLabel>Label</OpenInLabel>
+              </OpenInItem>
+              <OpenInSeparator />
+              <OpenInChatGPT />
+              <OpenInClaude />
+              <OpenInT3 />
+              <OpenInScira />
+              <OpenInv0 />
+              <OpenInCursor />
+            </OpenInContent>
+          </OpenIn>
+          <PackageInfo name='pkg'>
+            <PackageInfoHeader>
+              <PackageInfoName>pkg</PackageInfoName>
+              <PackageInfoChangeType />
+              <PackageInfoVersion>1.0</PackageInfoVersion>
+            </PackageInfoHeader>
+            <PackageInfoDescription>A package</PackageInfoDescription>
+            <PackageInfoContent>
+              <PackageInfoDependencies>
+                <PackageInfoDependency name='dep' />
+              </PackageInfoDependencies>
+            </PackageInfoContent>
+          </PackageInfo>
+          <Panel />
+          <Persona state='idle' />
+          <Plan>
+            <PlanHeader>
+              <PlanTitle>Plan</PlanTitle>
+              <PlanDescription>Description</PlanDescription>
+              <PlanAction>Action</PlanAction>
+            </PlanHeader>
+            <PlanContent>Content</PlanContent>
+            <PlanFooter>Footer</PlanFooter>
+            <PlanTrigger>Trigger</PlanTrigger>
+          </Plan>
+          <PromptInputProvider>
+            <LocalReferencedSourcesContext value={null}>
+              <PromptInput onSubmit={() => undefined}>
+                <PromptInputHeader>Header</PromptInputHeader>
+                <PromptInputBody>
+                  <PromptInputTextarea />
+                  <PromptInputTools>Tools</PromptInputTools>
+                </PromptInputBody>
+                <PromptInputFooter>
+                  <PromptInputButton tooltip='Tip'>Btn</PromptInputButton>
+                  <PromptInputActionMenu>
+                    <PromptInputActionMenuTrigger>Menu</PromptInputActionMenuTrigger>
+                    <PromptInputActionMenuContent>
+                      <PromptInputActionMenuItem>Item</PromptInputActionMenuItem>
+                    </PromptInputActionMenuContent>
+                  </PromptInputActionMenu>
+                  <PromptInputActionAddAttachments />
+                  <PromptInputActionAddScreenshot />
+                  <PromptInputSubmit>Send</PromptInputSubmit>
+                  <PromptInputSelect>
+                    <PromptInputSelectTrigger>
+                      <PromptInputSelectValue />
+                    </PromptInputSelectTrigger>
+                    <PromptInputSelectContent>
+                      <PromptInputSelectItem value='a'>A</PromptInputSelectItem>
+                    </PromptInputSelectContent>
+                  </PromptInputSelect>
+                  <PromptInputHoverCard>
+                    <PromptInputHoverCardTrigger>Info</PromptInputHoverCardTrigger>
+                    <PromptInputHoverCardContent>Details</PromptInputHoverCardContent>
+                  </PromptInputHoverCard>
+                </PromptInputFooter>
+                <PromptInputTabsList>
+                  <PromptInputTab>
+                    <PromptInputTabLabel>Tab</PromptInputTabLabel>
+                    <PromptInputTabBody>
+                      <PromptInputTabItem>Item</PromptInputTabItem>
+                    </PromptInputTabBody>
+                  </PromptInputTab>
+                </PromptInputTabsList>
+                <PromptInputCommand>
+                  <PromptInputCommandInput />
+                  <PromptInputCommandList>
+                    <PromptInputCommandEmpty>Empty</PromptInputCommandEmpty>
+                    <PromptInputCommandGroup>
+                      <PromptInputCommandItem>Item</PromptInputCommandItem>
+                    </PromptInputCommandGroup>
+                    <PromptInputCommandSeparator />
+                  </PromptInputCommandList>
+                </PromptInputCommand>
+                <span data-hook-refs={hookRefs.length} />
+              </PromptInput>
+            </LocalReferencedSourcesContext>
+          </PromptInputProvider>
+          <Queue>
+            <QueueList>
+              <QueueSection>
+                <QueueSectionTrigger>Section</QueueSectionTrigger>
+                <QueueSectionLabel count={1} label='Label' />
+                <QueueSectionContent>
+                  <QueueItem>
+                    <QueueItemIndicator />
+                    <QueueItemContent>
+                      <QueueItemDescription>Desc</QueueItemDescription>
+                    </QueueItemContent>
+                    <QueueItemActions>
+                      <QueueItemAction>Act</QueueItemAction>
+                    </QueueItemActions>
+                    <QueueItemAttachment>
+                      <QueueItemImage />
+                      <QueueItemFile />
+                    </QueueItemAttachment>
+                  </QueueItem>
+                </QueueSectionContent>
+              </QueueSection>
+            </QueueList>
+          </Queue>
+          <Reasoning>
+            <ReasoningTrigger>Thinking...</ReasoningTrigger>
+            <ReasoningContent>Reasoning content</ReasoningContent>
+          </Reasoning>
+          <Sandbox>
+            <SandboxHeader state='output-available' />
+            <SandboxContent>
+              <SandboxTabs>
+                <SandboxTabsBar>
+                  <SandboxTabsList>
+                    <SandboxTabsTrigger value='preview'>Preview</SandboxTabsTrigger>
+                  </SandboxTabsList>
+                </SandboxTabsBar>
+                <SandboxTabContent value='preview'>Content</SandboxTabContent>
+              </SandboxTabs>
+            </SandboxContent>
+          </Sandbox>
+          <SchemaDisplay method='GET' path='/api/test'>
+            <SchemaDisplayHeader>
+              <SchemaDisplayMethod>GET</SchemaDisplayMethod>
+              <SchemaDisplayPath>/api/test</SchemaDisplayPath>
+              <SchemaDisplayDescription>Desc</SchemaDisplayDescription>
+            </SchemaDisplayHeader>
+            <SchemaDisplayBody>
+              <SchemaDisplayContent>
+                <SchemaDisplayParameters>
+                  <SchemaDisplayParameter name='id' type='string' />
+                </SchemaDisplayParameters>
+                <SchemaDisplayRequest>
+                  <SchemaDisplayProperty name='body' type='object' />
+                </SchemaDisplayRequest>
+                <SchemaDisplayResponse>Response</SchemaDisplayResponse>
+              </SchemaDisplayContent>
+              <SchemaDisplayExample>Example</SchemaDisplayExample>
+            </SchemaDisplayBody>
+          </SchemaDisplay>
+          <Shimmer>Loading...</Shimmer>
+          <Snippet code='npm install'>
+            <SnippetAddon>$</SnippetAddon>
+            <SnippetText>npm install</SnippetText>
+            <SnippetInput />
+            <SnippetCopyButton />
+          </Snippet>
+          <Sources>
+            <SourcesTrigger count={1}>Sources</SourcesTrigger>
+            <SourcesContent>
+              <Source />
+            </SourcesContent>
+          </Sources>
+          <SpeechInput />
+          <StackTrace trace='Error: Something\n  at foo (file.ts:1:1)'>
+            <StackTraceHeader>
+              <StackTraceError>
+                <StackTraceErrorType>Error</StackTraceErrorType>
+                <StackTraceErrorMessage>Something</StackTraceErrorMessage>
+              </StackTraceError>
+              <StackTraceActions>
+                <StackTraceCopyButton />
+                <StackTraceExpandButton />
+              </StackTraceActions>
+            </StackTraceHeader>
+            <StackTraceContent>
+              <StackTraceFrames />
+            </StackTraceContent>
+          </StackTrace>
+          <Suggestions>
+            <Suggestion suggestion='Try this' />
+          </Suggestions>
+          <Task>
+            <TaskTrigger title='Task'>Open</TaskTrigger>
+            <TaskContent>
+              <TaskItem>
+                <TaskItemFile>file.ts</TaskItemFile>
+              </TaskItem>
+            </TaskContent>
+          </Task>
+          <Terminal output='$ echo hello'>
+            <TerminalHeader>
+              <TerminalTitle>Terminal</TerminalTitle>
+              <TerminalStatus />
+              <TerminalActions>
+                <TerminalCopyButton />
+                <TerminalClearButton />
+              </TerminalActions>
+            </TerminalHeader>
+            <TerminalContent>output</TerminalContent>
+          </Terminal>
+          <TestResults>
+            <TestResultsHeader>
+              <TestResultsDuration>1.2s</TestResultsDuration>
+              <TestResultsSummary>Summary</TestResultsSummary>
+            </TestResultsHeader>
+            <TestResultsProgress />
+            <TestResultsContent>
+              <TestSuite name='suite' status='passed'>
+                <TestSuiteName>Suite</TestSuiteName>
+                <TestSuiteStats>Stats</TestSuiteStats>
+                <TestSuiteContent>
+                  <Test name='test' status='passed'>
+                    <TestName>Test</TestName>
+                    <TestDuration>100ms</TestDuration>
+                    <TestStatus />
+                    <TestError>
+                      <TestErrorMessage>Error</TestErrorMessage>
+                      <TestErrorStack>Stack</TestErrorStack>
+                    </TestError>
+                  </Test>
+                </TestSuiteContent>
+              </TestSuite>
+            </TestResultsContent>
+          </TestResults>
+          <Tool>
+            <ToolHeader state='output-available' type='tool-tool' />
+            <ToolContent>
+              <ToolInput input={{}} />
+              <ToolOutput errorText={undefined} output={{}} />
+            </ToolContent>
+          </Tool>
+          <Toolbar />
+          <Transcription segments={[{ endSecond: 1, startSecond: 0, text: 'Hello' }]}>
+            {(segment: { endSecond: number; startSecond: number; text: string }, index: number) => (
+              <TranscriptionSegment index={index} key={index} segment={segment} />
+            )}
+          </Transcription>
+          <VoiceSelector>
+            <VoiceSelectorTrigger>Voice</VoiceSelectorTrigger>
+            <VoiceSelectorContent>
+              <VoiceSelectorDialog>
+                <VoiceSelectorInput />
+                <VoiceSelectorList>
+                  <VoiceSelectorEmpty>None</VoiceSelectorEmpty>
+                  <VoiceSelectorGroup>
+                    <VoiceSelectorItem value='voice-1'>
+                      <VoiceSelectorName>Voice</VoiceSelectorName>
+                      <VoiceSelectorDescription>Desc</VoiceSelectorDescription>
+                      <VoiceSelectorAttributes>
+                        <VoiceSelectorGender>Female</VoiceSelectorGender>
+                        <VoiceSelectorAccent>US</VoiceSelectorAccent>
+                        <VoiceSelectorAge>Adult</VoiceSelectorAge>
+                        <VoiceSelectorBullet />
+                      </VoiceSelectorAttributes>
+                      <VoiceSelectorPreview />
+                      <VoiceSelectorShortcut>1</VoiceSelectorShortcut>
+                    </VoiceSelectorItem>
+                  </VoiceSelectorGroup>
+                  <VoiceSelectorSeparator />
+                </VoiceSelectorList>
+              </VoiceSelectorDialog>
+            </VoiceSelectorContent>
+          </VoiceSelector>
+          <WebPreview>
+            <WebPreviewNavigation>
+              <WebPreviewNavigationButton>Back</WebPreviewNavigationButton>
+              <WebPreviewUrl>https://example.com</WebPreviewUrl>
+            </WebPreviewNavigation>
+            <WebPreviewBody />
+            <WebPreviewConsole />
+          </WebPreview>
+        </div>
+      </Providers>
     )
   }
 export default Page

@@ -8,10 +8,9 @@
   "scripts": {
     "build": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && tsc --noEmit",
     "check": "lintmax check",
+    "check:imports": "bun check-imports.ts",
     "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
-    "gen": "bun gen-test-page.ts",
-    "gen:check": "bun gen-test-page.ts --check",
     "sync": "bun sync.ts",
     "verify": "cd ui && bun i"
   },

@@ -11,8 +11,7 @@
     "check:imports": "bun check-imports.ts",
     "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
     "fix": "lintmax fix",
-    "sync": "bun sync.ts",
-    "verify": "cd ui && bun i"
+    "sync": "bun sync.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

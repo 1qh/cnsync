@@ -227,8 +227,7 @@ const lineBreakRegex = /\r?\n/u,
     utils: IMPORT_PREFIX
   },
   UI_TSCONFIG: JsonRecord = {
-    compilerOptions: { paths: { [`${IMPORT_PREFIX}/*`]: ['./src/*'] }, rootDir: '.', strict: false },
-    exclude: ['dist', 'node_modules'],
+    compilerOptions: { paths: { [`${IMPORT_PREFIX}/*`]: ['./src/*'] }, strict: false },
     extends: 'lintmax/tsconfig',
     include: ['.']
   },

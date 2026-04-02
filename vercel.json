@@ -1,6 +1,6 @@
 {
   "buildCommand": "turbo build --filter=web",
   "framework": "nextjs",
-  "installCommand": "bun i",
+  "installCommand": "bun i --ignore-scripts",
   "outputDirectory": "apps/web/.next"
 }

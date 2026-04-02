@@ -20,7 +20,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 'latest'
-      - run: bun i && bun sync && bun i && bun fix
+      - run: bun i --ignore-scripts && bun sync && bun i --ignore-scripts && bun fix
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: sync components from upstream'

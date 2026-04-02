@@ -281,6 +281,8 @@ const lineBreakRegex = /\r?\n/u,
     run({ cmd: ['rm', '-rf', uiDir] })
     run({ cmd: ['mv', tmpUi, uiDir] })
     await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")
+    for (const dead of ['components.json', 'eslint.config.js', 'tsconfig.lint.json'])
+      run({ cmd: ['rm', '-f', join(uiDir, dead)] })
     await pruneGitkeepFiles({ dirPath: uiDir })
     await patchRadixToBaseUi({ srcDir: join(uiDir, 'src') })
     await patchUpstreamTypeIssues({ srcDir: join(uiDir, 'src') })

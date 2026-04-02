@@ -7,11 +7,10 @@
   ],
   "scripts": {
     "check": "lintmax check",
-    "check:imports": "bun check-imports.ts",
     "clean": "rm -rf .cache .turbo apps/web/.next apps/web/node_modules readonly/ui/node_modules",
-    "fix": "lintmax fix && bun check:imports && turbo build",
+    "fix": "lintmax fix && turbo check:imports build",
     "sync": "bun sync.ts",
-    "test:e2e": "turbo build && bun test-page.ts"
+    "test:e2e": "turbo test:e2e"
   },
   "simple-git-hooks": {
     "pre-commit": "bun clean && bun i && bun fix"

@@ -4,6 +4,10 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "check:imports": {},
+    "test:e2e": {
+      "dependsOn": ["build"]
     }
   }
 }

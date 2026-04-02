@@ -2,7 +2,9 @@
   "name": "web",
   "private": true,
   "scripts": {
-    "build": "tsc --noEmit && next build"
+    "build": "tsc --noEmit && next build",
+    "check:imports": "bun check-imports.ts",
+    "test:e2e": "bun test-page.ts"
   },
   "dependencies": {
     "@a/ui": "workspace:*"

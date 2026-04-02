@@ -2,7 +2,7 @@
   "compilerOptions": {
     "types": ["bun-types"]
   },
-  "exclude": ["node_modules", "ui"],
+  "exclude": ["node_modules"],
   "extends": "lintmax/tsconfig",
   "include": ["*.ts", "shims/*.ts"]
 }

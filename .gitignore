@@ -1,5 +1,6 @@
 .cache/
 .next/
+.turbo/
 .vercel
 bun.lock
 node_modules/

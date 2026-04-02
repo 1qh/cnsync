@@ -1,4 +1,0 @@
-pre-commit:
-  commands:
-    verify:
-      run: bun clean && bun i && bun fix

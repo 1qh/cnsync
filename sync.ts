@@ -169,7 +169,6 @@ await $`mv ${tmpUi} ${uiDir}`
 await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")
 await $`rm -f ${join(uiDir, 'components.json')} ${join(uiDir, 'eslint.config.js')} ${join(uiDir, 'tsconfig.lint.json')}`
 await $`find ${uiDir} -name .gitkeep -delete`
-await patchRadixToBaseUi(join(uiDir, 'src'))
 await patchUpstreamTypes(join(uiDir, 'src'))
 await validateNoRadixUi(join(uiDir, 'src'))
 await $`rm -rf ${tmpDir}`

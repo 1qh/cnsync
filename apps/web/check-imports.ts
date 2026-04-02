@@ -25,12 +25,12 @@ for (const rel of new Glob('**/*.tsx').scanSync(uiDir)) {
 }
 if (missing.length > 0) {
   for (const m of missing) process.stderr.write(`  ${m}\n`)
-  throw new Error(`Missing ${String(missing.length)} component imports`)
+  throw new Error(`Missing ${missing.length} component imports`)
 }
 if (missingExports.length > 0) {
   for (const m of missingExports) process.stderr.write(`  ${m}\n`)
-  throw new Error(`Missing ${String(missingExports.length)} export references`)
+  throw new Error(`Missing ${missingExports.length} export references`)
 }
 process.stdout.write(
-  `All ${String(pageContent.split('\n').filter(l => l.includes("from '@a/ui")).length)} component files imported\nAll exports verified\n`
+  `All ${pageContent.split('\n').filter(l => l.includes("from '@a/ui")).length} component files imported\nAll exports verified\n`
 )

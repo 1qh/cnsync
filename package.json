@@ -8,13 +8,13 @@
   "scripts": {
     "check": "lintmax check",
     "check:imports": "bun check-imports.ts",
-    "clean": "rm -rf .cache node_modules apps/web/.next apps/web/node_modules readonly/ui/node_modules",
+    "clean": "rm -rf .cache .turbo apps/web/.next apps/web/node_modules readonly/ui/node_modules",
     "fix": "lintmax fix && bun check:imports && turbo build",
     "sync": "bun sync.ts",
     "test:e2e": "turbo build && bun test-page.ts"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun fix"
+    "pre-commit": "bun clean && bun i && bun fix"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",

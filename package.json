@@ -6,19 +6,17 @@
     "readonly/*"
   ],
   "scripts": {
-    "build": "cd apps/web && tsc --noEmit",
-    "build:next": "bunx next build apps/web",
     "check": "lintmax check",
     "check:imports": "bun check-imports.ts",
     "clean": "rm -rf .cache node_modules apps/web/.next apps/web/node_modules readonly/ui/node_modules",
-    "fix": "lintmax fix",
+    "fix": "lintmax fix && bun check:imports && turbo build",
     "sync": "bun sync.ts",
-    "test:e2e": "bun run build:next && bun test-page.ts",
-    "verify": "bun fix && bun run build && bun check:imports && bun run build:next"
+    "test:e2e": "turbo build && bun test-page.ts"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",
     "@types/bun": "latest",
+    "@types/node": "latest",
     "@types/react": "latest",
     "@xyflow/react": "latest",
     "lintmax": "latest",
@@ -28,6 +26,8 @@
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
+    "turbo": "latest",
     "typescript": "latest"
-  }
+  },
+  "packageManager": "bun@1.3.11"
 }

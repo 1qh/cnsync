@@ -1,6 +1,9 @@
 {
   "name": "web",
   "private": true,
+  "scripts": {
+    "build": "tsc --noEmit && next build"
+  },
   "dependencies": {
     "@a/ui": "workspace:*"
   }

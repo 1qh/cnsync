@@ -3,7 +3,7 @@
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 const port = 3377,
-  server = spawn('bunx', ['next', 'start', 'apps/web', '-p', String(port)], {
+  server = spawn('bunx', ['next', 'start', '-p', String(port)], { cwd: 'apps/web',
     stdio: 'ignore'
   })
 await new Promise(resolve => setTimeout(resolve, 3000))

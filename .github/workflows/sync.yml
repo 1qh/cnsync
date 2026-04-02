@@ -2,8 +2,6 @@ name: Sync
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - '**.md'
   schedule:
     - cron: '0 2 * * 1,4'
   workflow_dispatch:

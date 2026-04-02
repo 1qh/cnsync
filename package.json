@@ -12,28 +12,25 @@
     "sync": "bun sync.ts",
     "test:e2e": "turbo test:e2e"
   },
-  "simple-git-hooks": {
-    "pre-commit": "bun clean && bun i && bun fix"
-  },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",
     "@types/bun": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@xyflow/react": "latest",
+    "bun-git-hooks": "latest",
     "lintmax": "latest",
     "lucide-react": "latest",
     "next": "latest",
     "playwright": "^1.59.0",
     "react": "latest",
     "react-dom": "latest",
-    "simple-git-hooks": "latest",
     "tailwindcss": "latest",
     "turbo": "latest",
     "typescript": "latest"
   },
   "packageManager": "bun@1.3.11",
-  "trustedDependencies": [
-    "simple-git-hooks"
-  ]
+  "git-hooks": {
+    "pre-commit": "bun clean && bun i && bun fix"
+  }
 }

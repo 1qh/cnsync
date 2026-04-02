@@ -1,16 +1,16 @@
 {
-  "name": "cnsync",
+  "name": "a",
   "private": true,
   "workspaces": [
-    "next",
-    "ui"
+    "apps/*",
+    "readonly/*"
   ],
   "scripts": {
-    "build": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && cd next && tsc --noEmit",
-    "build:next": "mkdir -p next/node_modules/@a && ln -sfn ../../../ui next/node_modules/@a/ui && bunx next build next",
+    "build": "cd apps/web && tsc --noEmit",
+    "build:next": "bunx next build apps/web",
     "check": "lintmax check",
     "check:imports": "bun check-imports.ts",
-    "clean": "rm -rf .cache node_modules next/.next next/node_modules ui/node_modules",
+    "clean": "rm -rf .cache node_modules apps/web/.next apps/web/node_modules readonly/ui/node_modules",
     "fix": "lintmax fix",
     "sync": "bun sync.ts",
     "test:e2e": "bun run build:next && bun test-page.ts",

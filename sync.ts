@@ -112,7 +112,7 @@ const lineBreakRegex = /\r?\n/u,
     await Promise.all(writes)
   },
   root = process.cwd(),
-  uiDir = join(root, 'ui'),
+  uiDir = join(root, 'readonly/ui'),
   tmpDir = '/tmp/cnsync',
   tmpUi = join(tmpDir, 'a/packages/ui'),
   tmpBin = join(tmpDir, 'bin'),

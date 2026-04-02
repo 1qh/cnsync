@@ -1,7 +1,0 @@
-{
-  "name": "next",
-  "private": true,
-  "devDependencies": {
-    "@types/node": "25.5.0"
-  }
-}

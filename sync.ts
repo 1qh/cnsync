@@ -1,206 +1,119 @@
-import { file, spawnSync, which, write } from 'bun'
+import { $, file, write } from 'bun'
 import { readdir } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import { env as nodeEnv } from 'node:process'
 type JsonRecord = Record<string, unknown>
 const lineBreakRegex = /\r?\n/u,
-  isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value),
-  readJson = async (filePath: string): Promise<JsonRecord | null> => {
-    const handle = file(filePath)
-    if (!(await handle.exists())) return null
-    const source = await handle.text(),
-      value = JSON.parse(source) as unknown
-    return isRecord(value) ? value : null
+  isRecord = (v: unknown): v is JsonRecord => typeof v === 'object' && v !== null && !Array.isArray(v),
+  readJson = async (p: string): Promise<JsonRecord | null> => {
+    const f = file(p)
+    if (!(await f.exists())) return null
+    const v = JSON.parse(await f.text()) as unknown
+    return isRecord(v) ? v : null
   },
-  expandBunx = (cmd: string[]): string[] => {
-    if (cmd[0] === 'bunx') return ['bun', 'x', ...cmd.slice(1)]
-    return cmd
+  writeJson = async (p: string, v: JsonRecord) => {
+    await write(file(p), `${JSON.stringify(v, null, 2)}\n`)
   },
-  resolveBin = (name: string): string => which(name) ?? name,
-  run = ({ cmd, cwd, env }: { cmd: string[]; cwd?: string; env?: NodeJS.ProcessEnv }) => {
-    const expanded = expandBunx(cmd),
-      resolved = [resolveBin(expanded[0] ?? ''), ...expanded.slice(1)],
-      result = spawnSync({
-        cmd: resolved,
-        cwd: cwd ?? process.cwd(),
-        env,
-        stderr: 'inherit',
-        stdout: 'inherit'
-      })
-    if (result.exitCode !== 0) throw new Error(`Command failed (${result.exitCode}): ${cmd.join(' ')}`)
-  },
-  writeJson = async ({ filePath, value }: { filePath: string; value: JsonRecord }) => {
-    await write(file(filePath), `${JSON.stringify(value, null, 2)}\n`)
-  },
-  ensureTypographyPluginBeforeImports = async ({ cssPath }: { cssPath: string }) => {
-    const source = await file(cssPath).text(),
-      lineBreak = source.includes('\r\n') ? '\r\n' : '\n',
-      pluginLine = '@plugin "@tailwindcss/typography";',
-      shadcnImportLine = '@import "shadcn/tailwind.css";',
-      rows = source.split(lineBreakRegex),
-      withoutPlugin: string[] = []
-    for (const row of rows) {
-      const trimmed = row.trim()
-      if (trimmed !== pluginLine && trimmed !== shadcnImportLine) withoutPlugin.push(row)
-    }
-    let importIndex = 0
-    for (let i = 0; i < withoutPlugin.length; i += 1)
-      if (withoutPlugin[i].trim().startsWith('@import ')) {
-        importIndex = i
-        break
-      }
-    withoutPlugin.splice(importIndex, 0, pluginLine)
-    let next = withoutPlugin.join(lineBreak)
-    if (!next.endsWith(lineBreak)) next = `${next}${lineBreak}`
-    if (next !== source) await write(file(cssPath), next)
-  },
-  getNestedString = ({ keys, source }: { keys: string[]; source: JsonRecord | null }): null | string => {
-    let cur: unknown = source
-    for (const key of keys) {
-      if (!isRecord(cur)) return null
-      cur = cur[key]
-    }
-    return typeof cur === 'string' ? cur : null
-  },
-  stripSuffix = ({ suffix, value }: { suffix: string; value: null | string }) => {
-    if (value === null) return null
-    return value.endsWith(suffix) ? value.slice(0, -suffix.length) : value
-  },
-  collectSourceFiles = async ({ dirPath }: { dirPath: string }) => {
-    const entries = await readdir(dirPath, { withFileTypes: true }),
+  collectSourceFiles = async (dir: string): Promise<string[]> => {
+    const entries = await readdir(dir, { withFileTypes: true }),
       files: string[] = [],
-      nestedPromises: Promise<string[]>[] = []
-    for (const entry of entries) {
-      const absPath = join(dirPath, entry.name)
-      if (entry.isDirectory()) nestedPromises.push(collectSourceFiles({ dirPath: absPath }))
-      if (entry.isFile() && (absPath.endsWith('.ts') || absPath.endsWith('.tsx'))) files.push(absPath)
+      nested: Promise<string[]>[] = []
+    for (const e of entries) {
+      const abs = join(dir, e.name)
+      if (e.isDirectory()) nested.push(collectSourceFiles(abs))
+      if (e.isFile() && (abs.endsWith('.ts') || abs.endsWith('.tsx'))) files.push(abs)
     }
-    const nestedGroups = await Promise.all(nestedPromises)
-    for (const group of nestedGroups) for (const nestedPath of group) files.push(nestedPath)
+    for (const group of await Promise.all(nested)) files.push(...group)
     return files
   },
-  pruneGitkeepFiles = async ({ dirPath }: { dirPath: string }) => {
-    const entries = await readdir(dirPath, { withFileTypes: true }),
-      tasks: Promise<void>[] = []
-    for (const entry of entries) {
-      const absPath = join(dirPath, entry.name)
-      if (entry.isDirectory()) tasks.push(pruneGitkeepFiles({ dirPath: absPath }))
-      if (entry.isFile() && entry.name === '.gitkeep') tasks.push(Promise.resolve(run({ cmd: ['rm', '-f', absPath] })))
-    }
-    await Promise.all(tasks)
+  replaceInFiles = async (dir: string, from: string, to: string) => {
+    const files = await collectSourceFiles(dir)
+    await Promise.all(
+      files.map(async abs => {
+        const src = await file(abs).text(),
+          next = src.split(from).join(to)
+        if (next !== src) await write(file(abs), next)
+      })
+    )
   },
-  replaceImportPrefix = async ({
-    fromPrefix,
-    srcDir,
-    toPrefix
-  }: {
-    fromPrefix: null | string
-    srcDir: string
-    toPrefix: null | string
-  }) => {
-    if (fromPrefix === null || toPrefix === null || fromPrefix === toPrefix) return
-    const files = await collectSourceFiles({ dirPath: srcDir }),
-      writes: Promise<void>[] = []
-    for (const abs of files)
-      writes.push(
-        (async () => {
-          const source = await file(abs).text(),
-            next = source.split(fromPrefix).join(toPrefix)
-          if (next !== source) await write(file(abs), next)
-        })()
-      )
-    await Promise.all(writes)
+  patchRadixToBaseUi = async (srcDir: string) => {
+    const files = await collectSourceFiles(srcDir),
+      radix = '@radix-ui/react-use-controllable-state',
+      checks = await Promise.all(
+        files.map(async f => {
+          const src = await file(f).text()
+          return src.includes(radix) ? f : null
+        })
+      ),
+      toFix = checks.filter(Boolean) as string[]
+    if (toFix.length === 0) return
+    const shimDest = join(srcDir, 'hooks/use-controllable-state.ts')
+    await $`mkdir -p ${dirname(shimDest)}`
+    await write(file(shimDest), await file(join(process.cwd(), 'shims/use-controllable-state.ts')).text())
+    const re = /import\s*\{[^}]*\}\s*from\s*["']@radix-ui\/react-use-controllable-state["'];?\n?/gu
+    await Promise.all(
+      toFix.map(async abs => {
+        const src = await file(abs).text(),
+          next = src.replace(re, 'import { useControllableState } from "../../hooks/use-controllable-state"\n')
+        if (next !== src) await write(file(abs), next)
+      })
+    )
   },
+  patchUpstreamTypes = async (srcDir: string) => {
+    const files = await collectSourceFiles(srcDir)
+    await Promise.all(
+      files.map(async abs => {
+        let src = await file(abs).text()
+        const orig = src
+        if (abs.endsWith('chart.tsx'))
+          src = src.replace(
+            'import type { TooltipValueType } from "recharts"',
+            'type TooltipValueType = number | string | Array<number | string>'
+          )
+        if (abs.includes('ai-elements/')) {
+          src = src
+            .replaceAll(/openDelay\s*=\s*\d+,?\s*\n?\s*/gu, '')
+            .replaceAll(/closeDelay\s*=\s*\d+,?\s*\n?\s*/gu, '')
+            .replaceAll(/\s*closeDelay=\{closeDelay\}/gu, '')
+            .replaceAll(/\s*openDelay=\{openDelay\}/gu, '')
+            .replaceAll(/\s*closeDelay=\{0\}/gu, '')
+            .replaceAll(/\s*openDelay=\{0\}/gu, '')
+          if (!src.startsWith('// @ts-nocheck')) src = `// @ts-nocheck\n${src}`
+        }
+        if (src !== orig) await write(file(abs), src)
+      })
+    )
+  },
+  validateNoRadixUi = async (srcDir: string) => {
+    const files = await collectSourceFiles(srcDir),
+      checks = await Promise.all(
+        files.map(async abs => {
+          const src = await file(abs).text()
+          return src.includes('@radix-ui') || src.includes('from "radix-ui') || src.includes("from 'radix-ui") ? abs : null
+        })
+      ),
+      violations = checks.filter(Boolean)
+    if (violations.length > 0) throw new Error(`radix-ui found:\n${violations.join('\n')}`)
+  },
+  ensureTypographyPlugin = async (cssPath: string) => {
+    const src = await file(cssPath).text(),
+      lb = src.includes('\r\n') ? '\r\n' : '\n',
+      plugin = '@plugin "@tailwindcss/typography";',
+      rows = src.split(lineBreakRegex).filter(r => r.trim() !== plugin && r.trim() !== '@import "shadcn/tailwind.css";')
+    let idx = rows.findIndex(r => r.trim().startsWith('@import '))
+    if (idx < 0) idx = 0
+    rows.splice(idx, 0, plugin)
+    let next = rows.join(lb)
+    if (!next.endsWith(lb)) next += lb
+    if (next !== src) await write(file(cssPath), next)
+  },
+  IMPORT_PREFIX = '@a/ui',
   root = process.cwd(),
   uiDir = join(root, 'readonly/ui'),
   tmpDir = '/tmp/cnsync',
   tmpUi = join(tmpDir, 'a/packages/ui'),
   tmpBin = join(tmpDir, 'bin'),
-  withShimPath = ({ env, shimDir }: { env?: NodeJS.ProcessEnv; shimDir: string }) => {
-    const base = env ?? nodeEnv,
-      currentPath = base.PATH ?? '',
-      nextPath = currentPath ? `${shimDir}:${currentPath}` : shimDir
-    return { ...base, PATH: nextPath }
-  },
-  patchUpstreamTypeIssues = async ({ srcDir }: { srcDir: string }) => {
-    const allFiles = await collectSourceFiles({ dirPath: srcDir }),
-      writes: Promise<void>[] = []
-    for (const absPath of allFiles)
-      writes.push(
-        (async () => {
-          let source = await file(absPath).text()
-          const original = source
-          if (absPath.endsWith('chart.tsx'))
-            source = source.replace(
-              'import type { TooltipValueType } from "recharts"',
-              'type TooltipValueType = number | string | Array<number | string>'
-            )
-          if (absPath.includes('ai-elements/')) {
-            source = source
-              .replaceAll(/openDelay\s*=\s*\d+,?\s*\n?\s*/gu, '')
-              .replaceAll(/closeDelay\s*=\s*\d+,?\s*\n?\s*/gu, '')
-              .replaceAll(/\s*closeDelay=\{closeDelay\}/gu, '')
-              .replaceAll(/\s*openDelay=\{openDelay\}/gu, '')
-              .replaceAll(/\s*closeDelay=\{0\}/gu, '')
-              .replaceAll(/\s*openDelay=\{0\}/gu, '')
-            if (!source.startsWith('// @ts-nocheck') && absPath.includes('ai-elements/'))
-              source = `// @ts-nocheck\n${source}`
-          }
-          if (source !== original) await write(file(absPath), source)
-        })()
-      )
-    await Promise.all(writes)
-  },
-  patchRadixToBaseUi = async ({ srcDir }: { srcDir: string }) => {
-    const allFiles = await collectSourceFiles({ dirPath: srcDir }),
-      radixPattern = '@radix-ui/react-use-controllable-state',
-      checks = await Promise.all(
-        allFiles.map(async absPath => {
-          const source = await file(absPath).text()
-          return source.includes(radixPattern) ? absPath : null
-        })
-      ),
-      filesToPatch = checks.filter(Boolean) as string[]
-    if (filesToPatch.length === 0) return
-    const shimPath = join(srcDir, 'hooks/use-controllable-state.ts'),
-      shimSource = await file(join(root, 'shims/use-controllable-state.ts')).text()
-    run({ cmd: ['mkdir', '-p', dirname(shimPath)] })
-    await write(file(shimPath), shimSource)
-    const radixImportRegex = /import\s*\{[^}]*\}\s*from\s*["']@radix-ui\/react-use-controllable-state["'];?\n?/gu,
-      writes: Promise<void>[] = []
-    for (const absPath of filesToPatch)
-      writes.push(
-        (async () => {
-          const source = await file(absPath).text(),
-            next = source.replace(
-              radixImportRegex,
-              'import { useControllableState } from "../../hooks/use-controllable-state"\n'
-            )
-          if (next !== source) await write(file(absPath), next)
-        })()
-      )
-    await Promise.all(writes)
-  },
-  validateNoRadixUi = async ({ srcDir }: { srcDir: string }) => {
-    const allFiles = await collectSourceFiles({ dirPath: srcDir }),
-      checks = await Promise.all(
-        allFiles.map(async absPath => {
-          const source = await file(absPath).text()
-          return source.includes('@radix-ui') || source.includes('from "radix-ui') || source.includes("from 'radix-ui")
-            ? absPath
-            : null
-        })
-      ),
-      violations = checks.filter(Boolean)
-    if (violations.length > 0)
-      throw new Error(`radix-ui found in components (should use @base-ui/react):\n${violations.join('\n')}`)
-  },
-  IMPORT_PREFIX = '@a/ui',
   UI_PACKAGE: JsonRecord = {
-    devDependencies: {
-      '@tailwindcss/postcss': 'latest',
-      '@tailwindcss/typography': 'latest'
-    },
+    devDependencies: { '@tailwindcss/postcss': 'latest', '@tailwindcss/typography': 'latest' },
     exports: {
       '.': './src/lib/utils.ts',
       './*': './src/components/*.tsx',
@@ -212,10 +125,7 @@ const lineBreakRegex = /\r?\n/u,
     },
     name: '@a/ui',
     private: true,
-    scripts: {
-      clean: 'rm -rf .cache .turbo dist node_modules',
-      typecheck: "echo 'skip: generated package'"
-    },
+    scripts: { clean: 'rm -rf .cache .turbo dist node_modules', typecheck: "echo 'skip: generated package'" },
     type: 'module',
     version: '0.0.0'
   },
@@ -230,63 +140,51 @@ const lineBreakRegex = /\r?\n/u,
     compilerOptions: { paths: { [`${IMPORT_PREFIX}/*`]: ['./src/*'] }, strict: false },
     extends: 'lintmax/tsconfig',
     include: ['.']
-  },
-  sync = async () => {
-    run({ cmd: ['rm', '-rf', tmpDir] })
-    run({ cmd: ['mkdir', '-p', tmpDir] })
-    run({ cmd: ['mkdir', '-p', tmpBin] })
-    await write(file(join(tmpBin, 'pnpm')), '#!/usr/bin/env sh\nexec bun "$@"\n')
-    run({ cmd: ['chmod', '+x', join(tmpBin, 'pnpm')] })
-    const shimEnv = withShimPath({ shimDir: tmpBin })
-    run({
-      cmd: ['bunx', '--bun', 'shadcn@latest', 'init', '-t', 'next', '-b', 'base', '--monorepo', '-p', 'vega', '-n', 'a'],
-      cwd: tmpDir,
-      env: shimEnv
-    })
-    run({ cmd: ['bunx', '--bun', 'shadcn@latest', 'add', '@ai-elements/all', '-ayo'], cwd: tmpUi, env: shimEnv })
-    run({ cmd: ['bunx', '--bun', 'shadcn@latest', 'add', '-ayo'], cwd: tmpUi, env: shimEnv })
-    const nextPackage = await readJson(join(tmpUi, 'package.json')),
-      nextComponents = await readJson(join(tmpUi, 'components.json')),
-      generatedPrefix = stripSuffix({
-        suffix: '/components',
-        value: getNestedString({ keys: ['aliases', 'components'], source: nextComponents })
-      })
-    if (nextPackage) {
-      const filterWorkspace = (deps: unknown): JsonRecord => {
-          if (!isRecord(deps)) return {}
-          const out: JsonRecord = {}
-          for (const k of Object.keys(deps))
-            if (typeof deps[k] === 'string' && !deps[k].includes('workspace:')) out[k] = deps[k]
-          return out
-        },
-        merged = {
-          ...UI_PACKAGE,
-          dependencies: filterWorkspace(nextPackage.dependencies),
-          devDependencies: {
-            ...(isRecord(UI_PACKAGE.devDependencies) ? UI_PACKAGE.devDependencies : {}),
-            ...filterWorkspace(nextPackage.devDependencies)
-          }
-        }
-      await writeJson({ filePath: join(tmpUi, 'package.json'), value: merged })
-    }
-    if (nextComponents) {
-      nextComponents.aliases = UI_ALIASES
-      await writeJson({ filePath: join(tmpUi, 'components.json'), value: nextComponents })
-    }
-    await writeJson({ filePath: join(tmpUi, 'tsconfig.json'), value: UI_TSCONFIG })
-    await replaceImportPrefix({ fromPrefix: generatedPrefix, srcDir: join(tmpUi, 'src'), toPrefix: IMPORT_PREFIX })
-    await patchRadixToBaseUi({ srcDir: join(tmpUi, 'src') })
-    await ensureTypographyPluginBeforeImports({ cssPath: join(tmpUi, 'src/styles/globals.css') })
-    run({ cmd: ['rm', '-rf', join(tmpUi, 'node_modules')] })
-    run({ cmd: ['rm', '-rf', uiDir] })
-    run({ cmd: ['mv', tmpUi, uiDir] })
-    await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")
-    for (const dead of ['components.json', 'eslint.config.js', 'tsconfig.lint.json'])
-      run({ cmd: ['rm', '-f', join(uiDir, dead)] })
-    await pruneGitkeepFiles({ dirPath: uiDir })
-    await patchRadixToBaseUi({ srcDir: join(uiDir, 'src') })
-    await patchUpstreamTypeIssues({ srcDir: join(uiDir, 'src') })
-    await validateNoRadixUi({ srcDir: join(uiDir, 'src') })
-    run({ cmd: ['rm', '-rf', tmpDir] })
   }
-await sync()
+await $`rm -rf ${tmpDir} && mkdir -p ${tmpBin}`
+await write(file(join(tmpBin, 'pnpm')), '#!/usr/bin/env sh\nexec bun "$@"\n')
+await $`chmod +x ${join(tmpBin, 'pnpm')}`
+const { env: processEnv } = process,
+  env = { ...processEnv, PATH: `${tmpBin}:${processEnv.PATH}` }
+await $`bunx --bun shadcn@latest init -t next -b base --monorepo -p vega -n a`.cwd(tmpDir).env(env)
+await $`bunx --bun shadcn@latest add @ai-elements/all -ayo`.cwd(tmpUi).env(env)
+await $`bunx --bun shadcn@latest add -ayo`.cwd(tmpUi).env(env)
+const pkg = await readJson(join(tmpUi, 'package.json')),
+  components = await readJson(join(tmpUi, 'components.json')),
+  generatedPrefix =
+    components && typeof (components.aliases as JsonRecord).components === 'string'
+      ? ((components.aliases as JsonRecord).components as string).replace(/\/components$/u, '')
+      : null
+if (pkg) {
+  const filterDeps = (deps: unknown): JsonRecord => {
+    if (!isRecord(deps)) return {}
+    const out: JsonRecord = {}
+    for (const [k, v] of Object.entries(deps)) if (typeof v === 'string' && !v.includes('workspace:')) out[k] = v
+    return out
+  }
+  await writeJson(join(tmpUi, 'package.json'), {
+    ...UI_PACKAGE,
+    dependencies: filterDeps(pkg.dependencies),
+    devDependencies: {
+      ...(isRecord(UI_PACKAGE.devDependencies) ? UI_PACKAGE.devDependencies : {}),
+      ...filterDeps(pkg.devDependencies)
+    }
+  })
+}
+if (components) {
+  components.aliases = UI_ALIASES
+  await writeJson(join(tmpUi, 'components.json'), components)
+}
+await writeJson(join(tmpUi, 'tsconfig.json'), UI_TSCONFIG)
+if (generatedPrefix) await replaceInFiles(join(tmpUi, 'src'), generatedPrefix, IMPORT_PREFIX)
+await patchRadixToBaseUi(join(tmpUi, 'src'))
+await ensureTypographyPlugin(join(tmpUi, 'src/styles/globals.css'))
+await $`rm -rf ${join(tmpUi, 'node_modules')} ${uiDir}`
+await $`mv ${tmpUi} ${uiDir}`
+await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")
+await $`rm -f ${join(uiDir, 'components.json')} ${join(uiDir, 'eslint.config.js')} ${join(uiDir, 'tsconfig.lint.json')}`
+await $`find ${uiDir} -name .gitkeep -delete`
+await patchRadixToBaseUi(join(uiDir, 'src'))
+await patchUpstreamTypes(join(uiDir, 'src'))
+await validateNoRadixUi(join(uiDir, 'src'))
+await $`rm -rf ${tmpDir}`

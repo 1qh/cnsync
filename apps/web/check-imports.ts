@@ -1,65 +1,36 @@
-import { readdirSync, readFileSync } from 'node:fs'
+import { Glob } from 'bun'
+import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-const reExportDecl = /export\s+(?:const|function|class)\s+(?<name>\w+)/gu,
-  reExportBlock = /export\s*\{(?<names>[^}]+)\}/gu,
-  reExportType = /export\s+type\s+(?<name>\w+)/gu,
-  reExportInterface = /export\s+interface\s+(?<name>\w+)/gu,
-  reTypePrefix = /^type\s+/u,
-  reAsAlias = /\s+as\s+/u,
-  uiComponents = join(import.meta.dirname, '../../readonly/ui/src/components'),
+const uiDir = join(import.meta.dirname, '../../readonly/ui/src/components'),
   pageContent = readFileSync(join(import.meta.dirname, 'src/app/showcase.tsx'), 'utf8'),
+  pageWords = new Set(pageContent.split(/[\s,;{}()<>|&=!+\-*/[\]'"`:@#.]+/u)),
+  reExport = /export\s+(?:(?:const|function|class|type|interface)\s+(?<single>\w+)|\{(?<block>[^}]+)\})/gu,
   missing: string[] = [],
-  missingExports: string[] = [],
-  check = (dir: string, prefix: string) => {
-    const entries = readdirSync(dir, { withFileTypes: true })
-    for (const entry of entries) {
-      if (entry.isDirectory()) check(join(dir, entry.name), `${prefix}/${entry.name}`)
-      if (entry.isFile() && entry.name.endsWith('.tsx')) {
-        const file = entry.name.replace('.tsx', ''),
-          importPath = `${prefix}/${file}`
-        if (!pageContent.includes(importPath)) missing.push(importPath)
-        const content = readFileSync(join(dir, entry.name), 'utf8'),
-          exportedNames: string[] = []
-        for (const m of content.matchAll(reExportDecl)) {
-          const g = m.groups as Record<string, string>
-          exportedNames.push(g.name)
-        }
-        for (const m of content.matchAll(reExportBlock)) {
-          const g = m.groups as Record<string, string>,
-            names = g.names
-              .split(',')
-              .map(n => {
-                const cleaned = n.trim().replace(reTypePrefix, ''),
-                  parts = cleaned.split(reAsAlias)
-                return parts.at(-1).trim()
-              })
-              .filter(n => n.length > 0)
-          exportedNames.push(...names)
-        }
-        for (const m of content.matchAll(reExportType)) {
-          const g = m.groups as Record<string, string>
-          exportedNames.push(g.name)
-        }
-        for (const m of content.matchAll(reExportInterface)) {
-          const g = m.groups as Record<string, string>
-          exportedNames.push(g.name)
-        }
-        for (const name of exportedNames) if (!pageContent.includes(name)) missingExports.push(`${importPath}: ${name}`)
-      }
+  missingExports: string[] = []
+for (const rel of new Glob('**/*.tsx').scanSync(uiDir)) {
+  const importPath = `@a/ui/components/${rel.replace('.tsx', '')}`,
+    content = readFileSync(join(uiDir, rel), 'utf8')
+  if (!pageContent.includes(importPath)) missing.push(importPath)
+  for (const m of content.matchAll(reExport)) {
+    const { single, block } = m.groups as Record<string, string | undefined>
+    if (single) {
+      if (!pageWords.has(single)) missingExports.push(`${importPath}: ${single}`)
     }
+    if (block)
+      for (const n of block.split(',')) {
+        const name = n.trim().replace(/^type\s+/u, '').split(/\s+as\s+/u).at(-1)?.trim()
+        if (name && !pageWords.has(name)) missingExports.push(`${importPath}: ${name}`)
+      }
   }
-check(uiComponents, '@a/ui/components')
+}
 if (missing.length > 0) {
-  process.stderr.write(`Missing ${String(missing.length)} component imports in page.tsx:\n`)
   for (const m of missing) process.stderr.write(`  ${m}\n`)
-  throw new Error('page.tsx is missing component imports')
+  throw new Error(`Missing ${String(missing.length)} component imports`)
 }
 if (missingExports.length > 0) {
-  process.stderr.write(`Missing ${String(missingExports.length)} export references in page.tsx:\n`)
   for (const m of missingExports) process.stderr.write(`  ${m}\n`)
-  throw new Error('page.tsx is missing export references')
+  throw new Error(`Missing ${String(missingExports.length)} export references`)
 }
 process.stdout.write(
-  `All ${String(pageContent.split('\n').filter(l => l.includes("from '@a/ui")).length)} component files imported\n`
+  `All ${String(pageContent.split('\n').filter(l => l.includes("from '@a/ui")).length)} component files imported\nAll exports verified\n`
 )
-process.stdout.write('All exports verified\n')

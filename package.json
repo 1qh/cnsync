@@ -22,7 +22,7 @@
     "lintmax": "latest",
     "lucide-react": "latest",
     "next": "latest",
-    "playwright": "^1.59.0",
+    "playwright": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",

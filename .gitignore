@@ -4,3 +4,4 @@
 .vercel
 bun.lock
 node_modules/
+next-env.d.ts

@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "check": "lintmax check",
-    "clean": "rm -rf .cache .turbo apps/web/.next apps/web/node_modules readonly/ui/node_modules",
+    "clean": "sh clean.sh",
     "fix": "lintmax fix && turbo check:imports build",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",

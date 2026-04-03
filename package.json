@@ -6,16 +6,17 @@
     "readonly/*"
   ],
   "scripts": {
+    "build": "turbo build",
     "check": "lintmax check",
     "clean": "sh clean.sh",
     "fix": "lintmax fix && turbo check:imports build",
+    "postinstall": "sherif",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",
-    "test:e2e": "turbo test:e2e",
-    "verify": "bun clean && bun i --ignore-scripts && bunx simple-git-hooks && bun run fix && bun run check"
+    "test:e2e": "turbo test:e2e"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun run verify && git add -u"
+    "pre-commit": "sh up.sh && git add -u"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",
@@ -29,6 +30,7 @@
     "playwright": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "sherif": "latest",
     "simple-git-hooks": "latest",
     "tailwindcss": "latest",
     "turbo": "latest",

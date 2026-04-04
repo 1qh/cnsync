@@ -64,10 +64,7 @@ const patchUpstreamTypes = async (srcDir: string) => {
         'import type { TooltipValueType } from "recharts"',
         'type TooltipValueType = number | string | Array<number | string>'
       )
-    if (abs.includes('ai-elements/')) {
-      for (const re of delayPatterns) out = out.replaceAll(re, '')
-      if (!out.startsWith('// @ts-nocheck')) out = `// @ts-nocheck\n${out}`
-    }
+    if (abs.includes('ai-elements/')) for (const re of delayPatterns) out = out.replaceAll(re, '')
     return out
   })
 }

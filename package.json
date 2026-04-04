@@ -6,10 +6,10 @@
     "readonly/*"
   ],
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo build --output-logs=errors-only",
     "check": "lintmax check",
     "clean": "sh clean.sh",
-    "fix": "lintmax fix && turbo check:imports build",
+    "fix": "lintmax fix && turbo check:imports build --output-logs=errors-only",
     "postinstall": "sherif",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",

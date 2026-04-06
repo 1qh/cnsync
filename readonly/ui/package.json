@@ -13,6 +13,7 @@
     "./postcss.config": "./postcss.config.mjs"
   },
   "scripts": {
+    "clean": "rm -rf .cache .turbo dist node_modules",
     "typecheck": "echo 'skip: generated package'"
   },
   "dependencies": {
@@ -24,7 +25,7 @@
     "@streamdown/math": "^1.0.2",
     "@streamdown/mermaid": "^1.0.2",
     "@xyflow/react": "^12.10.2",
-    "ai": "^6.0.146",
+    "ai": "^6.0.147",
     "ansi-to-react": "^6.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

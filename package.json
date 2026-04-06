@@ -33,6 +33,7 @@
     "sherif": "latest",
     "simple-git-hooks": "latest",
     "tailwindcss": "latest",
+    "tsdown": "latest",
     "turbo": "latest",
     "typescript": "latest"
   },

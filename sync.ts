@@ -40,7 +40,7 @@ const patchRadixToBaseUi = async (srcDir: string) => {
       return src.includes(radix) ? f : null
     })
   )
-  const toFix = checks.filter(Boolean) as string[]
+  const toFix = checks.filter(Boolean)
   if (toFix.length === 0) return
   const shimDest = join(srcDir, 'hooks/use-controllable-state.ts')
   await $`mkdir -p ${dirname(shimDest)}`

@@ -143,22 +143,49 @@ const generatedPrefix =
   components && typeof (components.aliases as JsonRecord).components === 'string'
     ? ((components.aliases as JsonRecord).components as string).replace(/\/components$/u, '')
     : null
-if (pkg) {
-  const filterDeps = (deps: unknown): JsonRecord => {
-    if (!isRecord(deps)) return {}
-    const out: JsonRecord = {}
-    for (const [k, v] of Object.entries(deps)) if (typeof v === 'string' && !v.includes('workspace:')) out[k] = v
-    return out
+const FORCE_LATEST = new Set(['zod'])
+const majorRe = /(?<major>\d+)/u
+const majorOf = (v: string): null | number => {
+  const m = majorRe.exec(v)
+  return m ? Number(m[1]) : null
+}
+const npmLatest = async (name: string): Promise<null | string> => {
+  try {
+    const res = await fetch(`https://registry.npmjs.org/${name}/latest`)
+    const data = (await res.json()) as { version?: string }
+    return data.version ?? null
+  } catch {
+    return null
   }
+}
+const normalizeDeps = async (deps: unknown): Promise<JsonRecord> => {
+  if (!isRecord(deps)) return {}
+  const out: JsonRecord = {}
+  const entries = Object.entries(deps).filter(([, v]) => typeof v === 'string' && !v.includes('workspace:'))
+  const results = await Promise.all(
+    entries.map(async ([k, v]) => {
+      if (FORCE_LATEST.has(k)) return [k, 'latest'] as const
+      const pinned = v as string
+      const pinnedMajor = majorOf(pinned)
+      if (pinnedMajor === null) return [k, pinned] as const
+      const latest = await npmLatest(k)
+      if (!latest) return [k, pinned] as const
+      const latestMajor = majorOf(latest)
+      return [k, pinnedMajor === latestMajor ? 'latest' : pinned] as const
+    })
+  )
+  for (const [k, v] of results) out[k] = v
+  return out
+}
+if (pkg)
   await writeJson(join(tmpUi, 'package.json'), {
     ...UI_PACKAGE,
-    dependencies: filterDeps(pkg.dependencies),
+    dependencies: await normalizeDeps(pkg.dependencies),
     devDependencies: {
       ...(isRecord(UI_PACKAGE.devDependencies) ? UI_PACKAGE.devDependencies : {}),
-      ...filterDeps(pkg.devDependencies)
+      ...(await normalizeDeps(pkg.devDependencies))
     }
   })
-}
 if (components) {
   components.aliases = UI_ALIASES
   await writeJson(join(tmpUi, 'components.json'), components)

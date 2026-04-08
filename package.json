@@ -5,7 +5,7 @@
     "readonly/*"
   ],
   "scripts": {
-    "action": "sh up.sh",
+    "action": "sh up.sh && bun run test",
     "build": "turbo build --output-logs=errors-only",
     "check": "lintmax check",
     "clean": "sh clean.sh",
@@ -13,6 +13,7 @@
     "postinstall": "sherif",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",
+    "test": "turbo test:e2e --output-logs=errors-only",
     "test:e2e": "turbo test:e2e --output-logs=errors-only"
   },
   "simple-git-hooks": {

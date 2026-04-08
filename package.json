@@ -1,5 +1,4 @@
 {
-  "name": "a",
   "private": true,
   "workspaces": [
     "apps/*",

@@ -1,6 +1,7 @@
 import { $, file, Glob, write } from 'bun'
 import { dirname, join } from 'node:path'
 type JsonRecord = Record<string, unknown>
+const darkBgRe = /(?<=\.dark\s*\{[^}]*?)--background:\s*oklch\([^)]+\)/su
 const isRecord = (v: unknown): v is JsonRecord => typeof v === 'object' && v !== null && !Array.isArray(v)
 const readJson = async (p: string): Promise<JsonRecord | null> => {
   try {
@@ -64,6 +65,8 @@ const patchUpstreamTypes = async (srcDir: string) => {
         'import type { TooltipValueType } from "recharts"',
         'type TooltipValueType = number | string | Array<number | string>'
       )
+    if (abs.endsWith('use-controllable-state.ts'))
+      out = out.replace('onChangeRef.current?.(value)', 'if (value !== undefined) onChangeRef.current?.(value)')
     if (abs.includes('ai-elements/')) {
       for (const re of delayPatterns) out = out.replaceAll(re, '')
       if (!out.startsWith('// @ts-nocheck')) out = `// @ts-nocheck\n${out}`
@@ -93,6 +96,11 @@ const ensureTypographyPlugin = async (cssPath: string) => {
   let next = rows.join(lb)
   if (!next.endsWith(lb)) next += lb
   if (next !== src) await write(file(cssPath), next)
+}
+const patchDarkBackground = async (cssPath: string) => {
+  const src = await file(cssPath).text()
+  const patched = src.replace(darkBgRe, '--background: oklch(0 0 0)')
+  if (patched !== src) await write(file(cssPath), patched)
 }
 const IMPORT_PREFIX = '@a/ui'
 const root = process.cwd()
@@ -194,6 +202,7 @@ await writeJson(join(tmpUi, 'tsconfig.json'), UI_TSCONFIG)
 if (generatedPrefix) await patchFiles(join(tmpUi, 'src'), src => src.split(generatedPrefix).join(IMPORT_PREFIX))
 await patchRadixToBaseUi(join(tmpUi, 'src'))
 await ensureTypographyPlugin(join(tmpUi, 'src/styles/globals.css'))
+await patchDarkBackground(join(tmpUi, 'src/styles/globals.css'))
 await $`rm -rf ${join(tmpUi, 'node_modules')} ${uiDir}`
 await $`mv ${tmpUi} ${uiDir}`
 await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")

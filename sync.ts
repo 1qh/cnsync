@@ -121,7 +121,7 @@ const UI_PACKAGE: JsonRecord = {
   },
   name: '@a/ui',
   private: true,
-  scripts: { clean: 'rm -rf .cache .turbo dist node_modules', typecheck: "echo 'skip: generated package'" },
+  scripts: { typecheck: "echo 'skip: generated package'" },
   type: 'module',
   version: '0.0.0'
 }

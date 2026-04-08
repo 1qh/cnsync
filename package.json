@@ -13,7 +13,6 @@
     "postinstall": "sherif",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",
-    "test:e2e": "turbo test:e2e --output-logs=errors-only",
     "test:e2e": "turbo test:e2e --output-logs=errors-only"
   },
   "simple-git-hooks": {

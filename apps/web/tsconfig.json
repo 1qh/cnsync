@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
     "paths": {
-      "@a/ui": ["../../readonly/ui/src/lib/utils.ts"],
-      "@a/ui/*": ["../../readonly/ui/src/*"]
+      "@a/ui": [
+        "../../readonly/ui/src/lib/utils.ts"
+      ],
+      "@a/ui/*": [
+        "../../readonly/ui/src/*"
+      ]
     },
     "strict": false,
     "strictNullChecks": true
   },
   "extends": "lintmax/tsconfig",
-  "exclude": ["check-imports.ts", "test-page.ts"],
-  "include": ["*.ts", "src", ".next/types/**/*.ts"]
+  "exclude": [
+    "check-imports.ts",
+    "test-page.ts"
+  ]
 }

@@ -116,8 +116,7 @@ const UI_PACKAGE: JsonRecord = {
     './components/*': './src/components/*.tsx',
     './globals.css': './src/styles/globals.css',
     './hooks/*': './src/hooks/*.ts',
-    './lib/*': './src/lib/*.ts',
-    './postcss.config': './postcss.config.ts'
+    './lib/*': './src/lib/*.ts'
   },
   name: '@a/ui',
   private: true,
@@ -205,11 +204,7 @@ await patchDarkBackground(join(tmpUi, 'src/styles/globals.css'))
 await $`rm -rf ${join(tmpUi, 'node_modules')} ${uiDir}`
 await $`mv ${tmpUi} ${uiDir}`
 await write(join(uiDir, 'global.d.ts'), "declare module '*.css' {}\n")
-await $`rm -f ${join(uiDir, 'components.json')} ${join(uiDir, 'eslint.config.js')} ${join(uiDir, 'tsconfig.lint.json')} ${join(uiDir, 'postcss.config.mjs')}`
-await write(
-  join(uiDir, 'postcss.config.ts'),
-  "const config = { plugins: { '@tailwindcss/postcss': {} } }\nexport default config\n"
-)
+await $`rm -f ${join(uiDir, 'components.json')} ${join(uiDir, 'eslint.config.js')} ${join(uiDir, 'tsconfig.lint.json')} ${join(uiDir, 'postcss.config.mjs')} ${join(uiDir, 'postcss.config.ts')}`
 await $`find ${uiDir} -name .gitkeep -delete`
 await patchUpstreamTypes(join(uiDir, 'src'))
 await validateNoRadixUi(join(uiDir, 'src'))

@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/correctness/noUnusedImports: build verification */
-/* oxlint-disable eslint/no-unused-vars, react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-new-array-as-prop, react-perf/jsx-no-jsx-as-prop, eslint/complexity, typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable eslint/no-unused-vars, jsx-no-new-object-as-prop, jsx-no-new-array-as-prop, jsx-no-jsx-as-prop, eslint/complexity, typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 import type {

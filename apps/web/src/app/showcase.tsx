@@ -1207,7 +1207,7 @@ const variantClasses = [
   safeCall(navigationMenuTriggerStyle)
 ].join(' ')
 const highlightedCode = (highlightCode as unknown as (code: string, lang: string) => unknown)('const x = 1', 'typescript')
-const markdownResult = (messagesToMarkdown as (messages: never[]) => string)([] as never)
+const markdownResult = messagesToMarkdown([] as never)
 const statusBadge = (getStatusBadge as unknown as (status: string) => unknown)('output-available')
 const edgeTypes = {
   animated: (Edge as Record<string, unknown>).Animated,
@@ -1220,7 +1220,7 @@ const mediaCategory = (getMediaCategory as (data: never) => string)({
   mediaType: 'text/plain',
   type: 'file'
 } as never)
-const attachmentLabel = (getAttachmentLabel as (data: never) => string)({
+const attachmentLabel = getAttachmentLabel({
   data: '',
   filename: 'f',
   id: '1',

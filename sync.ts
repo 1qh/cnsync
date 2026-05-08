@@ -150,6 +150,16 @@ const generatedPrefix =
     ? ((components.aliases as JsonRecord).components as string).replace(/\/components$/u, '')
     : null
 const FORCE_LATEST = new Set(['zod'])
+const v9CalendarKeyRe = /^\s*table:\s/mu
+const probePin = async (): Promise<Record<string, string>> => {
+  const out: Record<string, string> = {}
+  const calendar = await file(join(tmpUi, 'src/components/calendar.tsx'))
+    .text()
+    .catch(() => '')
+  if (v9CalendarKeyRe.test(calendar)) out['react-day-picker'] = '9'
+  return out
+}
+const FORCE_PIN = await probePin()
 const majorRe = /(?<major>\d+)/u
 const majorOf = (v: string): null | number => {
   const m = majorRe.exec(v)
@@ -171,6 +181,7 @@ const normalizeDeps = async (deps: unknown): Promise<JsonRecord> => {
   const results = await Promise.all(
     entries.map(async ([k, v]) => {
       if (FORCE_LATEST.has(k)) return [k, 'latest'] as const
+      if (FORCE_PIN[k]) return [k, FORCE_PIN[k]] as const
       const pinned = v as string
       const pinnedMajor = majorOf(pinned)
       if (pinnedMajor === null) return [k, pinned] as const

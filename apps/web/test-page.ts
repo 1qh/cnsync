@@ -1,5 +1,3 @@
-/** biome-ignore-all lint/nursery/noPlaywrightNetworkidle: needed for full page load */
-/** biome-ignore-all lint/nursery/noPlaywrightWaitForTimeout: waiting for async rendering */
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 const port = 3377,

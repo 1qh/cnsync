@@ -1,6 +1,7 @@
 *.pem
 *.tsbuildinfo
 .cache/
+.claude/worktrees/
 .DS_Store
 .env
 .env.local
@@ -17,4 +18,5 @@ next-env.d.ts
 node_modules/
 out/
 playwright-report/
+secrets/
 test-results/

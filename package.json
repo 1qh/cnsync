@@ -6,14 +6,14 @@
   ],
   "scripts": {
     "action": "sh up.sh",
-    "build": "turbo build --output-logs=errors-only",
+    "build": "bash -c \"turbo build --output-logs=errors-only 2> >(grep -vE 'WARNING|Could not resolve workspaces|missing field|Turborepo will still function' >&2)\"",
     "check": "lintmax check",
     "clean": "sh clean.sh",
-    "fix": "lintmax fix && turbo check:imports build --output-logs=errors-only",
+    "fix": "bun run build && bash -c \"turbo check:imports --output-logs=errors-only 2> >(grep -vE 'WARNING|Could not resolve workspaces|missing field|Turborepo will still function' >&2)\" && lintmax fix",
     "postinstall": "sherif",
     "prepare": "bunx simple-git-hooks",
     "sync": "bun sync.ts",
-    "test:e2e": "turbo test:e2e --output-logs=errors-only"
+    "test:e2e": "bash -c \"turbo test:e2e --output-logs=errors-only 2> >(grep -vE 'WARNING|Could not resolve workspaces|missing field|Turborepo will still function' >&2)\""
   },
   "simple-git-hooks": {
     "pre-commit": "sh up.sh && git add -u"

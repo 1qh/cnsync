@@ -15,10 +15,14 @@ const readJson = async (p: string): Promise<JsonRecord | null> => {
 const writeJson = async (p: string, v: JsonRecord) => {
   await write(file(p), `${JSON.stringify(v, null, 2)}\n`)
 }
-const tsFiles = (dir: string) => [...new Glob('**/*.{ts,tsx}').scanSync(dir)].map(f => join(dir, f))
+const tsFiles = async (dir: string): Promise<string[]> => {
+  const out: string[] = []
+  for await (const f of new Glob('**/*.{ts,tsx}').scan(dir)) out.push(join(dir, f))
+  return out
+}
 const patchFiles = async (dir: string, fn: (src: string, abs: string) => string) => {
   await Promise.all(
-    tsFiles(dir).map(async abs => {
+    (await tsFiles(dir)).map(async abs => {
       const src = await file(abs).text()
       const next = fn(src, abs)
       if (next !== src) await write(file(abs), next)
@@ -37,7 +41,7 @@ const radixImportRe = /import\s*\{[^}]*\}\s*from\s*["']@radix-ui\/react-use-cont
 const patchRadixToBaseUi = async (srcDir: string) => {
   const radix = '@radix-ui/react-use-controllable-state'
   const checks = await Promise.all(
-    tsFiles(srcDir).map(async f => {
+    (await tsFiles(srcDir)).map(async f => {
       const src = await file(f).text()
       return src.includes(radix) ? f : null
     })
@@ -46,7 +50,8 @@ const patchRadixToBaseUi = async (srcDir: string) => {
   if (toFix.length === 0) return
   const shimDest = join(srcDir, 'hooks/use-controllable-state.ts')
   await $`mkdir -p ${dirname(shimDest)}`
-  await write(file(shimDest), await file(join(process.cwd(), 'shims/use-controllable-state.ts')).text())
+  const shimSrc = await file(join(process.cwd(), 'shims/use-controllable-state.ts')).text()
+  await write(file(shimDest), shimSrc)
   await Promise.all(
     toFix.map(async abs => {
       const src = await file(abs).text()
@@ -77,7 +82,7 @@ const patchUpstreamTypes = async (srcDir: string) => {
 }
 const validateNoRadixUi = async (srcDir: string) => {
   const checks = await Promise.all(
-    tsFiles(srcDir).map(async abs => {
+    (await tsFiles(srcDir)).map(async abs => {
       const src = await file(abs).text()
       return src.includes('@radix-ui') || src.includes('from "radix-ui') || src.includes("from 'radix-ui") ? abs : null
     })

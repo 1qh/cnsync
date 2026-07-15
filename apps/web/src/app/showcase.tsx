@@ -882,6 +882,17 @@ import {
   AlertDialogTrigger
 } from '@a/ui/components/alert-dialog'
 import { AspectRatio } from '@a/ui/components/aspect-ratio'
+import {
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentTitle,
+  AttachmentTrigger,
+  Attachment as FileAttachment
+} from '@a/ui/components/attachment'
 import { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from '@a/ui/components/avatar'
 import { Badge, badgeVariants } from '@a/ui/components/badge'
 import {
@@ -893,6 +904,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@a/ui/components/breadcrumb'
+import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from '@a/ui/components/bubble'
 import { Button, buttonVariants } from '@a/ui/components/button'
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from '@a/ui/components/button-group'
 import { Calendar, CalendarDayButton } from '@a/ui/components/calendar'
@@ -983,6 +995,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerPortal,
+  DrawerSwipeHandle,
   DrawerTitle,
   DrawerTrigger
 } from '@a/ui/components/drawer'
@@ -1041,6 +1054,7 @@ import {
 } from '@a/ui/components/item'
 import { Kbd, KbdGroup } from '@a/ui/components/kbd'
 import { Label } from '@a/ui/components/label'
+import { Marker, MarkerContent, MarkerIcon, markerVariants } from '@a/ui/components/marker'
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -1059,6 +1073,25 @@ import {
   MenubarSubTrigger,
   MenubarTrigger
 } from '@a/ui/components/menubar'
+import {
+  Message as ChatMessage,
+  MessageContent as ChatMessageContent,
+  MessageAvatar,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader
+} from '@a/ui/components/message'
+import {
+  MessageScroller,
+  MessageScrollerButton,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+  useMessageScroller,
+  useMessageScrollerScrollable,
+  useMessageScrollerVisibility
+} from '@a/ui/components/message-scroller'
 import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from '@a/ui/components/native-select'
 import {
   NavigationMenu,
@@ -1161,7 +1194,19 @@ import { Textarea } from '@a/ui/components/textarea'
 import { Toggle, toggleVariants } from '@a/ui/components/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@a/ui/components/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@a/ui/components/tooltip'
-import { BoxIcon, CodeIcon, LayoutDashboardIcon, PaletteIcon, PanelLeftIcon, SettingsIcon, UserIcon } from 'lucide-react'
+import {
+  BoxIcon,
+  CheckIcon,
+  CodeIcon,
+  LayoutDashboardIcon,
+  PaletteIcon,
+  PanelLeftIcon,
+  PaperclipIcon,
+  SettingsIcon,
+  UserIcon,
+  XIcon
+} from 'lucide-react'
+import Link from 'next/link'
 import { useId } from 'react'
 import Providers from './providers'
 
@@ -1175,6 +1220,9 @@ const hookRefs = [
   useProviderAttachments,
   usePromptInputAttachments,
   usePromptInputReferencedSources,
+  useMessageScroller,
+  useMessageScrollerScrollable,
+  useMessageScrollerVisibility,
   AlertDialogPortal,
   ContextMenuPortal,
   DialogPortal,
@@ -1205,6 +1253,7 @@ const variantClasses = [
   safeCall(buttonGroupVariants),
   safeCall(tabsListVariants),
   safeCall(toggleVariants),
+  safeCall(markerVariants),
   safeCall(navigationMenuTriggerStyle)
 ].join(' ')
 const highlightedCode = (highlightCode as unknown as (code: string, lang: string) => unknown)('const x = 1', 'typescript')
@@ -1349,6 +1398,32 @@ const Page = () => {
         <AspectRatio ratio={16 / 9}>
           <span>Aspect</span>
         </AspectRatio>
+        <AttachmentGroup>
+          <FileAttachment state='done'>
+            <AttachmentTrigger />
+            <AttachmentMedia variant='icon'>
+              <PaperclipIcon />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>report.pdf</AttachmentTitle>
+              <AttachmentDescription>248 KB</AttachmentDescription>
+            </AttachmentContent>
+            <AttachmentActions>
+              <AttachmentAction aria-label='Remove report.pdf'>
+                <XIcon />
+              </AttachmentAction>
+            </AttachmentActions>
+          </FileAttachment>
+          <FileAttachment orientation='vertical' size='sm' state='uploading'>
+            <AttachmentMedia variant='image'>
+              <Spinner />
+            </AttachmentMedia>
+            <AttachmentContent>
+              <AttachmentTitle>cover.png</AttachmentTitle>
+              <AttachmentDescription>Uploading</AttachmentDescription>
+            </AttachmentContent>
+          </FileAttachment>
+        </AttachmentGroup>
         <AvatarGroup>
           <Avatar>
             <AvatarImage src='' />
@@ -1370,6 +1445,23 @@ const Page = () => {
             <BreadcrumbEllipsis />
           </BreadcrumbList>
         </Breadcrumb>
+        <BubbleGroup>
+          <Bubble variant='muted'>
+            <BubbleContent>How do I sync the upstream registry?</BubbleContent>
+          </Bubble>
+          <Bubble align='end' variant='default'>
+            <BubbleContent>Run the sync task and the components land in readonly.</BubbleContent>
+            <BubbleReactions align='end' side='bottom'>
+              <span>👍</span>
+              <span>2</span>
+            </BubbleReactions>
+          </Bubble>
+          <Bubble variant='outline'>
+            <BubbleContent render={<button aria-label='Retry that request' type='button' />}>
+              Retry that request
+            </BubbleContent>
+          </Bubble>
+        </BubbleGroup>
         <Button>Button</Button>
         <ButtonGroup>
           <ButtonGroupText>Text</ButtonGroupText>
@@ -1476,6 +1568,7 @@ const Page = () => {
           <DrawerPortal>
             <DrawerOverlay />
             <DrawerContent>
+              <DrawerSwipeHandle />
               <DrawerHeader>
                 <DrawerTitle>Title</DrawerTitle>
                 <DrawerDescription>Desc</DrawerDescription>
@@ -1558,6 +1651,18 @@ const Page = () => {
           <Kbd>K</Kbd>
         </KbdGroup>
         <Label>Label</Label>
+        <Marker variant='separator'>
+          <MarkerContent>Today</MarkerContent>
+        </Marker>
+        <Marker variant='default'>
+          <MarkerIcon>
+            <CheckIcon />
+          </MarkerIcon>
+          <MarkerContent>Delivered at 09:24</MarkerContent>
+        </Marker>
+        <Marker render={<Link href='/changelog' />} variant='border'>
+          <MarkerContent>View the full changelog</MarkerContent>
+        </Marker>
         <Menubar>
           <MenubarMenu>
             <MenubarTrigger>File</MenubarTrigger>
@@ -1580,6 +1685,53 @@ const Page = () => {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
+        <MessageGroup>
+          <ChatMessage align='start'>
+            <MessageAvatar>
+              <Avatar>
+                <AvatarFallback>A</AvatarFallback>
+              </Avatar>
+            </MessageAvatar>
+            <ChatMessageContent>
+              <MessageHeader>Ada</MessageHeader>
+              <Bubble variant='muted'>
+                <BubbleContent>Did the registry pick up the new components?</BubbleContent>
+              </Bubble>
+            </ChatMessageContent>
+          </ChatMessage>
+          <ChatMessage align='end'>
+            <MessageAvatar>
+              <Avatar>
+                <AvatarFallback>G</AvatarFallback>
+              </Avatar>
+            </MessageAvatar>
+            <ChatMessageContent>
+              <Bubble align='end'>
+                <BubbleContent>All five landed on the last sync.</BubbleContent>
+              </Bubble>
+              <MessageFooter>Sent 09:26</MessageFooter>
+            </ChatMessageContent>
+          </ChatMessage>
+        </MessageGroup>
+        <MessageScrollerProvider>
+          <MessageScroller className='h-48 rounded-lg border'>
+            <MessageScrollerViewport>
+              <MessageScrollerContent>
+                <MessageScrollerItem>
+                  <Marker variant='separator'>
+                    <MarkerContent>Earlier</MarkerContent>
+                  </Marker>
+                </MessageScrollerItem>
+                <MessageScrollerItem scrollAnchor>
+                  <Bubble variant='muted'>
+                    <BubbleContent>Scroll pins to the latest message.</BubbleContent>
+                  </Bubble>
+                </MessageScrollerItem>
+              </MessageScrollerContent>
+            </MessageScrollerViewport>
+            <MessageScrollerButton direction='end' />
+          </MessageScroller>
+        </MessageScrollerProvider>
         <NativeSelect>
           <NativeSelectOptGroup label='Group'>
             <NativeSelectOption>Option</NativeSelectOption>

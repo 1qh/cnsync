@@ -1,8 +1,10 @@
+/* eslint-disable sonarjs/super-linear-regex -- the whitespace/literal prop-strip and key-match regexes here are single-quantifier or negated-class patterns over bounded generated component source; none can backtrack super-linearly */
 import { $, file, Glob, write } from 'bun'
+import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 
 type JsonRecord = Record<string, unknown>
-const darkBgRe = /(?<=\.dark\s*\{[^}]*?)--background:\s*oklch\([^)]+\)/su
+const darkBgRe = /(?<=\.dark\s*\{[^}]*)--background:\s*oklch\([^)]+\)/u
 const isRecord = (v: unknown): v is JsonRecord => typeof v === 'object' && v !== null && !Array.isArray(v)
 const readJson = async (p: string): Promise<JsonRecord | null> => {
   try {
@@ -30,8 +32,8 @@ const patchFiles = async (dir: string, fn: (src: string, abs: string) => string)
   )
 }
 const delayPatterns = [
-  /openDelay\s*=\s*\d+,?\s*\n?\s*/gu,
-  /closeDelay\s*=\s*\d+,?\s*\n?\s*/gu,
+  /openDelay\s*=\s*\d+,?\s*/gu,
+  /closeDelay\s*=\s*\d+,?\s*/gu,
   /\s*closeDelay=\{closeDelay\}/gu,
   /\s*openDelay=\{openDelay\}/gu,
   /\s*closeDelay=\{0\}/gu,
@@ -111,7 +113,7 @@ const patchDarkBackground = async (cssPath: string) => {
 const IMPORT_PREFIX = '@a/ui'
 const root = process.cwd()
 const uiDir = join(root, 'readonly/ui')
-const tmpDir = '/tmp/cnsync'
+const tmpDir = join(tmpdir(), 'cnsync')
 const tmpUi = join(tmpDir, 'a/packages/ui')
 const tmpBin = join(tmpDir, 'bin')
 const UI_PACKAGE: JsonRecord = {
@@ -168,8 +170,8 @@ const probePin = async (): Promise<Record<string, string>> => {
 const FORCE_PIN = await probePin()
 const majorRe = /(?<major>\d+)/u
 const majorOf = (v: string): null | number => {
-  const m = majorRe.exec(v)
-  return m ? Number(m[1]) : null
+  const major = majorRe.exec(v)?.groups?.major
+  return major === undefined ? null : Number(major)
 }
 const npmLatest = async (name: string): Promise<null | string> => {
   try {

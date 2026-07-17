@@ -1,6 +1,7 @@
 {
   "name": "web",
   "private": true,
+  "description": "cnsync component showcase and build-verification web app",
   "scripts": {
     "build": "tsc --noEmit && next build",
     "check:imports": "bun check-imports.ts",

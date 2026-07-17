@@ -1,5 +1,6 @@
 {
   "private": true,
+  "description": "cnsync monorepo — canonical shadcn + ai-elements component source synced into consumer repos",
   "workspaces": [
     "apps/*",
     "readonly/*"
@@ -24,7 +25,7 @@
     "@turbo/gen": "latest",
     "@types/node": "latest",
     "@xyflow/react": "latest",
-    "lintmax": "latest",
+    "lintmax": "^0.1.82",
     "lucide-react": "latest",
     "next": "latest",
     "playwright": "latest",

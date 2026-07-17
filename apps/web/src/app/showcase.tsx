@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/correctness/noUnusedImports: build verification */
 /* oxlint-disable jsx-no-new-object-as-prop, jsx-no-new-array-as-prop, jsx-no-jsx-as-prop */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars, sonarjs/unused-import -- build-verification file that imports every component type to prove the public surface compiles */
 'use client'
 import type {
   AgentContentProps,

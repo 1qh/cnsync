@@ -3,9 +3,7 @@
     "paths": {
       "@a/ui": ["../../readonly/ui/src/lib/utils.ts"],
       "@a/ui/*": ["../../readonly/ui/src/*"]
-    },
-    "strict": false,
-    "strictNullChecks": true
+    }
   },
   "extends": "lintmax/tsconfig",
   "exclude": ["check-imports.ts", "test-page.ts"]

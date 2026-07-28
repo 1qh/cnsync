@@ -25,7 +25,7 @@
     "@turbo/gen": "latest",
     "@types/node": "latest",
     "@xyflow/react": "latest",
-    "lintmax": "^0.1.82",
+    "lintmax": "latest",
     "lucide-react": "latest",
     "next": "latest",
     "playwright": "latest",

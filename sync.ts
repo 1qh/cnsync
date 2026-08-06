@@ -151,6 +151,7 @@ const env = { ...processEnv, PATH: `${tmpBin}:${processEnv.PATH}` }
 await $`bunx --bun shadcn@latest init -t next -b base --monorepo -p vega -n a`.cwd(tmpDir).env(env)
 await $`bunx --bun shadcn@latest add @ai-elements/all -ayo`.cwd(tmpUi).env(env)
 await $`bunx --bun shadcn@latest add -ayo`.cwd(tmpUi).env(env)
+await $`bunx --bun shadcn@latest add sonner -ayo`.cwd(tmpUi).env(env)
 const pkg = await readJson(join(tmpUi, 'package.json'))
 const components = await readJson(join(tmpUi, 'components.json'))
 const generatedPrefix =

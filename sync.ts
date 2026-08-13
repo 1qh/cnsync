@@ -97,10 +97,13 @@ const ensureTypographyPlugin = async (cssPath: string) => {
   const src = await file(cssPath).text()
   const lb = src.includes('\r\n') ? '\r\n' : '\n'
   const plugin = '@plugin "@tailwindcss/typography";'
-  const rows = src.split(lineBreakRe).filter(r => r.trim() !== plugin && r.trim() !== '@import "shadcn/tailwind.css";')
+  const shadcnImport = '@import "shadcn/tailwind.css";'
+  const rows = src.split(lineBreakRe).filter(r => r.trim() !== plugin && r.trim() !== shadcnImport)
   let idx = rows.findIndex(r => r.trim().startsWith('@import '))
   if (idx < 0) idx = 0
   rows.splice(idx, 0, plugin)
+  const twIdx = rows.findIndex(r => r.trim() === '@import "tailwindcss";')
+  if (twIdx !== -1) rows.splice(twIdx + 1, 0, shadcnImport)
   let next = rows.join(lb)
   if (!next.endsWith(lb)) next += lb
   if (next !== src) await write(file(cssPath), next)

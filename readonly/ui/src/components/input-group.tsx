@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@a/ui/lib/utils"
+import { cn } from "cn"
 import { Button } from "@a/ui/components/button"
 import { Input } from "@a/ui/components/input"
 import { Textarea } from "@a/ui/components/textarea"

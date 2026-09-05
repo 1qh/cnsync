@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
-import { cn } from "@a/ui/lib/utils"
+import { cn } from "cn"
 type DrawerContextProps = {
   hasSnapPoints: boolean
   modal: DrawerPrimitive.Root.Props["modal"]

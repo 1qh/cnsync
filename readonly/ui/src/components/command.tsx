@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
-import { cn } from "@a/ui/lib/utils"
+import { cn } from "cn"
 import {
   Dialog,
   DialogContent,

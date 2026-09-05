@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/nursery/noUnsafeTypeAssertion: sync script manipulates loosely-typed shadcn config + npm-registry JSON; each assertion narrows a value already shape-guarded (isRecord/typeof) or is a documented JSON boundary */
 /* eslint-disable sonarjs/super-linear-regex -- the whitespace/literal prop-strip and key-match regexes here are single-quantifier or negated-class patterns over bounded generated component source; none can backtrack super-linearly */
 import { $, file, Glob, write } from 'bun'
 import { tmpdir } from 'node:os'

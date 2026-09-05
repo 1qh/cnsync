@@ -25,6 +25,7 @@ for (const rel of new Glob('**/*.tsx').scanSync(uiDir)) {
   const content = readFileSync(join(uiDir, rel), 'utf8')
   if (!pageContent.includes(importPath)) missing.push(importPath)
   for (const m of content.matchAll(reExport)) {
+    // biome-ignore lint/nursery/noUnsafeTypeAssertion: regex named-capture groups are typed as a loose record; these names are defined by the pattern
     const { single, block } = m.groups as Record<string, string | undefined>
     if (single && !pageWords.has(single)) missingExports.push(`${importPath}: ${single}`)
     if (block) collectBlockExports(block, importPath)

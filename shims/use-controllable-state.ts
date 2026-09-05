@@ -34,8 +34,10 @@ const useControllableState = <T>({
   const setValue = useCallback(
     (nextValue: ((prev: T) => T) | T) => {
       if (isControlled) {
+        // biome-ignore lint/nursery/noUnsafeTypeAssertion: the typeof guard proves nextValue is the updater function form
         const resolved = typeof nextValue === 'function' ? (nextValue as (prev: T) => T)(prop) : nextValue
         if (resolved !== prop) onChangeRef.current?.(resolved)
+        // biome-ignore lint/nursery/noUnsafeTypeAssertion: in the uncontrolled else-branch nextValue is the direct T value, not the updater function
       } else setUncontrolledProp(nextValue as T | undefined)
     },
     [isControlled, prop, setUncontrolledProp, onChangeRef]

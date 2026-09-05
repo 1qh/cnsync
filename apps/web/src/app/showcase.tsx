@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/nursery/noUnsafeTypeAssertion: build-verification showcase generically introspects each component's internals (context/config to Record) to prove the public surface compiles */
 /** biome-ignore-all lint/correctness/noUnusedImports: build verification */
 /* oxlint-disable jsx-no-new-object-as-prop, jsx-no-new-array-as-prop, jsx-no-jsx-as-prop */
 /* eslint-disable @typescript-eslint/no-unused-vars, sonarjs/unused-import -- build-verification file that imports every component type to prove the public surface compiles */

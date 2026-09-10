@@ -1,9 +1,12 @@
 "use client"
+
 import * as React from "react"
 import { Questionnaire as QuestionnairePrimitive } from "@shadcn/react/questionnaire"
 import { cn } from "cn"
+
 import { buttonVariants, type Button } from "@a/ui/components/button"
 import { CheckIcon } from "lucide-react"
+
 function Questionnaire({
   className,
   ...props
@@ -16,6 +19,7 @@ function Questionnaire({
     />
   )
 }
+
 function QuestionnaireProgress({
   className,
   ...props
@@ -31,6 +35,7 @@ function QuestionnaireProgress({
     />
   )
 }
+
 function QuestionnaireItem({
   className,
   ...props
@@ -46,6 +51,7 @@ function QuestionnaireItem({
     />
   )
 }
+
 function QuestionnaireTitle({
   className,
   ...props
@@ -61,6 +67,7 @@ function QuestionnaireTitle({
     />
   )
 }
+
 function QuestionnaireDescription({
   className,
   ...props
@@ -73,6 +80,7 @@ function QuestionnaireDescription({
     />
   )
 }
+
 function QuestionnaireChoices({
   className,
   ...props
@@ -88,6 +96,7 @@ function QuestionnaireChoices({
     />
   )
 }
+
 function QuestionnaireChoice({
   children,
   className,
@@ -131,6 +140,7 @@ function QuestionnaireChoice({
     </QuestionnairePrimitive.Choice>
   )
 }
+
 function QuestionnaireChoiceDescription({
   className,
   ...props
@@ -143,6 +153,7 @@ function QuestionnaireChoiceDescription({
     />
   )
 }
+
 function QuestionnaireInput({
   className,
   ...props
@@ -164,6 +175,7 @@ function QuestionnaireInput({
     </div>
   )
 }
+
 function QuestionnaireError({
   className,
   ...props
@@ -176,6 +188,7 @@ function QuestionnaireError({
     />
   )
 }
+
 function QuestionnaireActions({
   className,
   ...props
@@ -191,6 +204,7 @@ function QuestionnaireActions({
     />
   )
 }
+
 function QuestionnairePrevious({
   children,
   className,
@@ -215,6 +229,7 @@ function QuestionnairePrevious({
     </QuestionnairePrimitive.Previous>
   )
 }
+
 function QuestionnaireSkip({
   children,
   className,
@@ -239,6 +254,7 @@ function QuestionnaireSkip({
     </QuestionnairePrimitive.Skip>
   )
 }
+
 function QuestionnaireNext({
   children,
   className,
@@ -263,6 +279,7 @@ function QuestionnaireNext({
     </QuestionnairePrimitive.Next>
   )
 }
+
 function QuestionnaireSubmit({
   children,
   className,
@@ -287,6 +304,7 @@ function QuestionnaireSubmit({
     </QuestionnairePrimitive.Submit>
   )
 }
+
 export {
   Questionnaire,
   QuestionnaireActions,

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "cn"
+
 function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -9,6 +10,7 @@ function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 function Message({
   className,
   align = "start",
@@ -26,6 +28,7 @@ function Message({
     />
   )
 }
+
 function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -38,6 +41,7 @@ function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -50,6 +54,7 @@ function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -62,6 +67,7 @@ function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -74,6 +80,7 @@ function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 export {
   MessageGroup,
   Message,

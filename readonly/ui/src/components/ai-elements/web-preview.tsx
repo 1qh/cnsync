@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Button } from "@a/ui/components/button";
 import {
   Collapsible,
@@ -23,13 +24,16 @@ import {
   useMemo,
   useState,
 } from "react";
+
 export interface WebPreviewContextValue {
   url: string;
   setUrl: (url: string) => void;
   consoleOpen: boolean;
   setConsoleOpen: (open: boolean) => void;
 }
+
 const WebPreviewContext = createContext<WebPreviewContextValue | null>(null);
+
 const useWebPreview = () => {
   const context = useContext(WebPreviewContext);
   if (!context) {
@@ -37,10 +41,12 @@ const useWebPreview = () => {
   }
   return context;
 };
+
 export type WebPreviewProps = ComponentProps<"div"> & {
   defaultUrl?: string;
   onUrlChange?: (url: string) => void;
 };
+
 export const WebPreview = ({
   className,
   children,
@@ -50,6 +56,7 @@ export const WebPreview = ({
 }: WebPreviewProps) => {
   const [url, setUrl] = useState(defaultUrl);
   const [consoleOpen, setConsoleOpen] = useState(false);
+
   const handleUrlChange = useCallback(
     (newUrl: string) => {
       setUrl(newUrl);
@@ -57,6 +64,7 @@ export const WebPreview = ({
     },
     [onUrlChange]
   );
+
   const contextValue = useMemo<WebPreviewContextValue>(
     () => ({
       consoleOpen,
@@ -66,6 +74,7 @@ export const WebPreview = ({
     }),
     [consoleOpen, handleUrlChange, url]
   );
+
   return (
     <WebPreviewContext.Provider value={contextValue}>
       <div
@@ -80,7 +89,9 @@ export const WebPreview = ({
     </WebPreviewContext.Provider>
   );
 };
+
 export type WebPreviewNavigationProps = ComponentProps<"div">;
+
 export const WebPreviewNavigation = ({
   className,
   children,
@@ -93,9 +104,11 @@ export const WebPreviewNavigation = ({
     {children}
   </div>
 );
+
 export type WebPreviewNavigationButtonProps = ComponentProps<typeof Button> & {
   tooltip?: string;
 };
+
 export const WebPreviewNavigationButton = ({
   onClick,
   disabled,
@@ -112,7 +125,9 @@ export const WebPreviewNavigationButton = ({
     </Tooltip>
   </TooltipProvider>
 );
+
 export type WebPreviewUrlProps = ComponentProps<typeof Input>;
+
 export const WebPreviewUrl = ({
   value,
   onChange,
@@ -122,15 +137,18 @@ export const WebPreviewUrl = ({
   const { url, setUrl } = useWebPreview();
   const [prevUrl, setPrevUrl] = useState(url);
   const [inputValue, setInputValue] = useState(url);
+
   // Sync input value with context URL when it changes externally (derived state pattern)
   if (url !== prevUrl) {
     setPrevUrl(url);
     setInputValue(url);
   }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     onChange?.(event);
   };
+
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
@@ -141,6 +159,7 @@ export const WebPreviewUrl = ({
     },
     [setUrl, onKeyDown]
   );
+
   return (
     <Input
       className="h-8 flex-1 text-sm"
@@ -152,9 +171,11 @@ export const WebPreviewUrl = ({
     />
   );
 };
+
 export type WebPreviewBodyProps = ComponentProps<"iframe"> & {
   loading?: ReactNode;
 };
+
 export const WebPreviewBody = ({
   className,
   loading,
@@ -162,6 +183,7 @@ export const WebPreviewBody = ({
   ...props
 }: WebPreviewBodyProps) => {
   const { url } = useWebPreview();
+
   return (
     <div className="flex-1">
       <iframe
@@ -176,6 +198,7 @@ export const WebPreviewBody = ({
     </div>
   );
 };
+
 export type WebPreviewConsoleProps = ComponentProps<"div"> & {
   logs?: {
     level: "log" | "warn" | "error";
@@ -183,6 +206,7 @@ export type WebPreviewConsoleProps = ComponentProps<"div"> & {
     timestamp: Date;
   }[];
 };
+
 export const WebPreviewConsole = ({
   className,
   logs = [],
@@ -190,6 +214,7 @@ export const WebPreviewConsole = ({
   ...props
 }: WebPreviewConsoleProps) => {
   const { consoleOpen, setConsoleOpen } = useWebPreview();
+
   return (
     <Collapsible
       className={cn("border-t bg-muted/50 font-mono text-sm", className)}

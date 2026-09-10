@@ -1,16 +1,20 @@
 "use client"
+
 import * as React from "react"
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu"
 import { cn } from "cn"
 import { ChevronRightIcon, CheckIcon } from "lucide-react"
+
 function ContextMenu({ ...props }: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />
 }
+
 function ContextMenuPortal({ ...props }: ContextMenuPrimitive.Portal.Props) {
   return (
     <ContextMenuPrimitive.Portal data-slot="context-menu-portal" {...props} />
   )
 }
+
 function ContextMenuTrigger({
   className,
   ...props
@@ -23,6 +27,7 @@ function ContextMenuTrigger({
     />
   )
 }
+
 function ContextMenuContent({
   className,
   align = "start",
@@ -53,11 +58,13 @@ function ContextMenuContent({
     </ContextMenuPrimitive.Portal>
   )
 }
+
 function ContextMenuGroup({ ...props }: ContextMenuPrimitive.Group.Props) {
   return (
     <ContextMenuPrimitive.Group data-slot="context-menu-group" {...props} />
   )
 }
+
 function ContextMenuLabel({
   className,
   inset,
@@ -77,6 +84,7 @@ function ContextMenuLabel({
     />
   )
 }
+
 function ContextMenuItem({
   className,
   inset,
@@ -99,11 +107,13 @@ function ContextMenuItem({
     />
   )
 }
+
 function ContextMenuSub({ ...props }: ContextMenuPrimitive.SubmenuRoot.Props) {
   return (
     <ContextMenuPrimitive.SubmenuRoot data-slot="context-menu-sub" {...props} />
   )
 }
+
 function ContextMenuSubTrigger({
   className,
   inset,
@@ -127,6 +137,7 @@ function ContextMenuSubTrigger({
     </ContextMenuPrimitive.SubmenuTrigger>
   )
 }
+
 function ContextMenuSubContent({
   ...props
 }: React.ComponentProps<typeof ContextMenuContent>) {
@@ -139,6 +150,7 @@ function ContextMenuSubContent({
     />
   )
 }
+
 function ContextMenuCheckboxItem({
   className,
   children,
@@ -169,6 +181,7 @@ function ContextMenuCheckboxItem({
     </ContextMenuPrimitive.CheckboxItem>
   )
 }
+
 function ContextMenuRadioGroup({
   ...props
 }: ContextMenuPrimitive.RadioGroup.Props) {
@@ -179,6 +192,7 @@ function ContextMenuRadioGroup({
     />
   )
 }
+
 function ContextMenuRadioItem({
   className,
   children,
@@ -207,6 +221,7 @@ function ContextMenuRadioItem({
     </ContextMenuPrimitive.RadioItem>
   )
 }
+
 function ContextMenuSeparator({
   className,
   ...props
@@ -219,6 +234,7 @@ function ContextMenuSeparator({
     />
   )
 }
+
 function ContextMenuShortcut({
   className,
   ...props
@@ -234,6 +250,7 @@ function ContextMenuShortcut({
     />
   )
 }
+
 export {
   ContextMenu,
   ContextMenuTrigger,

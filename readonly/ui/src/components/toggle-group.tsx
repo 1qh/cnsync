@@ -1,10 +1,13 @@
 "use client"
+
 import * as React from "react"
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
 import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group"
 import { type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
+
 import { toggleVariants } from "@a/ui/components/toggle"
+
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants> & {
     spacing?: number
@@ -16,6 +19,7 @@ const ToggleGroupContext = React.createContext<
   spacing: 2,
   orientation: "horizontal",
 })
+
 function ToggleGroup({
   className,
   variant,
@@ -51,6 +55,7 @@ function ToggleGroup({
     </ToggleGroupPrimitive>
   )
 }
+
 function ToggleGroupItem({
   className,
   children,
@@ -59,6 +64,7 @@ function ToggleGroupItem({
   ...props
 }: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
   const context = React.useContext(ToggleGroupContext)
+
   return (
     <TogglePrimitive
       data-slot="toggle-group-item"
@@ -79,4 +85,5 @@ function ToggleGroupItem({
     </TogglePrimitive>
   )
 }
+
 export { ToggleGroup, ToggleGroupItem }

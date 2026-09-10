@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Button } from "@a/ui/components/button";
 import { cn } from "@a/ui/lib/utils";
 import type { UIMessage } from "ai";
@@ -7,7 +8,9 @@ import { ArrowDownIcon, DownloadIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
+
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
+
 export const Conversation = ({ className, ...props }: ConversationProps) => (
   <StickToBottom
     className={cn("relative flex-1 overflow-y-hidden", className)}
@@ -17,9 +20,11 @@ export const Conversation = ({ className, ...props }: ConversationProps) => (
     {...props}
   />
 );
+
 export type ConversationContentProps = ComponentProps<
   typeof StickToBottom.Content
 >;
+
 export const ConversationContent = ({
   className,
   ...props
@@ -29,11 +34,13 @@ export const ConversationContent = ({
     {...props}
   />
 );
+
 export type ConversationEmptyStateProps = ComponentProps<"div"> & {
   title?: string;
   description?: string;
   icon?: React.ReactNode;
 };
+
 export const ConversationEmptyState = ({
   className,
   title = "No messages yet",
@@ -62,15 +69,19 @@ export const ConversationEmptyState = ({
     )}
   </div>
 );
+
 export type ConversationScrollButtonProps = ComponentProps<typeof Button>;
+
 export const ConversationScrollButton = ({
   className,
   ...props
 }: ConversationScrollButtonProps) => {
   const { isAtBottom, scrollToBottom } = useStickToBottomContext();
+
   const handleScrollToBottom = useCallback(() => {
     scrollToBottom();
   }, [scrollToBottom]);
+
   return (
     !isAtBottom && (
       <Button
@@ -89,11 +100,13 @@ export const ConversationScrollButton = ({
     )
   );
 };
+
 const getMessageText = (message: UIMessage): string =>
   message.parts
     .filter((part) => part.type === "text")
     .map((part) => part.text)
     .join("");
+
 export type ConversationDownloadProps = Omit<
   ComponentProps<typeof Button>,
   "onClick"
@@ -102,11 +115,13 @@ export type ConversationDownloadProps = Omit<
   filename?: string;
   formatMessage?: (message: UIMessage, index: number) => string;
 };
+
 const defaultFormatMessage = (message: UIMessage): string => {
   const roleLabel =
     message.role.charAt(0).toUpperCase() + message.role.slice(1);
   return `**${roleLabel}:** ${getMessageText(message)}`;
 };
+
 export const messagesToMarkdown = (
   messages: UIMessage[],
   formatMessage: (
@@ -114,6 +129,7 @@ export const messagesToMarkdown = (
     index: number
   ) => string = defaultFormatMessage
 ): string => messages.map((msg, i) => formatMessage(msg, i)).join("\n\n");
+
 export const ConversationDownload = ({
   messages,
   filename = "conversation.md",
@@ -134,6 +150,7 @@ export const ConversationDownload = ({
     link.remove();
     URL.revokeObjectURL(url);
   }, [messages, filename, formatMessage]);
+
   return (
     <Button
       className={cn(

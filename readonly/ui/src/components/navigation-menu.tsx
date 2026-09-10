@@ -2,6 +2,7 @@ import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/naviga
 import { cva } from "class-variance-authority"
 import { cn } from "cn"
 import { ChevronDownIcon } from "lucide-react"
+
 function NavigationMenu({
   align = "start",
   className,
@@ -23,6 +24,7 @@ function NavigationMenu({
     </NavigationMenuPrimitive.Root>
   )
 }
+
 function NavigationMenuList({
   className,
   ...props
@@ -38,6 +40,7 @@ function NavigationMenuList({
     />
   )
 }
+
 function NavigationMenuItem({
   className,
   ...props
@@ -50,9 +53,11 @@ function NavigationMenuItem({
     />
   )
 }
+
 const navigationMenuTriggerStyle = cva(
   "group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-popup-open:bg-muted/50 data-popup-open:hover:bg-muted data-open:bg-muted/50 data-open:hover:bg-muted data-open:focus:bg-muted"
 )
+
 function NavigationMenuTrigger({
   className,
   children,
@@ -69,6 +74,7 @@ function NavigationMenuTrigger({
     </NavigationMenuPrimitive.Trigger>
   )
 }
+
 function NavigationMenuContent({
   className,
   ...props
@@ -84,6 +90,7 @@ function NavigationMenuContent({
     />
   )
 }
+
 function NavigationMenuPositioner({
   className,
   side = "bottom",
@@ -112,6 +119,7 @@ function NavigationMenuPositioner({
     </NavigationMenuPrimitive.Portal>
   )
 }
+
 function NavigationMenuLink({
   className,
   ...props
@@ -127,6 +135,7 @@ function NavigationMenuLink({
     />
   )
 }
+
 function NavigationMenuIndicator({
   className,
   ...props
@@ -144,6 +153,7 @@ function NavigationMenuIndicator({
     </NavigationMenuPrimitive.Icon>
   )
 }
+
 export {
   NavigationMenu,
   NavigationMenuContent,

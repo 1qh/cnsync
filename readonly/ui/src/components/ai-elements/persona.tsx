@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { cn } from "@a/ui/lib/utils";
 import type { RiveParameters } from "@rive-app/react-webgl2";
 import {
@@ -11,11 +12,13 @@ import {
 } from "@rive-app/react-webgl2";
 import type { FC, ReactNode } from "react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
+
 // Delays Rive initialization by one frame so that React Strict Mode's
 // immediate unmount cycle never creates a WebGL2 context. Only the
 // second (real) mount will initialise, avoiding context exhaustion.
 const useStrictModeSafeInit = () => {
   const [ready, setReady] = useState(false);
+
   useEffect(() => {
     const id = requestAnimationFrame(() => setReady(true));
     return () => {
@@ -23,14 +26,17 @@ const useStrictModeSafeInit = () => {
       setReady(false);
     };
   }, []);
+
   return ready;
 };
+
 export type PersonaState =
   | "idle"
   | "listening"
   | "thinking"
   | "speaking"
   | "asleep";
+
 interface PersonaProps {
   state: PersonaState;
   onLoad?: RiveParameters["onLoad"];
@@ -42,8 +48,10 @@ interface PersonaProps {
   className?: string;
   variant?: keyof typeof sources;
 }
+
 // The state machine name is always 'default' for Elements AI visuals
 const stateMachine = "default";
+
 const sources = {
   command: {
     dynamicColor: true,
@@ -82,6 +90,7 @@ const sources = {
       "https://ejiidnob33g9ap1r.public.blob.vercel-storage.com/orb-1.2.riv",
   },
 };
+
 const getCurrentTheme = (): "light" | "dark" => {
   if (typeof window !== "undefined") {
     if (document.documentElement.classList.contains("dark")) {
@@ -93,30 +102,37 @@ const getCurrentTheme = (): "light" | "dark" => {
   }
   return "light";
 };
+
 const useTheme = (enabled: boolean) => {
   const [theme, setTheme] = useState<"light" | "dark">(getCurrentTheme);
+
   useEffect(() => {
     // Skip if not enabled (avoids unnecessary observers for non-dynamic-color variants)
     if (!enabled) {
       return;
     }
+
     // Watch for classList changes
     const observer = new MutationObserver(() => {
       setTheme(getCurrentTheme());
     });
+
     observer.observe(document.documentElement, {
       attributeFilter: ["class"],
       attributes: true,
     });
+
     // Watch for OS-level theme changes
     let mql: MediaQueryList | null = null;
     const handleMediaChange = () => {
       setTheme(getCurrentTheme());
     };
+
     if (window.matchMedia) {
       mql = window.matchMedia("(prefers-color-scheme: dark)");
       mql.addEventListener("change", handleMediaChange);
     }
+
     return () => {
       observer.disconnect();
       if (mql) {
@@ -124,13 +140,16 @@ const useTheme = (enabled: boolean) => {
       }
     };
   }, [enabled]);
+
   return theme;
 };
+
 interface PersonaWithModelProps {
   rive: ReturnType<typeof useRive>["rive"];
   source: (typeof sources)[keyof typeof sources];
   children: React.ReactNode;
 }
+
 const PersonaWithModel = memo(
   ({ rive, source, children }: PersonaWithModelProps) => {
     const theme = useTheme(source.dynamicColor);
@@ -143,24 +162,32 @@ const PersonaWithModel = memo(
       "color",
       viewModelInstance
     );
+
     useEffect(() => {
       if (!(viewModelInstanceColor && source.dynamicColor)) {
         return;
       }
+
       const [r, g, b] = theme === "dark" ? [255, 255, 255] : [0, 0, 0];
       viewModelInstanceColor.setRgb(r, g, b);
     }, [viewModelInstanceColor, theme, source.dynamicColor]);
+
     return children;
   }
 );
+
 PersonaWithModel.displayName = "PersonaWithModel";
+
 interface PersonaWithoutModelProps {
   children: ReactNode;
 }
+
 const PersonaWithoutModel = memo(
   ({ children }: PersonaWithoutModelProps) => children
 );
+
 PersonaWithoutModel.displayName = "PersonaWithoutModel";
+
 export const Persona: FC<PersonaProps> = memo(
   ({
     variant = "obsidian",
@@ -174,9 +201,11 @@ export const Persona: FC<PersonaProps> = memo(
     className,
   }) => {
     const source = sources[variant];
+
     if (!source) {
       throw new Error(`Invalid variant: ${variant}`);
     }
+
     // Stabilize callbacks to prevent useRive from reinitializing
     const callbacksRef = useRef({
       onLoad,
@@ -186,6 +215,7 @@ export const Persona: FC<PersonaProps> = memo(
       onReady,
       onStop,
     });
+
     useEffect(() => {
       callbacksRef.current = {
         onLoad,
@@ -196,6 +226,7 @@ export const Persona: FC<PersonaProps> = memo(
         onStop,
       };
     }, [onLoad, onLoadError, onPause, onPlay, onReady, onStop]);
+
     const stableCallbacks = useMemo(
       () => ({
         onLoad: ((loadedRive) =>
@@ -216,9 +247,11 @@ export const Persona: FC<PersonaProps> = memo(
       }),
       []
     );
+
     // Delay initialisation by one frame to avoid creating (and leaking)
     // a WebGL2 context during React Strict Mode's first throw-away mount.
     const ready = useStrictModeSafeInit();
+
     const { rive, RiveComponent } = useRive(
       ready
         ? {
@@ -234,6 +267,7 @@ export const Persona: FC<PersonaProps> = memo(
           }
         : null
     );
+
     const listeningInput = useStateMachineInput(
       rive,
       stateMachine,
@@ -242,6 +276,7 @@ export const Persona: FC<PersonaProps> = memo(
     const thinkingInput = useStateMachineInput(rive, stateMachine, "thinking");
     const speakingInput = useStateMachineInput(rive, stateMachine, "speaking");
     const asleepInput = useStateMachineInput(rive, stateMachine, "asleep");
+
     // Rive state machine inputs are mutable objects that must be set via direct
     // property assignment — this is the intended Rive API, not a React anti-pattern.
     useEffect(() => {
@@ -258,7 +293,9 @@ export const Persona: FC<PersonaProps> = memo(
         asleepInput.value = state === "asleep";
       }
     }, [state, listeningInput, thinkingInput, speakingInput, asleepInput]);
+
     const Component = source.hasModel ? PersonaWithModel : PersonaWithoutModel;
+
     return (
       <Component rive={rive} source={source}>
         <RiveComponent className={cn("size-16 shrink-0", className)} />
@@ -266,4 +303,5 @@ export const Persona: FC<PersonaProps> = memo(
     );
   }
 );
+
 Persona.displayName = "Persona";

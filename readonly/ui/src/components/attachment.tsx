@@ -3,7 +3,9 @@ import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
+
 import { Button } from "@a/ui/components/button"
+
 const attachmentVariants = cva(
   "group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
   {
@@ -21,6 +23,7 @@ const attachmentVariants = cva(
     },
   }
 )
+
 function Attachment({
   className,
   state = "done",
@@ -42,6 +45,7 @@ function Attachment({
     />
   )
 }
+
 const attachmentMediaVariants = cva(
   "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6! [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
   {
@@ -57,6 +61,7 @@ const attachmentMediaVariants = cva(
     },
   }
 )
+
 function AttachmentMedia({
   className,
   variant = "icon",
@@ -71,6 +76,7 @@ function AttachmentMedia({
     />
   )
 }
+
 function AttachmentContent({
   className,
   ...props
@@ -86,6 +92,7 @@ function AttachmentContent({
     />
   )
 }
+
 function AttachmentTitle({
   className,
   ...props
@@ -101,6 +108,7 @@ function AttachmentTitle({
     />
   )
 }
+
 function AttachmentDescription({
   className,
   ...props
@@ -117,6 +125,7 @@ function AttachmentDescription({
     />
   )
 }
+
 function AttachmentActions({
   className,
   ...props
@@ -132,6 +141,7 @@ function AttachmentActions({
     />
   )
 }
+
 function AttachmentAction({
   className,
   variant,
@@ -148,6 +158,7 @@ function AttachmentAction({
     />
   )
 }
+
 function AttachmentTrigger({
   className,
   render,
@@ -169,6 +180,7 @@ function AttachmentTrigger({
     },
   })
 }
+
 function AttachmentGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -181,6 +193,7 @@ function AttachmentGroup({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 export {
   Attachment,
   AttachmentGroup,

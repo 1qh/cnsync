@@ -1,5 +1,6 @@
 import { Slider as SliderPrimitive } from "@base-ui/react/slider"
 import { cn } from "cn"
+
 function Slider({
   className,
   defaultValue,
@@ -13,6 +14,7 @@ function Slider({
     : Array.isArray(defaultValue)
       ? defaultValue
       : [min, max]
+
   return (
     <SliderPrimitive.Root
       className={cn("data-horizontal:w-full data-vertical:h-full", className)}
@@ -45,4 +47,5 @@ function Slider({
     </SliderPrimitive.Root>
   )
 }
+
 export { Slider }

@@ -1,4 +1,5 @@
 "use client"
+
 import * as React from "react"
 import {
   MessageScroller as MessageScrollerPrimitive,
@@ -7,13 +8,16 @@ import {
   useMessageScrollerVisibility,
 } from "@shadcn/react/message-scroller"
 import { cn } from "cn"
+
 import { Button } from "@a/ui/components/button"
 import { ArrowDownIcon } from "lucide-react"
+
 function MessageScrollerProvider(
   props: React.ComponentProps<typeof MessageScrollerPrimitive.Provider>
 ) {
   return <MessageScrollerPrimitive.Provider {...props} />
 }
+
 function MessageScroller({
   className,
   ...props
@@ -29,6 +33,7 @@ function MessageScroller({
     />
   )
 }
+
 function MessageScrollerViewport({
   className,
   ...props
@@ -44,6 +49,7 @@ function MessageScrollerViewport({
     />
   )
 }
+
 function MessageScrollerContent({
   className,
   ...props
@@ -56,6 +62,7 @@ function MessageScrollerContent({
     />
   )
 }
+
 function MessageScrollerItem({
   className,
   scrollAnchor = false,
@@ -73,6 +80,7 @@ function MessageScrollerItem({
     />
   )
 }
+
 function MessageScrollerButton({
   direction = "end",
   className,
@@ -109,6 +117,7 @@ function MessageScrollerButton({
     </MessageScrollerPrimitive.Button>
   )
 }
+
 export {
   MessageScrollerProvider,
   MessageScroller,

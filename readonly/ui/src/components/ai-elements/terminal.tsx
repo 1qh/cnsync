@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Button } from "@a/ui/components/button";
 import { cn } from "@a/ui/lib/utils";
 import Ansi from "ansi-to-react";
@@ -14,18 +15,22 @@ import {
   useRef,
   useState,
 } from "react";
+
 interface TerminalContextType {
   output: string;
   isStreaming: boolean;
   autoScroll: boolean;
   onClear?: () => void;
 }
+
 const TerminalContext = createContext<TerminalContextType>({
   autoScroll: true,
   isStreaming: false,
   output: "",
 });
+
 export type TerminalHeaderProps = HTMLAttributes<HTMLDivElement>;
+
 export const TerminalHeader = ({
   className,
   children,
@@ -41,7 +46,9 @@ export const TerminalHeader = ({
     {children}
   </div>
 );
+
 export type TerminalTitleProps = HTMLAttributes<HTMLDivElement>;
+
 export const TerminalTitle = ({
   className,
   children,
@@ -55,16 +62,20 @@ export const TerminalTitle = ({
     {children ?? "Terminal"}
   </div>
 );
+
 export type TerminalStatusProps = HTMLAttributes<HTMLDivElement>;
+
 export const TerminalStatus = ({
   className,
   children,
   ...props
 }: TerminalStatusProps) => {
   const { isStreaming } = useContext(TerminalContext);
+
   if (!isStreaming) {
     return null;
   }
+
   return (
     <div
       className={cn("flex items-center gap-2 text-xs text-zinc-400", className)}
@@ -74,7 +85,9 @@ export const TerminalStatus = ({
     </div>
   );
 };
+
 export type TerminalActionsProps = HTMLAttributes<HTMLDivElement>;
+
 export const TerminalActions = ({
   className,
   children,
@@ -84,11 +97,13 @@ export const TerminalActions = ({
     {children}
   </div>
 );
+
 export type TerminalCopyButtonProps = ComponentProps<typeof Button> & {
   onCopy?: () => void;
   onError?: (error: Error) => void;
   timeout?: number;
 };
+
 export const TerminalCopyButton = ({
   onCopy,
   onError,
@@ -100,11 +115,13 @@ export const TerminalCopyButton = ({
   const [isCopied, setIsCopied] = useState(false);
   const timeoutRef = useRef<number>(0);
   const { output } = useContext(TerminalContext);
+
   const copyToClipboard = useCallback(async () => {
     if (typeof window === "undefined" || !navigator?.clipboard?.writeText) {
       onError?.(new Error("Clipboard API not available"));
       return;
     }
+
     try {
       await navigator.clipboard.writeText(output);
       setIsCopied(true);
@@ -114,13 +131,16 @@ export const TerminalCopyButton = ({
       onError?.(error as Error);
     }
   }, [output, onCopy, onError, timeout]);
+
   useEffect(
     () => () => {
       window.clearTimeout(timeoutRef.current);
     },
     []
   );
+
   const Icon = isCopied ? CheckIcon : CopyIcon;
+
   return (
     <Button
       className={cn(
@@ -136,16 +156,20 @@ export const TerminalCopyButton = ({
     </Button>
   );
 };
+
 export type TerminalClearButtonProps = ComponentProps<typeof Button>;
+
 export const TerminalClearButton = ({
   children,
   className,
   ...props
 }: TerminalClearButtonProps) => {
   const { onClear } = useContext(TerminalContext);
+
   if (!onClear) {
     return null;
   }
+
   return (
     <Button
       className={cn(
@@ -161,7 +185,9 @@ export const TerminalClearButton = ({
     </Button>
   );
 };
+
 export type TerminalContentProps = HTMLAttributes<HTMLDivElement>;
+
 export const TerminalContent = ({
   className,
   children,
@@ -169,11 +195,13 @@ export const TerminalContent = ({
 }: TerminalContentProps) => {
   const { output, isStreaming, autoScroll } = useContext(TerminalContext);
   const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (autoScroll && containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   }, [output, autoScroll]);
+
   return (
     <div
       className={cn(
@@ -194,12 +222,14 @@ export const TerminalContent = ({
     </div>
   );
 };
+
 export type TerminalProps = HTMLAttributes<HTMLDivElement> & {
   output: string;
   isStreaming?: boolean;
   autoScroll?: boolean;
   onClear?: () => void;
 };
+
 export const Terminal = ({
   output,
   isStreaming = false,
@@ -213,6 +243,7 @@ export const Terminal = ({
     () => ({ autoScroll, isStreaming, onClear, output }),
     [autoScroll, isStreaming, onClear, output]
   );
+
   return (
     <TerminalContext.Provider value={contextValue}>
       <div

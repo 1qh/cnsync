@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Badge } from "@a/ui/components/badge";
 import { Button } from "@a/ui/components/button";
 import { Switch } from "@a/ui/components/switch";
@@ -15,23 +16,28 @@ import {
   useRef,
   useState,
 } from "react";
+
 interface EnvironmentVariablesContextType {
   showValues: boolean;
   setShowValues: (show: boolean) => void;
 }
+
 // Default noop for context default value
 // oxlint-disable-next-line eslint(no-empty-function)
 const noop = () => {};
+
 const EnvironmentVariablesContext =
   createContext<EnvironmentVariablesContextType>({
     setShowValues: noop,
     showValues: false,
   });
+
 export type EnvironmentVariablesProps = HTMLAttributes<HTMLDivElement> & {
   showValues?: boolean;
   defaultShowValues?: boolean;
   onShowValuesChange?: (show: boolean) => void;
 };
+
 export const EnvironmentVariables = ({
   showValues: controlledShowValues,
   defaultShowValues = false,
@@ -43,6 +49,7 @@ export const EnvironmentVariables = ({
   const [internalShowValues, setInternalShowValues] =
     useState(defaultShowValues);
   const showValues = controlledShowValues ?? internalShowValues;
+
   const setShowValues = useCallback(
     (show: boolean) => {
       setInternalShowValues(show);
@@ -50,10 +57,12 @@ export const EnvironmentVariables = ({
     },
     [onShowValuesChange]
   );
+
   const contextValue = useMemo(
     () => ({ setShowValues, showValues }),
     [setShowValues, showValues]
   );
+
   return (
     <EnvironmentVariablesContext.Provider value={contextValue}>
       <div
@@ -65,7 +74,9 @@ export const EnvironmentVariables = ({
     </EnvironmentVariablesContext.Provider>
   );
 };
+
 export type EnvironmentVariablesHeaderProps = HTMLAttributes<HTMLDivElement>;
+
 export const EnvironmentVariablesHeader = ({
   className,
   children,
@@ -81,7 +92,9 @@ export const EnvironmentVariablesHeader = ({
     {children}
   </div>
 );
+
 export type EnvironmentVariablesTitleProps = HTMLAttributes<HTMLHeadingElement>;
+
 export const EnvironmentVariablesTitle = ({
   className,
   children,
@@ -91,12 +104,15 @@ export const EnvironmentVariablesTitle = ({
     {children ?? "Environment Variables"}
   </h3>
 );
+
 export type EnvironmentVariablesToggleProps = ComponentProps<typeof Switch>;
+
 export const EnvironmentVariablesToggle = ({
   className,
   ...props
 }: EnvironmentVariablesToggleProps) => {
   const { showValues, setShowValues } = useContext(EnvironmentVariablesContext);
+
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <span className="text-muted-foreground text-xs">
@@ -111,7 +127,9 @@ export const EnvironmentVariablesToggle = ({
     </div>
   );
 };
+
 export type EnvironmentVariablesContentProps = HTMLAttributes<HTMLDivElement>;
+
 export const EnvironmentVariablesContent = ({
   className,
   children,
@@ -121,16 +139,20 @@ export const EnvironmentVariablesContent = ({
     {children}
   </div>
 );
+
 interface EnvironmentVariableContextType {
   name: string;
   value: string;
 }
+
 const EnvironmentVariableContext =
   createContext<EnvironmentVariableContextType>({
     name: "",
     value: "",
   });
+
 export type EnvironmentVariableGroupProps = HTMLAttributes<HTMLDivElement>;
+
 export const EnvironmentVariableGroup = ({
   className,
   children,
@@ -140,20 +162,25 @@ export const EnvironmentVariableGroup = ({
     {children}
   </div>
 );
+
 export type EnvironmentVariableNameProps = HTMLAttributes<HTMLSpanElement>;
+
 export const EnvironmentVariableName = ({
   className,
   children,
   ...props
 }: EnvironmentVariableNameProps) => {
   const { name } = useContext(EnvironmentVariableContext);
+
   return (
     <span className={cn("font-mono text-sm", className)} {...props}>
       {children ?? name}
     </span>
   );
 };
+
 export type EnvironmentVariableValueProps = HTMLAttributes<HTMLSpanElement>;
+
 export const EnvironmentVariableValue = ({
   className,
   children,
@@ -161,9 +188,11 @@ export const EnvironmentVariableValue = ({
 }: EnvironmentVariableValueProps) => {
   const { value } = useContext(EnvironmentVariableContext);
   const { showValues } = useContext(EnvironmentVariablesContext);
+
   const displayValue = showValues
     ? value
     : "•".repeat(Math.min(value.length, 20));
+
   return (
     <span
       className={cn(
@@ -177,10 +206,12 @@ export const EnvironmentVariableValue = ({
     </span>
   );
 };
+
 export type EnvironmentVariableProps = HTMLAttributes<HTMLDivElement> & {
   name: string;
   value: string;
 };
+
 export const EnvironmentVariable = ({
   name,
   value,
@@ -189,6 +220,7 @@ export const EnvironmentVariable = ({
   ...props
 }: EnvironmentVariableProps) => {
   const envVarContextValue = useMemo(() => ({ name, value }), [name, value]);
+
   return (
     <EnvironmentVariableContext.Provider value={envVarContextValue}>
       <div
@@ -210,6 +242,7 @@ export const EnvironmentVariable = ({
     </EnvironmentVariableContext.Provider>
   );
 };
+
 export type EnvironmentVariableCopyButtonProps = ComponentProps<
   typeof Button
 > & {
@@ -218,6 +251,7 @@ export type EnvironmentVariableCopyButtonProps = ComponentProps<
   timeout?: number;
   copyFormat?: "name" | "value" | "export";
 };
+
 export const EnvironmentVariableCopyButton = ({
   onCopy,
   onError,
@@ -230,6 +264,7 @@ export const EnvironmentVariableCopyButton = ({
   const [isCopied, setIsCopied] = useState(false);
   const timeoutRef = useRef<number>(0);
   const { name, value } = useContext(EnvironmentVariableContext);
+
   const getTextToCopy = useCallback((): string => {
     const formatMap = {
       export: () => `export ${name}="${value}"`,
@@ -238,11 +273,13 @@ export const EnvironmentVariableCopyButton = ({
     };
     return formatMap[copyFormat]();
   }, [name, value, copyFormat]);
+
   const copyToClipboard = useCallback(async () => {
     if (typeof window === "undefined" || !navigator?.clipboard?.writeText) {
       onError?.(new Error("Clipboard API not available"));
       return;
     }
+
     try {
       await navigator.clipboard.writeText(getTextToCopy());
       setIsCopied(true);
@@ -252,13 +289,16 @@ export const EnvironmentVariableCopyButton = ({
       onError?.(error as Error);
     }
   }, [getTextToCopy, onCopy, onError, timeout]);
+
   useEffect(
     () => () => {
       window.clearTimeout(timeoutRef.current);
     },
     []
   );
+
   const Icon = isCopied ? CheckIcon : CopyIcon;
+
   return (
     <Button
       className={cn("size-6 shrink-0", className)}
@@ -271,7 +311,9 @@ export const EnvironmentVariableCopyButton = ({
     </Button>
   );
 };
+
 export type EnvironmentVariableRequiredProps = ComponentProps<typeof Badge>;
+
 export const EnvironmentVariableRequired = ({
   className,
   children,

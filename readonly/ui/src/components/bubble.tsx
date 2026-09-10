@@ -3,6 +3,7 @@ import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
+
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -12,6 +13,7 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
 const bubbleVariants = cva(
   "group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full",
   {
@@ -38,6 +40,7 @@ const bubbleVariants = cva(
     },
   }
 )
+
 function Bubble({
   variant = "default",
   align = "start",
@@ -57,6 +60,7 @@ function Bubble({
     />
   )
 }
+
 function BubbleContent({
   className,
   render,
@@ -79,6 +83,7 @@ function BubbleContent({
     },
   })
 }
+
 const bubbleReactionsVariants = cva(
   "absolute z-10 flex w-fit shrink-0 items-center justify-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm ring-3 ring-card has-[button]:p-0",
   {
@@ -98,6 +103,7 @@ const bubbleReactionsVariants = cva(
     },
   }
 )
+
 function BubbleReactions({
   side = "bottom",
   align = "end",
@@ -117,4 +123,5 @@ function BubbleReactions({
     />
   )
 }
+
 export { BubbleGroup, Bubble, BubbleContent, BubbleReactions }

@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Badge } from "@a/ui/components/badge";
 import {
   Collapsible,
@@ -16,7 +17,9 @@ import {
 } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 import { createContext, useContext, useMemo } from "react";
+
 type TestStatus = "passed" | "failed" | "skipped" | "running";
+
 interface TestResultsSummary {
   passed: number;
   failed: number;
@@ -24,17 +27,22 @@ interface TestResultsSummary {
   total: number;
   duration?: number;
 }
+
 interface TestResultsContextType {
   summary?: TestResultsSummary;
 }
+
 const TestResultsContext = createContext<TestResultsContextType>({});
+
 const formatDuration = (ms: number) => {
   if (ms < 1000) {
     return `${ms}ms`;
   }
   return `${(ms / 1000).toFixed(2)}s`;
 };
+
 export type TestResultsHeaderProps = HTMLAttributes<HTMLDivElement>;
+
 export const TestResultsHeader = ({
   className,
   children,
@@ -50,32 +58,40 @@ export const TestResultsHeader = ({
     {children}
   </div>
 );
+
 export type TestResultsDurationProps = HTMLAttributes<HTMLSpanElement>;
+
 export const TestResultsDuration = ({
   className,
   children,
   ...props
 }: TestResultsDurationProps) => {
   const { summary } = useContext(TestResultsContext);
+
   if (!summary?.duration) {
     return null;
   }
+
   return (
     <span className={cn("text-muted-foreground text-sm", className)} {...props}>
       {children ?? formatDuration(summary.duration)}
     </span>
   );
 };
+
 export type TestResultsSummaryProps = HTMLAttributes<HTMLDivElement>;
+
 export const TestResultsSummary = ({
   className,
   children,
   ...props
 }: TestResultsSummaryProps) => {
   const { summary } = useContext(TestResultsContext);
+
   if (!summary) {
     return null;
   }
+
   return (
     <div className={cn("flex items-center gap-3", className)} {...props}>
       {children ?? (
@@ -110,9 +126,11 @@ export const TestResultsSummary = ({
     </div>
   );
 };
+
 export type TestResultsProps = HTMLAttributes<HTMLDivElement> & {
   summary?: TestResultsSummary;
 };
+
 export const TestResults = ({
   summary,
   className,
@@ -120,6 +138,7 @@ export const TestResults = ({
   ...props
 }: TestResultsProps) => {
   const contextValue = useMemo(() => ({ summary }), [summary]);
+
   return (
     <TestResultsContext.Provider value={contextValue}>
       <div
@@ -137,18 +156,23 @@ export const TestResults = ({
     </TestResultsContext.Provider>
   );
 };
+
 export type TestResultsProgressProps = HTMLAttributes<HTMLDivElement>;
+
 export const TestResultsProgress = ({
   className,
   children,
   ...props
 }: TestResultsProgressProps) => {
   const { summary } = useContext(TestResultsContext);
+
   if (!summary) {
     return null;
   }
+
   const passedPercent = (summary.passed / summary.total) * 100;
   const failedPercent = (summary.failed / summary.total) * 100;
+
   return (
     <div className={cn("space-y-2", className)} {...props}>
       {children ?? (
@@ -174,7 +198,9 @@ export const TestResultsProgress = ({
     </div>
   );
 };
+
 export type TestResultsContentProps = HTMLAttributes<HTMLDivElement>;
+
 export const TestResultsContent = ({
   className,
   children,
@@ -184,35 +210,42 @@ export const TestResultsContent = ({
     {children}
   </div>
 );
+
 interface TestSuiteContextType {
   name: string;
   status: TestStatus;
 }
+
 const TestSuiteContext = createContext<TestSuiteContextType>({
   name: "",
   status: "passed",
 });
+
 const statusStyles: Record<TestStatus, string> = {
   failed: "text-red-600 dark:text-red-400",
   passed: "text-green-600 dark:text-green-400",
   running: "text-blue-600 dark:text-blue-400",
   skipped: "text-yellow-600 dark:text-yellow-400",
 };
+
 const statusIcons: Record<TestStatus, React.ReactNode> = {
   failed: <XCircleIcon className="size-4" />,
   passed: <CheckCircle2Icon className="size-4" />,
   running: <CircleDotIcon className="size-4 animate-pulse" />,
   skipped: <CircleIcon className="size-4" />,
 };
+
 const TestStatusIcon = ({ status }: { status: TestStatus }) => (
   <span className={cn("shrink-0", statusStyles[status])}>
     {statusIcons[status]}
   </span>
 );
+
 export type TestSuiteProps = ComponentProps<typeof Collapsible> & {
   name: string;
   status: TestStatus;
 };
+
 export const TestSuite = ({
   name,
   status,
@@ -221,6 +254,7 @@ export const TestSuite = ({
   ...props
 }: TestSuiteProps) => {
   const contextValue = useMemo(() => ({ name, status }), [name, status]);
+
   return (
     <TestSuiteContext.Provider value={contextValue}>
       <Collapsible className={cn("rounded-lg border", className)} {...props}>
@@ -229,13 +263,16 @@ export const TestSuite = ({
     </TestSuiteContext.Provider>
   );
 };
+
 export type TestSuiteNameProps = ComponentProps<typeof CollapsibleTrigger>;
+
 export const TestSuiteName = ({
   className,
   children,
   ...props
 }: TestSuiteNameProps) => {
   const { name, status } = useContext(TestSuiteContext);
+
   return (
     <CollapsibleTrigger
       className={cn(
@@ -250,11 +287,13 @@ export const TestSuiteName = ({
     </CollapsibleTrigger>
   );
 };
+
 export type TestSuiteStatsProps = HTMLAttributes<HTMLDivElement> & {
   passed?: number;
   failed?: number;
   skipped?: number;
 };
+
 export const TestSuiteStats = ({
   passed = 0,
   failed = 0,
@@ -288,7 +327,9 @@ export const TestSuiteStats = ({
     )}
   </div>
 );
+
 export type TestSuiteContentProps = ComponentProps<typeof CollapsibleContent>;
+
 export const TestSuiteContent = ({
   className,
   children,
@@ -298,34 +339,43 @@ export const TestSuiteContent = ({
     <div className="divide-y">{children}</div>
   </CollapsibleContent>
 );
+
 interface TestContextType {
   name: string;
   status: TestStatus;
   duration?: number;
 }
+
 const TestContext = createContext<TestContextType>({
   name: "",
   status: "passed",
 });
+
 export type TestNameProps = HTMLAttributes<HTMLSpanElement>;
+
 export const TestName = ({ className, children, ...props }: TestNameProps) => {
   const { name } = useContext(TestContext);
+
   return (
     <span className={cn("flex-1", className)} {...props}>
       {children ?? name}
     </span>
   );
 };
+
 export type TestDurationProps = HTMLAttributes<HTMLSpanElement>;
+
 export const TestDuration = ({
   className,
   children,
   ...props
 }: TestDurationProps) => {
   const { duration } = useContext(TestContext);
+
   if (duration === undefined) {
     return null;
   }
+
   return (
     <span
       className={cn("ml-auto text-muted-foreground text-xs", className)}
@@ -335,13 +385,16 @@ export const TestDuration = ({
     </span>
   );
 };
+
 export type TestStatusProps = HTMLAttributes<HTMLSpanElement>;
+
 export const TestStatus = ({
   className,
   children,
   ...props
 }: TestStatusProps) => {
   const { status } = useContext(TestContext);
+
   return (
     <span
       className={cn("shrink-0", statusStyles[status], className)}
@@ -351,11 +404,13 @@ export const TestStatus = ({
     </span>
   );
 };
+
 export type TestProps = HTMLAttributes<HTMLDivElement> & {
   name: string;
   status: TestStatus;
   duration?: number;
 };
+
 export const Test = ({
   name,
   status,
@@ -368,6 +423,7 @@ export const Test = ({
     () => ({ duration, name, status }),
     [duration, name, status]
   );
+
   return (
     <TestContext.Provider value={contextValue}>
       <div
@@ -385,7 +441,9 @@ export const Test = ({
     </TestContext.Provider>
   );
 };
+
 export type TestErrorProps = HTMLAttributes<HTMLDivElement>;
+
 export const TestError = ({
   className,
   children,
@@ -401,7 +459,9 @@ export const TestError = ({
     {children}
   </div>
 );
+
 export type TestErrorMessageProps = HTMLAttributes<HTMLParagraphElement>;
+
 export const TestErrorMessage = ({
   className,
   children,
@@ -417,7 +477,9 @@ export const TestErrorMessage = ({
     {children}
   </p>
 );
+
 export type TestErrorStackProps = HTMLAttributes<HTMLPreElement>;
+
 export const TestErrorStack = ({
   className,
   children,

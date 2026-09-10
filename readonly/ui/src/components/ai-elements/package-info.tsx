@@ -1,21 +1,27 @@
 // @ts-nocheck
 "use client";
+
 import { Badge } from "@a/ui/components/badge";
 import { cn } from "@a/ui/lib/utils";
 import { ArrowRightIcon, MinusIcon, PackageIcon, PlusIcon } from "lucide-react";
 import type { HTMLAttributes } from "react";
 import { createContext, useContext, useMemo } from "react";
+
 type ChangeType = "major" | "minor" | "patch" | "added" | "removed";
+
 interface PackageInfoContextType {
   name: string;
   currentVersion?: string;
   newVersion?: string;
   changeType?: ChangeType;
 }
+
 const PackageInfoContext = createContext<PackageInfoContextType>({
   name: "",
 });
+
 export type PackageInfoHeaderProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoHeader = ({
   className,
   children,
@@ -28,13 +34,16 @@ export const PackageInfoHeader = ({
     {children}
   </div>
 );
+
 export type PackageInfoNameProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoName = ({
   className,
   children,
   ...props
 }: PackageInfoNameProps) => {
   const { name } = useContext(PackageInfoContext);
+
   return (
     <div className={cn("flex items-center gap-2", className)} {...props}>
       <PackageIcon className="size-4 text-muted-foreground" />
@@ -42,6 +51,7 @@ export const PackageInfoName = ({
     </div>
   );
 };
+
 const changeTypeStyles: Record<ChangeType, string> = {
   added: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
   major: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
@@ -50,6 +60,7 @@ const changeTypeStyles: Record<ChangeType, string> = {
   patch: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   removed: "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400",
 };
+
 const changeTypeIcons: Record<ChangeType, React.ReactNode> = {
   added: <PlusIcon className="size-3" />,
   major: <ArrowRightIcon className="size-3" />,
@@ -57,16 +68,20 @@ const changeTypeIcons: Record<ChangeType, React.ReactNode> = {
   patch: <ArrowRightIcon className="size-3" />,
   removed: <MinusIcon className="size-3" />,
 };
+
 export type PackageInfoChangeTypeProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoChangeType = ({
   className,
   children,
   ...props
 }: PackageInfoChangeTypeProps) => {
   const { changeType } = useContext(PackageInfoContext);
+
   if (!changeType) {
     return null;
   }
+
   return (
     <Badge
       className={cn(
@@ -82,16 +97,20 @@ export const PackageInfoChangeType = ({
     </Badge>
   );
 };
+
 export type PackageInfoVersionProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoVersion = ({
   className,
   children,
   ...props
 }: PackageInfoVersionProps) => {
   const { currentVersion, newVersion } = useContext(PackageInfoContext);
+
   if (!(currentVersion || newVersion)) {
     return null;
   }
+
   return (
     <div
       className={cn(
@@ -114,12 +133,14 @@ export const PackageInfoVersion = ({
     </div>
   );
 };
+
 export type PackageInfoProps = HTMLAttributes<HTMLDivElement> & {
   name: string;
   currentVersion?: string;
   newVersion?: string;
   changeType?: ChangeType;
 };
+
 export const PackageInfo = ({
   name,
   currentVersion,
@@ -133,6 +154,7 @@ export const PackageInfo = ({
     () => ({ changeType, currentVersion, name, newVersion }),
     [changeType, currentVersion, name, newVersion]
   );
+
   return (
     <PackageInfoContext.Provider value={contextValue}>
       <div
@@ -152,7 +174,9 @@ export const PackageInfo = ({
     </PackageInfoContext.Provider>
   );
 };
+
 export type PackageInfoDescriptionProps = HTMLAttributes<HTMLParagraphElement>;
+
 export const PackageInfoDescription = ({
   className,
   children,
@@ -162,7 +186,9 @@ export const PackageInfoDescription = ({
     {children}
   </p>
 );
+
 export type PackageInfoContentProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoContent = ({
   className,
   children,
@@ -172,7 +198,9 @@ export const PackageInfoContent = ({
     {children}
   </div>
 );
+
 export type PackageInfoDependenciesProps = HTMLAttributes<HTMLDivElement>;
+
 export const PackageInfoDependencies = ({
   className,
   children,
@@ -185,10 +213,12 @@ export const PackageInfoDependencies = ({
     <div className="space-y-1">{children}</div>
   </div>
 );
+
 export type PackageInfoDependencyProps = HTMLAttributes<HTMLDivElement> & {
   name: string;
   version?: string;
 };
+
 export const PackageInfoDependency = ({
   name,
   version,

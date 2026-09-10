@@ -1,5 +1,6 @@
 // @ts-nocheck
 "use client";
+
 import { Badge } from "@a/ui/components/badge";
 import type { CarouselApi } from "@a/ui/components/carousel";
 import {
@@ -22,7 +23,9 @@ import {
   useEffect,
   useState,
 } from "react";
+
 export type InlineCitationProps = ComponentProps<"span">;
+
 export const InlineCitation = ({
   className,
   ...props
@@ -32,7 +35,9 @@ export const InlineCitation = ({
     {...props}
   />
 );
+
 export type InlineCitationTextProps = ComponentProps<"span">;
+
 export const InlineCitationText = ({
   className,
   ...props
@@ -42,13 +47,17 @@ export const InlineCitationText = ({
     {...props}
   />
 );
+
 export type InlineCitationCardProps = ComponentProps<typeof HoverCard>;
+
 export const InlineCitationCard = (props: InlineCitationCardProps) => (
   <HoverCard {...props} />
 );
+
 export type InlineCitationCardTriggerProps = ComponentProps<typeof Badge> & {
   sources: string[];
 };
+
 export const InlineCitationCardTrigger = ({
   sources,
   className,
@@ -63,25 +72,32 @@ export const InlineCitationCardTrigger = ({
             "unknown"
           )}</HoverCardTrigger>
 );
+
 export type InlineCitationCardBodyProps = ComponentProps<"div">;
+
 export const InlineCitationCardBody = ({
   className,
   ...props
 }: InlineCitationCardBodyProps) => (
   <HoverCardContent className={cn("relative w-80 p-0", className)} {...props} />
 );
+
 const CarouselApiContext = createContext<CarouselApi | undefined>(undefined);
+
 const useCarouselApi = () => {
   const context = useContext(CarouselApiContext);
   return context;
 };
+
 export type InlineCitationCarouselProps = ComponentProps<typeof Carousel>;
+
 export const InlineCitationCarousel = ({
   className,
   children,
   ...props
 }: InlineCitationCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
+
   return (
     <CarouselApiContext.Provider value={api}>
       <Carousel className={cn("w-full", className)} setApi={setApi} {...props}>
@@ -90,11 +106,15 @@ export const InlineCitationCarousel = ({
     </CarouselApiContext.Provider>
   );
 };
+
 export type InlineCitationCarouselContentProps = ComponentProps<"div">;
+
 export const InlineCitationCarouselContent = (
   props: InlineCitationCarouselContentProps
 ) => <CarouselContent {...props} />;
+
 export type InlineCitationCarouselItemProps = ComponentProps<"div">;
+
 export const InlineCitationCarouselItem = ({
   className,
   ...props
@@ -104,7 +124,9 @@ export const InlineCitationCarouselItem = ({
     {...props}
   />
 );
+
 export type InlineCitationCarouselHeaderProps = ComponentProps<"div">;
+
 export const InlineCitationCarouselHeader = ({
   className,
   ...props
@@ -117,7 +139,9 @@ export const InlineCitationCarouselHeader = ({
     {...props}
   />
 );
+
 export type InlineCitationCarouselIndexProps = ComponentProps<"div">;
+
 export const InlineCitationCarouselIndex = ({
   children,
   className,
@@ -126,6 +150,7 @@ export const InlineCitationCarouselIndex = ({
   const api = useCarouselApi();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+
   const syncState = useCallback(() => {
     if (!api) {
       return;
@@ -133,16 +158,21 @@ export const InlineCitationCarouselIndex = ({
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
   }, [api]);
+
   useEffect(() => {
     if (!api) {
       return;
     }
+
     syncState();
+
     api.on("select", syncState);
+
     return () => {
       api.off("select", syncState);
     };
   }, [api, syncState]);
+
   return (
     <div
       className={cn(
@@ -155,17 +185,21 @@ export const InlineCitationCarouselIndex = ({
     </div>
   );
 };
+
 export type InlineCitationCarouselPrevProps = ComponentProps<"button">;
+
 export const InlineCitationCarouselPrev = ({
   className,
   ...props
 }: InlineCitationCarouselPrevProps) => {
   const api = useCarouselApi();
+
   const handleClick = useCallback(() => {
     if (api) {
       api.scrollPrev();
     }
   }, [api]);
+
   return (
     <button
       aria-label="Previous"
@@ -178,17 +212,21 @@ export const InlineCitationCarouselPrev = ({
     </button>
   );
 };
+
 export type InlineCitationCarouselNextProps = ComponentProps<"button">;
+
 export const InlineCitationCarouselNext = ({
   className,
   ...props
 }: InlineCitationCarouselNextProps) => {
   const api = useCarouselApi();
+
   const handleClick = useCallback(() => {
     if (api) {
       api.scrollNext();
     }
   }, [api]);
+
   return (
     <button
       aria-label="Next"
@@ -201,11 +239,13 @@ export const InlineCitationCarouselNext = ({
     </button>
   );
 };
+
 export type InlineCitationSourceProps = ComponentProps<"div"> & {
   title?: string;
   url?: string;
   description?: string;
 };
+
 export const InlineCitationSource = ({
   title,
   url,
@@ -229,7 +269,9 @@ export const InlineCitationSource = ({
     {children}
   </div>
 );
+
 export type InlineCitationQuoteProps = ComponentProps<"blockquote">;
+
 export const InlineCitationQuote = ({
   children,
   className,

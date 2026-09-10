@@ -1,20 +1,25 @@
 // @ts-nocheck
 "use client";
+
 import { useControllableState } from "../../hooks/use-controllable-state"
 import { cn } from "@a/ui/lib/utils";
 import type { Experimental_TranscriptionResult as TranscriptionResult } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
+
 type TranscriptionSegment = TranscriptionResult["segments"][number];
+
 interface TranscriptionContextValue {
   segments: TranscriptionSegment[];
   currentTime: number;
   onTimeUpdate: (time: number) => void;
   onSeek?: (time: number) => void;
 }
+
 const TranscriptionContext = createContext<TranscriptionContextValue | null>(
   null
 );
+
 const useTranscription = () => {
   const context = useContext(TranscriptionContext);
   if (!context) {
@@ -24,12 +29,14 @@ const useTranscription = () => {
   }
   return context;
 };
+
 export type TranscriptionProps = Omit<ComponentProps<"div">, "children"> & {
   segments: TranscriptionSegment[];
   currentTime?: number;
   onSeek?: (time: number) => void;
   children: (segment: TranscriptionSegment, index: number) => ReactNode;
 };
+
 export const Transcription = ({
   segments,
   currentTime: externalCurrentTime,
@@ -43,10 +50,12 @@ export const Transcription = ({
     onChange: onSeek,
     prop: externalCurrentTime,
   });
+
   const contextValue = useMemo(
     () => ({ currentTime, onSeek, onTimeUpdate: setCurrentTime, segments }),
     [currentTime, onSeek, setCurrentTime, segments]
   );
+
   return (
     <TranscriptionContext.Provider value={contextValue}>
       <div
@@ -64,10 +73,12 @@ export const Transcription = ({
     </TranscriptionContext.Provider>
   );
 };
+
 export type TranscriptionSegmentProps = ComponentProps<"button"> & {
   segment: TranscriptionSegment;
   index: number;
 };
+
 export const TranscriptionSegment = ({
   segment,
   index,
@@ -76,9 +87,11 @@ export const TranscriptionSegment = ({
   ...props
 }: TranscriptionSegmentProps) => {
   const { currentTime, onSeek } = useTranscription();
+
   const isActive =
     currentTime >= segment.startSecond && currentTime < segment.endSecond;
   const isPast = currentTime >= segment.endSecond;
+
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       if (onSeek) {
@@ -88,6 +101,7 @@ export const TranscriptionSegment = ({
     },
     [onSeek, segment.startSecond, onClick]
   );
+
   return (
     <button
       className={cn(

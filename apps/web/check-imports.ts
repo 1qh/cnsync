@@ -1,7 +1,6 @@
 import { Glob } from 'bun'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-
 const uiDir = join(import.meta.dirname, '../../readonly/ui/src/components')
 // oxlint-disable-next-line node/no-sync -- build-time check script: synchronous fs by design
 const pageContent = readFileSync(join(import.meta.dirname, 'src/app/showcase.tsx'), 'utf8')

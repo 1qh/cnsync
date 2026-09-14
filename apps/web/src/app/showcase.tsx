@@ -1242,7 +1242,6 @@ import {
 import Link from 'next/link'
 import { useId } from 'react'
 import Providers from './providers'
-
 const hookRefs = [
   useDirection,
   useJSXPreview,

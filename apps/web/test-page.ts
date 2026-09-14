@@ -1,6 +1,5 @@
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
-
 const port = 3377
 // eslint-disable-next-line sonarjs/no-os-command-from-path -- smoke script: launches the app's own server via a known bin
 const server = spawn('bunx', ['next', 'start', '-p', String(port)], { stdio: 'ignore' })

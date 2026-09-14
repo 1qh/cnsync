@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { cn } from '@a/ui'
 import { mono, sans } from './fonts'
-
 const metadata: Metadata = {
   title: 'cnsync'
 }

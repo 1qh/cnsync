@@ -3,7 +3,6 @@
 import { $, file, Glob, write } from 'bun'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-
 type JsonRecord = Record<string, unknown>
 const darkBgRe = /(?<=\.dark\s*\{[^}]*)--background:\s*oklch\([^)]+\)/u
 const isRecord = (v: unknown): v is JsonRecord => typeof v === 'object' && v !== null && !Array.isArray(v)

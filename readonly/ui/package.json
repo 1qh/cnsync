@@ -56,7 +56,7 @@
     "@types/node": "^20",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "eslint": "^9",
+    "eslint": "latest",
     "tailwindcss": "latest",
     "typescript": "^5"
   }

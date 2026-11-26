@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@a/ui": "workspace:*",
+    "@ai-sdk/react": "latest",
+    "@shadcn/helpers": "latest",
+    "@tabler/icons-react": "latest",
+    "ai": "latest",
+    "lucide-react": "latest",
+    "motion": "latest",
+    "next": "latest",
+    "react": "latest",
+    "recharts": "latest",
+    "sonner": "latest",
+    "streamdown": "latest"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.ts"
+    }
+  },
+  "name": "@a/examples",
+  "private": true,
+  "type": "module",
+  "types": "./index.d.ts"
+}

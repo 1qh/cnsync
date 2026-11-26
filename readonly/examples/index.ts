@@ -1,0 +1,167 @@
+import { AccordionDemo as Demo0 } from './components/accordion'
+import { AlertDemo as Demo1 } from './components/alert'
+import { AlertDialogDemo as Demo2 } from './components/alert-dialog'
+import { AspectRatioDemo as Demo3 } from './components/aspect-ratio'
+import { AttachmentDemo as Demo4 } from './components/attachment'
+import { AvatarDemo as Demo5 } from './components/avatar'
+import { BadgeDemo as Demo6 } from './components/badge'
+import { BreadcrumbDemo as Demo7 } from './components/breadcrumb'
+import { BubbleDemo as Demo8 } from './components/bubble'
+import { ButtonDemo as Demo9 } from './components/button'
+import { ButtonGroupDemo as Demo10 } from './components/button-group'
+import { CalendarDemo as Demo11 } from './components/calendar'
+import { CardDemo as Demo12 } from './components/card'
+import { CarouselDemo as Demo13 } from './components/carousel'
+import { CheckboxDemo as Demo14 } from './components/checkbox'
+import { CodeBlockDemo as Demo15 } from './components/code-block'
+import { CollapsibleDemo as Demo16 } from './components/collapsible'
+import Demo17 from './components/combobox'
+import { CommandDemo as Demo18 } from './components/command'
+import { ContextMenuDemo as Demo19 } from './components/context-menu'
+import { DialogDemo as Demo20 } from './components/dialog'
+import { DrawerDemo as Demo21 } from './components/drawer'
+import { DropdownMenuDemo as Demo22 } from './components/dropdown-menu'
+import { EmptyDemo as Demo23 } from './components/empty'
+import { FieldDemo as Demo24 } from './components/field'
+import { HoverCardDemo as Demo25 } from './components/hover-card'
+import { InputDemo as Demo26 } from './components/input'
+import { InputGroupDemo as Demo27 } from './components/input-group'
+import { InputOTPDemo as Demo28 } from './components/input-otp'
+import { ItemDemo as Demo29 } from './components/item'
+import { KbdDemo as Demo30 } from './components/kbd'
+import { LabelDemo as Demo31 } from './components/label'
+import { MarkerDemo as Demo32 } from './components/marker'
+import { MenubarDemo as Demo33 } from './components/menubar'
+import { MessageDemo as Demo34 } from './components/message'
+import { MessageScrollerDemo as Demo35 } from './components/message-scroller'
+import { NativeSelectDemo as Demo36 } from './components/native-select'
+import { NavigationMenuDemo as Demo37 } from './components/navigation-menu'
+import { PaginationDemo as Demo38 } from './components/pagination'
+import { PopoverDemo as Demo39 } from './components/popover'
+import { ProgressDemo as Demo40 } from './components/progress'
+import { QuestionnaireDemo as Demo41 } from './components/questionnaire'
+import { RadioGroupDemo as Demo42 } from './components/radio-group'
+import { ResizableDemo as Demo43 } from './components/resizable'
+import { ScrollAreaDemo as Demo44 } from './components/scroll-area'
+import { SelectDemo as Demo45 } from './components/select'
+import { SeparatorDemo as Demo46 } from './components/separator'
+import { SheetDemo as Demo47 } from './components/sheet'
+import Demo48 from './components/sidebar'
+import { SkeletonDemo as Demo49 } from './components/skeleton'
+import { SliderDemo as Demo50 } from './components/slider'
+import { SpinnerDemo as Demo51 } from './components/spinner'
+import { SwitchDemo as Demo52 } from './components/switch'
+import { TableDemo as Demo53 } from './components/table'
+import { TabsDemo as Demo54 } from './components/tabs'
+import { TextareaDemo as Demo55 } from './components/textarea'
+import { ToastDemo as Demo56 } from './components/toast'
+import { ToggleDemo as Demo57 } from './components/toggle'
+import { ToggleGroupDemo as Demo58 } from './components/toggle-group'
+import { TooltipDemo as Demo59 } from './components/tooltip'
+import { TraceDemo as Demo60 } from './components/trace'
+import { ChainOfThoughtDemo as Demo61 } from './patterns/chain-of-thought'
+import { ChatDemo as Demo62 } from './patterns/chat'
+import { CheckpointDemo as Demo63 } from './patterns/checkpoint'
+import { ConfirmationDemo as Demo64 } from './patterns/confirmation'
+import { ContextDemo as Demo65 } from './patterns/context'
+import { FileTreeDemo as Demo66 } from './patterns/file-tree'
+import { InlineCitationDemo as Demo67 } from './patterns/inline-citation'
+import { MessageDemo as Demo68 } from './patterns/message'
+import { ModelSelectorDemo as Demo69 } from './patterns/model-selector'
+import { PlanDemo as Demo70 } from './patterns/plan'
+import { PromptInputDemo as Demo71 } from './patterns/prompt-input'
+import { QueueDemo as Demo72 } from './patterns/queue'
+import { ReasoningDemo as Demo73 } from './patterns/reasoning'
+import { SourcesDemo as Demo74 } from './patterns/sources'
+import { StackTraceDemo as Demo75 } from './patterns/stack-trace'
+import { SubagentDemo as Demo76 } from './patterns/subagent'
+import { SuggestionDemo as Demo77 } from './patterns/suggestion'
+import { TaskDemo as Demo78 } from './patterns/task'
+import { TerminalDemo as Demo79 } from './patterns/terminal'
+import { TestResultsDemo as Demo80 } from './patterns/test-results'
+import { ToolDemo as Demo81 } from './patterns/tool'
+const examples = [
+  { kind: 'component', name: 'accordion', Demo: Demo0 },
+  { kind: 'component', name: 'alert', Demo: Demo1 },
+  { kind: 'component', name: 'alert-dialog', Demo: Demo2 },
+  { kind: 'component', name: 'aspect-ratio', Demo: Demo3 },
+  { kind: 'component', name: 'attachment', Demo: Demo4 },
+  { kind: 'component', name: 'avatar', Demo: Demo5 },
+  { kind: 'component', name: 'badge', Demo: Demo6 },
+  { kind: 'component', name: 'breadcrumb', Demo: Demo7 },
+  { kind: 'component', name: 'bubble', Demo: Demo8 },
+  { kind: 'component', name: 'button', Demo: Demo9 },
+  { kind: 'component', name: 'button-group', Demo: Demo10 },
+  { kind: 'component', name: 'calendar', Demo: Demo11 },
+  { kind: 'component', name: 'card', Demo: Demo12 },
+  { kind: 'component', name: 'carousel', Demo: Demo13 },
+  { kind: 'component', name: 'checkbox', Demo: Demo14 },
+  { kind: 'component', name: 'code-block', Demo: Demo15 },
+  { kind: 'component', name: 'collapsible', Demo: Demo16 },
+  { kind: 'component', name: 'combobox', Demo: Demo17 },
+  { kind: 'component', name: 'command', Demo: Demo18 },
+  { kind: 'component', name: 'context-menu', Demo: Demo19 },
+  { kind: 'component', name: 'dialog', Demo: Demo20 },
+  { kind: 'component', name: 'drawer', Demo: Demo21 },
+  { kind: 'component', name: 'dropdown-menu', Demo: Demo22 },
+  { kind: 'component', name: 'empty', Demo: Demo23 },
+  { kind: 'component', name: 'field', Demo: Demo24 },
+  { kind: 'component', name: 'hover-card', Demo: Demo25 },
+  { kind: 'component', name: 'input', Demo: Demo26 },
+  { kind: 'component', name: 'input-group', Demo: Demo27 },
+  { kind: 'component', name: 'input-otp', Demo: Demo28 },
+  { kind: 'component', name: 'item', Demo: Demo29 },
+  { kind: 'component', name: 'kbd', Demo: Demo30 },
+  { kind: 'component', name: 'label', Demo: Demo31 },
+  { kind: 'component', name: 'marker', Demo: Demo32 },
+  { kind: 'component', name: 'menubar', Demo: Demo33 },
+  { kind: 'component', name: 'message', Demo: Demo34 },
+  { kind: 'component', name: 'message-scroller', Demo: Demo35 },
+  { kind: 'component', name: 'native-select', Demo: Demo36 },
+  { kind: 'component', name: 'navigation-menu', Demo: Demo37 },
+  { kind: 'component', name: 'pagination', Demo: Demo38 },
+  { kind: 'component', name: 'popover', Demo: Demo39 },
+  { kind: 'component', name: 'progress', Demo: Demo40 },
+  { kind: 'component', name: 'questionnaire', Demo: Demo41 },
+  { kind: 'component', name: 'radio-group', Demo: Demo42 },
+  { kind: 'component', name: 'resizable', Demo: Demo43 },
+  { kind: 'component', name: 'scroll-area', Demo: Demo44 },
+  { kind: 'component', name: 'select', Demo: Demo45 },
+  { kind: 'component', name: 'separator', Demo: Demo46 },
+  { kind: 'component', name: 'sheet', Demo: Demo47 },
+  { kind: 'component', name: 'sidebar', Demo: Demo48 },
+  { kind: 'component', name: 'skeleton', Demo: Demo49 },
+  { kind: 'component', name: 'slider', Demo: Demo50 },
+  { kind: 'component', name: 'spinner', Demo: Demo51 },
+  { kind: 'component', name: 'switch', Demo: Demo52 },
+  { kind: 'component', name: 'table', Demo: Demo53 },
+  { kind: 'component', name: 'tabs', Demo: Demo54 },
+  { kind: 'component', name: 'textarea', Demo: Demo55 },
+  { kind: 'component', name: 'toast', Demo: Demo56 },
+  { kind: 'component', name: 'toggle', Demo: Demo57 },
+  { kind: 'component', name: 'toggle-group', Demo: Demo58 },
+  { kind: 'component', name: 'tooltip', Demo: Demo59 },
+  { kind: 'component', name: 'trace', Demo: Demo60 },
+  { kind: 'pattern', name: 'chain-of-thought', Demo: Demo61 },
+  { kind: 'pattern', name: 'chat', Demo: Demo62 },
+  { kind: 'pattern', name: 'checkpoint', Demo: Demo63 },
+  { kind: 'pattern', name: 'confirmation', Demo: Demo64 },
+  { kind: 'pattern', name: 'context', Demo: Demo65 },
+  { kind: 'pattern', name: 'file-tree', Demo: Demo66 },
+  { kind: 'pattern', name: 'inline-citation', Demo: Demo67 },
+  { kind: 'pattern', name: 'message', Demo: Demo68 },
+  { kind: 'pattern', name: 'model-selector', Demo: Demo69 },
+  { kind: 'pattern', name: 'plan', Demo: Demo70 },
+  { kind: 'pattern', name: 'prompt-input', Demo: Demo71 },
+  { kind: 'pattern', name: 'queue', Demo: Demo72 },
+  { kind: 'pattern', name: 'reasoning', Demo: Demo73 },
+  { kind: 'pattern', name: 'sources', Demo: Demo74 },
+  { kind: 'pattern', name: 'stack-trace', Demo: Demo75 },
+  { kind: 'pattern', name: 'subagent', Demo: Demo76 },
+  { kind: 'pattern', name: 'suggestion', Demo: Demo77 },
+  { kind: 'pattern', name: 'task', Demo: Demo78 },
+  { kind: 'pattern', name: 'terminal', Demo: Demo79 },
+  { kind: 'pattern', name: 'test-results', Demo: Demo80 },
+  { kind: 'pattern', name: 'tool', Demo: Demo81 }
+] as const
+export { examples }

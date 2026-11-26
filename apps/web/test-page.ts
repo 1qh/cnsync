@@ -1,3 +1,4 @@
+import { examples } from '@a/examples'
 import { spawn } from 'node:child_process'
 import { once } from 'node:events'
 import { createServer } from 'node:net'
@@ -59,6 +60,8 @@ const withBrowserTimeout = async <T>(operation: Promise<T>, description: string)
   const result = await Promise.race([operation, timeout])
   return result
 }
+const firstDemo = examples.find(demo => demo.kind === 'component') ?? examples.find(demo => demo.kind === 'pattern')
+const firstDemoId = firstDemo ? `${firstDemo.kind}-${firstDemo.name}` : ''
 const errors: string[] = []
 try {
   await waitForServer()
@@ -72,7 +75,10 @@ try {
       if (msg.type() === 'error') errors.push(msg.text())
     })
     await page.goto(url, { timeout: 30_000, waitUntil: 'load' })
-    await page.getByRole('button', { exact: true, name: 'Voice' }).waitFor({ state: 'visible', timeout: 5000 })
+    const cards = page.locator('[data-demo]')
+    await page.locator(`[data-demo=${JSON.stringify(firstDemoId)}]`).waitFor({ state: 'visible', timeout: 5000 })
+    const count = await withBrowserTimeout(cards.count(), 'counting demo cards')
+    if (count !== examples.length) errors.push(`Expected ${String(examples.length)} demo cards, found ${String(count)}`)
   } finally {
     await withBrowserTimeout(browser.close(), 'closing the browser')
   }

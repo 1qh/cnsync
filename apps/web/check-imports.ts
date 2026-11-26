@@ -1,44 +1,44 @@
-import { Glob } from 'bun'
-import { readFile } from 'node:fs/promises'
+import { Glob, Transpiler } from 'bun'
+import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-const uiDir = join(import.meta.dirname, '../../readonly/ui/src/components')
-const pageContent = await readFile(join(import.meta.dirname, 'src/app/showcase.tsx'), 'utf8')
-const pageWords = new Set(pageContent.split(/[\s,;{}()<>|&=!+\-*/[\]'"`:@#.]+/u))
-const reExport = /export\s+(?:(?:const|function|class|type|interface)\s+(?<single>\w+)|\{(?<block>[^}]+)\})/gu
-const typePrefixRe = /^type\s+/u
-// eslint-disable-next-line sonarjs/super-linear-regex -- linear: literal `as` anchors the two \s+, no overlap
-const asSplitRe = /\s+as\s+/u
-const missing: string[] = []
-const missingExports: string[] = []
-const collectBlockExports = (block: string, importPath: string) => {
-  for (const n of block.split(',')) {
-    const name = n.trim().replace(typePrefixRe, '').split(asSplitRe).at(-1)?.trim()
-    if (name && !pageWords.has(name)) missingExports.push(`${importPath}: ${name}`)
-  }
+const uiDir = join(import.meta.dirname, '../../readonly/ui/components')
+const examplesDir = join(import.meta.dirname, '../../readonly/examples')
+const sourceExtension = /\.[jt]sx?$/u
+const transpiler = new Transpiler({ loader: 'tsx' })
+const compareNames = (left: string, right: string) => left.localeCompare(right)
+const scanImports = async (relativePath: string) => {
+  const source = await readFile(join(examplesDir, relativePath), 'utf8')
+  return transpiler.scanImports(source).map(entry => entry.path.replace(sourceExtension, ''))
 }
-const componentPaths = await Array.fromAsync(new Glob('**/*.tsx').scan(uiDir))
-const components = await Array.fromAsync(componentPaths, async rel => {
-  const content = await readFile(join(uiDir, rel), 'utf8')
-  return { content, rel }
-})
-for (const { content, rel } of components) {
-  const importPath = `@a/ui/components/${rel.replace('.tsx', '')}`
-  if (!pageContent.includes(importPath)) missing.push(importPath)
-  for (const m of content.matchAll(reExport)) {
-    // biome-ignore lint/nursery/noUnsafeTypeAssertion: regex named-capture groups are typed as a loose record; these names are defined by the pattern
-    const { single, block } = m.groups as Record<string, string | undefined>
-    if (single && !pageWords.has(single)) missingExports.push(`${importPath}: ${single}`)
-    if (block) collectBlockExports(block, importPath)
-  }
+const demoFiles = async (directory: string) => {
+  const entries = await readdir(join(examplesDir, directory), { withFileTypes: true })
+  return entries.filter(entry => entry.isFile()).map(entry => `${directory}/${entry.name}`)
 }
-if (missing.length > 0) {
-  for (const m of missing) process.stderr.write(`  ${m}\n`)
-  throw new Error(`Missing ${missing.length} component imports`)
+const [components, componentDemos, patternDemos, indexImports, exampleFiles] = await Promise.all([
+  readdir(uiDir, { withFileTypes: true }),
+  demoFiles('components'),
+  demoFiles('patterns'),
+  scanImports('index.ts'),
+  Array.fromAsync(new Glob('**/*.{ts,tsx,js,jsx}').scan(examplesDir))
+])
+const exampleImports = new Set((await Promise.all(exampleFiles.map(scanImports))).flat())
+const indexModules = new Set(indexImports)
+const componentDemoFiles = new Set(componentDemos)
+const violations: string[] = []
+const withoutDemo: string[] = []
+const componentFiles = components.filter(entry => entry.isFile() && entry.name.endsWith('.tsx'))
+for (const component of componentFiles) {
+  const name = component.name.slice(0, -4)
+  const importPath = `@a/ui/components/${name}`
+  if (!componentDemoFiles.has(`components/${component.name}`)) withoutDemo.push(name)
+  else if (!exampleImports.has(importPath)) violations.push(`No example imports ${importPath}`)
 }
-if (missingExports.length > 0) {
-  for (const m of missingExports) process.stderr.write(`  ${m}\n`)
-  throw new Error(`Missing ${missingExports.length} export references`)
+for (const path of [...componentDemos, ...patternDemos])
+  if (!indexModules.has(`./${path.replace(sourceExtension, '')}`))
+    violations.push(`readonly/examples/index.ts does not import ${path}`)
+if (withoutDemo.length > 0)
+  process.stdout.write(`Components without a dedicated upstream demo: ${withoutDemo.toSorted(compareNames).join(', ')}\n`)
+if (violations.length > 0) {
+  process.stderr.write(`${violations.toSorted(compareNames).join('\n')}\n`)
+  process.exitCode = 1
 }
-process.stdout.write(
-  `All ${pageContent.split('\n').filter(l => l.includes("from '@a/ui")).length} component files imported\nAll exports verified\n`
-)

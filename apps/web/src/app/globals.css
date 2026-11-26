@@ -1,0 +1,10 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@a/ui/globals.css';
+@source '../../../../readonly/examples';
+@layer base {
+  :root {
+    --font-sans: 'Inter Variable', sans-serif;
+    --font-mono: 'JetBrains Mono Variable', monospace;
+  }
+}

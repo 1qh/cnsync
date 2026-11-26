@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "paths": {
-      "@a/ui": ["../../readonly/ui/src/lib/utils.ts"],
-      "@a/ui/*": ["../../readonly/ui/src/*"]
+      "@a/ui": ["../../readonly/ui/lib/utils.ts"],
+      "@a/ui/*": ["../../readonly/ui/*"]
     }
   },
   "extends": "lintmax/tsconfig",

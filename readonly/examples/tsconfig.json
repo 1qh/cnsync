@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "incremental": false,
+    "noUncheckedIndexedAccess": false,
+    "paths": {
+      "@a/ui/*": [
+        "../ui/*"
+      ]
+    },
+    "strict": true
+  },
+  "extends": "lintmax/tsconfig",
+  "include": [
+    "."
+  ]
+}

@@ -1,13 +1,12 @@
-import '@a/ui/globals.css'
+/** biome-ignore-all lint/nursery/noUndeclaredClasses: these are Tailwind v4 utilities that @tailwindcss/postcss generates, which this rule cannot read */
+import './globals.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { cn } from '@a/ui'
-import { mono, sans } from './fonts'
 const metadata: Metadata = {
   title: 'cnsync'
 }
 const Layout = ({ children }: { children: ReactNode }) => (
-  <html className={cn('font-sans tracking-[-0.02em]', sans.variable, mono.variable)} lang='en' suppressHydrationWarning>
+  <html className='font-sans tracking-[-0.02em]' lang='en' suppressHydrationWarning>
     <body className='min-h-screen antialiased'>{children}</body>
   </html>
 )

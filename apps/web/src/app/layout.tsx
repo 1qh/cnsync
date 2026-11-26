@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/nursery/noUndeclaredClasses: these are Tailwind v4 utilities that @tailwindcss/postcss generates, which this rule cannot read */
-import './globals.css'
+import './fonts'
+import './global.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 const metadata: Metadata = {

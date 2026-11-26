@@ -1,9 +1,8 @@
 import { Glob } from 'bun'
-import { readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 const uiDir = join(import.meta.dirname, '../../readonly/ui/src/components')
-// oxlint-disable-next-line node/no-sync -- build-time check script: synchronous fs by design
-const pageContent = readFileSync(join(import.meta.dirname, 'src/app/showcase.tsx'), 'utf8')
+const pageContent = await readFile(join(import.meta.dirname, 'src/app/showcase.tsx'), 'utf8')
 const pageWords = new Set(pageContent.split(/[\s,;{}()<>|&=!+\-*/[\]'"`:@#.]+/u))
 const reExport = /export\s+(?:(?:const|function|class|type|interface)\s+(?<single>\w+)|\{(?<block>[^}]+)\})/gu
 const typePrefixRe = /^type\s+/u
@@ -11,17 +10,19 @@ const typePrefixRe = /^type\s+/u
 const asSplitRe = /\s+as\s+/u
 const missing: string[] = []
 const missingExports: string[] = []
-const collectBlockExports = (block: string, importPath: string): void => {
+const collectBlockExports = (block: string, importPath: string) => {
   for (const n of block.split(',')) {
     const name = n.trim().replace(typePrefixRe, '').split(asSplitRe).at(-1)?.trim()
     if (name && !pageWords.has(name)) missingExports.push(`${importPath}: ${name}`)
   }
 }
-// oxlint-disable-next-line node/no-sync -- build-time check script: synchronous directory scan by design
-for (const rel of new Glob('**/*.tsx').scanSync(uiDir)) {
+const componentPaths = await Array.fromAsync(new Glob('**/*.tsx').scan(uiDir))
+const components = await Array.fromAsync(componentPaths, async rel => {
+  const content = await readFile(join(uiDir, rel), 'utf8')
+  return { content, rel }
+})
+for (const { content, rel } of components) {
   const importPath = `@a/ui/components/${rel.replace('.tsx', '')}`
-  // oxlint-disable-next-line node/no-sync -- build-time check script: synchronous fs by design
-  const content = readFileSync(join(uiDir, rel), 'utf8')
   if (!pageContent.includes(importPath)) missing.push(importPath)
   for (const m of content.matchAll(reExport)) {
     // biome-ignore lint/nursery/noUnsafeTypeAssertion: regex named-capture groups are typed as a loose record; these names are defined by the pattern

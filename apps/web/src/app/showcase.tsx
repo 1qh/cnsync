@@ -1389,6 +1389,7 @@ const Page = () => {
         <SidebarRail />
       </Sidebar>
       <SidebarInset
+        // biome-ignore lint/nursery/noTailwindRestyledComponents: SidebarInset needs these classes for the showcase layout because it exposes no layout variant or size prop.
         className='mx-auto flex max-w-3xl flex-col gap-8 p-8'
         data-calendar-day-button={CalendarDayButton.name}
         data-highlight={highlightedCode}
@@ -1546,7 +1547,7 @@ const Page = () => {
             <ComboboxChip>A</ComboboxChip>
           </ComboboxChips>
           <ComboboxChipsInput />
-          <ComboboxCollection>{() => null}</ComboboxCollection>
+          <ComboboxCollection>{() => undefined}</ComboboxCollection>
           <ComboboxAnchorShowcase />
         </Combobox>
         <Command>
@@ -1746,6 +1747,7 @@ const Page = () => {
           </ChatMessage>
         </MessageGroup>
         <MessageScrollerProvider>
+          {/* biome-ignore lint/nursery/noTailwindRestyledComponents: MessageScroller has no variant for the showcase height and border. */}
           <MessageScroller className='h-48 rounded-lg border'>
             <MessageScrollerViewport>
               <MessageScrollerContent>
@@ -2214,6 +2216,7 @@ const Page = () => {
           <PlanTrigger>Trigger</PlanTrigger>
         </Plan>
         <PromptInputProvider>
+          {/* biome-ignore lint/nursery/noNull: LocalReferencedSourcesContext requires null for an empty provider value. */}
           <LocalReferencedSourcesContext value={null}>
             <PromptInput onSubmit={() => undefined}>
               <PromptInputHeader>Header</PromptInputHeader>
